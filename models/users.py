@@ -1,12 +1,13 @@
 from pydantic import BaseModel
-from typing import Optional
 
 
 class User(BaseModel):
-    id: int
     nombre: str
     apellido: str
-    usuario: str
+    username: str
+
+
+class UserDB(User):
     password: str
 
 

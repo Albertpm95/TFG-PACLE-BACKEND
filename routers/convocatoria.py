@@ -1,4 +1,7 @@
 from datetime import date, time
+from fastapi import APIRouter
+
+router = APIRouter()
 
 
 class ComprensionLectora():
