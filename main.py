@@ -1,33 +1,75 @@
-from typing import Union
+from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from models.users import UserDB, User
 
-from fastapi import Depends, FastAPI
-from fastapi.security import OAuth2PasswordBearer
-
-from models.user import Admin, Corrector, Gestor, User
 
 app = FastAPI()
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2 = OAuth2PasswordBearer(tokenUrl="login")
 
-fake_db_users = [
-    User(id=1, nombre='Bob', apellido='Swanson',
-         usuario='bob_swanson', password=1234, rol='admin'),
-    User(id=2, nombre='Rick', apellido='Sanchez',
-         usuario='rick_sanchez', password=1234, rol='gestor'),
-    User(id=3, nombre='Morty', apellido='Smith',
-         usuario='morty_smith', password=1234, rol='corrector'),
-]
+users_db = {
+    "rick_sanchez": {
+        "nombre": "Rick",
+        "apellido": "Sanchez",
+        "username": "rick_sanchez",
+        "password": "123456",
+    },
+    "morty_smith": {
+        "nombre": "Morty",
+        "apellido": "Smith",
+        "username": "morty_smith",
+        "password": "123456",
+    },
+    "jerry_smith": {
+        "nombre": "Jerry",
+        "apellido": "Smith",
+        "username": "jerry_smith",
+        "password": "123456",
+    },
+}
 
 
-@app.get("/users/")
-async def get_users(token: str = Depends(oauth2_scheme)):
-    return {"token": token}
+def search_user_db(username: str):
+    if username in users_db:
+        return UserDB(**users_db[username])
 
 
-def search_user(id: int):
-    users = filter(lambda user: user.id == id, fake_db_users)
-    print(id)
-    try:
-        return (users)[0]
-    except:
-        return {'error': 'No se ha encontrado al usuario.'}
+def search_user(username: str):
+    if username in users_db:
+        return User(**users_db[username])
+
+
+async def current_user(token: str = Depends(oauth2)):
+    user = search_user(token)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Credenciales de autentificación invalidas.",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+    return user
+
+
+@app.get("/")
+async def hello():
+    return 'Connection established'
+
+
+@app.post("/login")
+async def login(form: OAuth2PasswordRequestForm = Depends()):
+    user_db = users_db.get(form.username)
+    if not user_db:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="El usuario no existe."
+        )
+    user = search_user_db(form.username)
+    if not form.password == user.password:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="El usuario o la contraseña no son correctos."
+        )
+    return {"access_token": user.username, "token_type": "bearer"}
+
+
+@app.get("/users/me")
+async def me(user: User = Depends(current_user)):
+    return user
