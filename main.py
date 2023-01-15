@@ -7,27 +7,6 @@ app = FastAPI()
 
 oauth2 = OAuth2PasswordBearer(tokenUrl="login")
 
-users_db = {
-    "rick_sanchez": {
-        "nombre": "Rick",
-        "apellido": "Sanchez",
-        "username": "rick_sanchez",
-        "password": "123456",
-    },
-    "morty_smith": {
-        "nombre": "Morty",
-        "apellido": "Smith",
-        "username": "morty_smith",
-        "password": "123456",
-    },
-    "jerry_smith": {
-        "nombre": "Jerry",
-        "apellido": "Smith",
-        "username": "jerry_smith",
-        "password": "123456",
-    },
-}
-
 
 def search_user_db(username: str):
     if username in users_db:
