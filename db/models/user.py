@@ -1,9 +1,9 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 class User(BaseModel):
-    nombre: str
-    apellido: str
+    id: Optional[str]
     username: str
 
 
