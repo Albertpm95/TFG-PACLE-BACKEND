@@ -1,56 +1,10 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import Cookie, FastAPI, Depends, HTTPException, status
 from pydantic import BaseModel
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 app = FastAPI()
 
 oauth2 = OAuth2PasswordBearer(tokenUrl="login")
-
-
-class User(BaseModel):
-    id: int
-    nombre: str
-    apellido: str
-    usuario: str
-    password: str
-
-
-class UserDB(User):
-    password: str
-
-
-class Admin(User):
-    rol = 'Admin'
-
-
-class Gestor(User):
-    rol = 'Gestor'
-
-
-class Corrector(User):
-    rol = 'Corrector'
-
-
-users_db = {
-    "rick": {
-        "nombre": "Rick",
-        "apellido": "Sanchez",
-        "usuario": "rick_sanchez",
-        "password": "123456",
-    },
-    "morty": {
-        "nombre": "Morty",
-        "apellido": "Smith",
-        "usuario": "rick_sanchez",
-        "password": "123456",
-    },
-    "jerry": {
-        "nombre": "Jerry",
-        "apellido": "Smith",
-        "usuario": "rick_sanchez",
-        "password": "123456",
-    },
-}
 
 
 def search_user(usuario: str):
