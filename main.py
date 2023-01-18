@@ -2,7 +2,7 @@ from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
 import crud
-from alumnos import Alumno
+from models import Alumno
 from convocatorias import Convocatoria
 from db import SessionLocal, engine
 

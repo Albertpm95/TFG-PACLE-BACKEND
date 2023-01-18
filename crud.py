@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from alumnos import Alumno
+from models import Alumno
 from convocatorias import Convocatoria
 
 
