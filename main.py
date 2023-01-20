@@ -1,51 +1,21 @@
-from sqlalchemy.orm import sessionmaker
-from fastapi import Depends, FastAPI, HTTPException
-from fastapi.responses import JSONResponse
-from sqlalchemy.orm import Session
-
-import crud
+from fastapi import FastAPI, status, HTTPException
+from pydantic import BaseModel
+from typing import Optional, List
+from database import SessionLocal
 import models
-import schemas
-from database import get_engine
-
-engine = get_engine()
-models.Base.metadata.create_all(bind=engine)
-SessionLocal = sessionmaker(bind=engine)
 
 app = FastAPI()
 
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+class Convocatoria(BaseModel):
+    id_convocatoria: int
+    name: str
 
 
-@app.get("/alumnos/", response_model=list[schemas.Alumno])
-def get_alumnos(db: Session = Depends(get_db)):
-    alumnos = crud.get_alumnos(db=db)
-    if not alumnos:
-        return JSONResponse(content={"detail": "No se han encontrado alumnos."},
-                            status_code=204)
-    return alumnos
+db = SessionLocal()
 
 
-@app.get("/convocatorias/", response_model=list[schemas.Convocatoria])
-def get_convocatorias(db: Session = Depends(get_db)):
-    convocatorias = crud.get_convocatorias(db=db)
-    if not convocatorias:
-        return JSONResponse(content={"detail": "No se han encontrado alumnos."},
-                            status_code=204)
-    print('Convocatorias', convocatorias)
+@app.get('/convocatorias', response_model=List[Convocatoria], status_code=200)
+def get_all_convocatorias():
+    convocatorias = db.query(models.Convocatoria).all()
     return convocatorias
-
-
-@app.post("/create/alumno", response_model=schemas.Alumno, status_code=201)
-def new_alumno(alumno: schemas.Alumno, db: Session = Depends(get_db)):
-    db_alumno = models.Alumno(name=alumno.name)
-    db.add(db_alumno)
-    db.commit()
-    db.refresh(db_alumno)
-    return db_alumno
