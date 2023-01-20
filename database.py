@@ -7,6 +7,7 @@ passwd = '1234'
 port = '5432'
 host = 'localhost'
 db = 'pacle'
+schema = 'Pacle_db'
 DATABASE_URL = f"postgresql://{user}:{passwd}@{host}:{port}/{db}"
 
 
