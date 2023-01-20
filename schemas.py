@@ -15,6 +15,7 @@ class Alumno(AlumnoBase):
 
     class Config:
         orm_mode = True
+        orm_name = "AlumnoSQL"
 
 
 class ConvocatoriaBase(BaseModel):
@@ -31,3 +32,4 @@ class Convocatoria(ConvocatoriaBase):
 
     class Config:
         orm_mode = True
+        orm_name = "ConvocatoriaSQL"

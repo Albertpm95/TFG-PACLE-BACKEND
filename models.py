@@ -1,13 +1,13 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
-from sqlalchemy.ext.declarative import declarative_base
-
 Base = declarative_base()
+Base.metadata.schema = 'Pacle_db'
 
 
 class Convocatoria(Base):
-    __tablename__ = "pacle_db.convocatorias"
+    __tablename__ = "convocatorias"
 
     id_convocatoria = Column(Integer, primary_key=True, index=True)
     name = Column(String)
@@ -16,11 +16,10 @@ class Convocatoria(Base):
 
 
 class Alumno(Base):
-    __tablename__ = "pacle_db.alumnos"
+    __tablename__ = "alumnos"
 
     id_alumno = Column(Integer, primary_key=True, index=True)
     name = Column(String)
-    id_convocatoria = Column(Integer, ForeignKey(
-        "pacle_db.convocatorias.id_convocatoria"))
+    id_convocatoria = Column(Integer, ForeignKey(Convocatoria.id_convocatoria))
 
     owner = relationship("Convocatoria", back_populates="alumnos")
