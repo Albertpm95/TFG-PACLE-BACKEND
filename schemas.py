@@ -41,5 +41,9 @@ class UsuarioCreate(UsuarioBase):
 
 class Usuario(UsuarioBase):
     id: int
+    username: str
+    nombre: str
+    apellidos: str
+    password: str
     is_active: bool
     rol: Literal['Admin', 'Gestor', 'Corrector']
