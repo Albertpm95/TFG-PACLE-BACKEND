@@ -31,11 +31,10 @@ class Acta(ActaBase):
 
 
 class UsuarioBase(BaseModel):
-    nombre: str
-    apellidos: str
+    username: str
 
 
-class UsuarioCreate(UsuarioBase):
+class UsuarioLogin(UsuarioBase):
     password: str
 
 

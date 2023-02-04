@@ -7,7 +7,7 @@ from fastapi_login.exceptions import InvalidCredentialsException
 
 import environment
 import models
-from schemas import Usuario
+from schemas import Usuario, UsuarioLogin
 
 app = FastAPI()
 
@@ -54,7 +54,7 @@ async def root():
 
 
 @app.post("/login")
-async def login(usuario: Usuario):
+async def login(usuario: UsuarioLogin):
     return {'message', 'Login de ' + usuario.username}
 
 # Tests
@@ -77,13 +77,11 @@ async def get_2(acta_id: int):
 
 @app.post("/post_1")
 async def post_1(username: str):
-    print(username)
     return {'message', 'Hola ' + username}
 
 
 @app.post("/post_2")
 async def post_2(username: str, password: str):
-    print(username, password)
     return {'message', 'Hola ', username, ' tu contraseña es ', password}
 
 
