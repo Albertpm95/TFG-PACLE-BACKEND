@@ -1,13 +1,9 @@
-from fastapi import FastAPI, Depends, status
-from fastapi.responses import RedirectResponse, HTMLResponse
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_login import LoginManager
-from fastapi_login.exceptions import InvalidCredentialsException
 
 import environment
-import models.shared as shared
-from schemas import Usuario, UsuarioLogin
+from schemas import Usuario
 
 app = FastAPI()
 
