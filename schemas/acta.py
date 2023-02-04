@@ -6,13 +6,13 @@ from schemas.alumno import Alumno
 
 
 class ActaBase(BaseModel):
+    id_acta: str | None = None
     lenguage: str
     tipo: Literal['Ordinaria', 'Extraordinaria']
     fecha: datetime
 
 
 class Acta(ActaBase):
-    id_acta: str | None = None
     participantes: list[Alumno] = []
 
     class Config:

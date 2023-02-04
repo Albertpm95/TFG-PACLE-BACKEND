@@ -1,6 +1,7 @@
-from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi import APIRouter
 
-from schemas import UsuarioLogin
+from schemas.usuario import UsuarioLogin
+
 
 router = APIRouter()
 

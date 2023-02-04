@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi_login import LoginManager
 
 import environment
-from schemas import Usuario
+from schemas.usuario import Usuario, UsuarioLogin
 
 app = FastAPI()
 
@@ -78,5 +78,5 @@ async def post_2(username: str, password: str):
 
 
 @app.post("/post_3")
-async def post_3(usuario: Usuario):
+async def post_3(usuario: UsuarioLogin):
     return {'message', 'Hola Usuario: ', ' tu username es: ', usuario.username, ' y tu contraseña es ', usuario.password}
