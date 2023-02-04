@@ -1,17 +1,17 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Table
 from sqlalchemy.orm import relationship
 
-import database
+import db.session as session
 
 presentados_acta = Table(
     "presentados_acta",
-    database.Base.metadata,
+    session.Base.metadata,
     Column("id_alumno", ForeignKey("alumnos.id"), primary_key=True),
     Column("id_acta", ForeignKey("actas.id"), primary_key=True)
 )
 
 
-class Acta(database.Base):
+class Acta(session.Base):
     __tablename__ = 'actas'
 
     id = Column(String, primary_key=True, index=True)
@@ -22,7 +22,7 @@ class Acta(database.Base):
         "Alumno", secondary=presentados_acta, back_populates=True)
 
 
-class Alumno(database.Base):
+class Alumno(session.Base):
     __tablename__ = 'alumnos'
 
     id = Column(String, primary_key=True, index=True)
@@ -32,7 +32,7 @@ class Alumno(database.Base):
         "Acta", secondary=presentados_acta, back_populates=True)
 
 
-class Usuario(database.Base):
+class Usuario(session.Base):
     __tablename__ = 'usuarios'
 
     id = Column(String, primary_key=True, index=True)

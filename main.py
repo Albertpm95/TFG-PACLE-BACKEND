@@ -6,7 +6,7 @@ from fastapi_login import LoginManager
 from fastapi_login.exceptions import InvalidCredentialsException
 
 import environment
-import models
+import models.models as models
 from schemas import Usuario, UsuarioLogin
 
 app = FastAPI()
@@ -52,10 +52,6 @@ fake_DB = [
 async def root():
     return {"message": "Root"}
 
-
-@app.post("/login")
-async def login(usuario: UsuarioLogin):
-    return {'message', 'Login de ' + usuario.username}
 
 # Tests
 
