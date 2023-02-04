@@ -6,7 +6,7 @@ from fastapi_login import LoginManager
 from fastapi_login.exceptions import InvalidCredentialsException
 
 import environment
-import models.models as models
+import models.shared as shared
 from schemas import Usuario, UsuarioLogin
 
 app = FastAPI()
