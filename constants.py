@@ -1,4 +1,4 @@
-lista_acciones_por_rol = [
+lista_acciones = [
     {"action_label": "Crear una convocatoria"},  # Form vacio -> Post
     {"action_label": "Listar convocatorias"},  # Get todas las convocatorias
     {"action_label": "Cargar CSV"},  # Put fichero CSV para crear algo
