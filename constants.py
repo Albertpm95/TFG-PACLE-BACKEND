@@ -1,10 +1,12 @@
 lista_acciones = [
-    {"action_label": "Crear una convocatoria"},  # Form vacio -> Post
-    {"action_label": "Listar convocatorias"},  # Get todas las convocatorias
-    {"action_label": "Cargar CSV"},  # Put fichero CSV para crear algo
+    {"action_label": "Crear una convocatoria", "url": ""},  # Form vacio -> Post
+    # Get todas las convocatorias
+    {"action_label": "Listar convocatorias", "url": ""},
+    # Put fichero CSV para crear algo
+    {"action_label": "Cargar CSV", "url": ""},
     # Get todos los alumnos # Entiendo que para los correctores
-    {"action_label": "Listar alumnos"},
-    {"action_label": "Listar convocatiroas activas"}
+    {"action_label": "Listar alumnos", "url": ""},
+    {"action_label": "Listar convocatiroas activas", "url": ""}
 ]
 fake_usuarios_DB = [
     {
