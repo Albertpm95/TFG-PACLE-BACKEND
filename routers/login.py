@@ -2,7 +2,6 @@ from fastapi import APIRouter
 
 from schemas.usuario import UsuarioLogin
 
-
 router = APIRouter()
 
 
