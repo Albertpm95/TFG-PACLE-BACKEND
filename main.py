@@ -1,11 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import login
+from routers import login, usuario, alumno, acta
 from constants import lista_acciones
 
 app = FastAPI()
 app.include_router(login.router)
+app.include_router(usuario.router)
+app.include_router(alumno.router)
+app.include_router(acta.router)
 
 origins = ["http://localhost:4200",
            "http://localhost:4200/", "http://localhost:4200/*"]
@@ -22,8 +25,3 @@ app.add_middleware(
 @ app.get("/")
 async def root():
     return {"message": "Hay conexion con el servidor"}
-
-
-@app.get("/user/actions")
-async def get_list_de_acciones():
-    return lista_acciones
