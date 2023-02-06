@@ -1,3 +1,5 @@
+from schemas.usuario import UsuarioLogin
+
 lista_acciones = [
     {"action_label": "Crear una convocatoria", "url": ""},  # Form vacio -> Post
     # Get todas las convocatorias
@@ -9,27 +11,9 @@ lista_acciones = [
     {"action_label": "Listar convocatiroas activas", "url": ""}
 ]
 fake_usuarios_DB = [
-    {
-        "name": "Rick",
-        "lastname": "Sanchez",
-        "password": "1234",
-        "username": "rick_sanchez",
-        "rol": "gestor",
-    },
-    {
-        "name": "Morty",
-        "lastname": "Smith",
-        "password": "1234",
-        "username": "morty_smith",
-        "rol": "corrector",
-    },
-    {
-        "name": "Jerry",
-        "lastname": "Smith",
-        "password": "1234",
-        "username": "jerry_smith",
-        "rol": "administrador",
-    },
+    UsuarioLogin(username="rick_sanchez", password="1234"),
+    UsuarioLogin(username="morty_smith", password="1234"),
+    UsuarioLogin(username="jerry_smith", password="1234")
 ]
 fake_actas_DB = [
     {}
