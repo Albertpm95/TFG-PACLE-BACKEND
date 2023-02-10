@@ -4,5 +4,6 @@ router = APIRouter()
 
 
 @router.get("/usuarios/actions")
-async def get_list_de_acciones():
+async def get_lista_de_acciones():
+    
     return lista_acciones

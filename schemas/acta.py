@@ -14,7 +14,7 @@ class ActaBase(BaseModel):
     lenguaje: IDIOMAS_DISPONIBLES
     tipo: TIPOS_ACTA
     fecha: datetime | None = None
-    activa: bool
+    estado: bool
 
 
 class Acta(ActaBase):
