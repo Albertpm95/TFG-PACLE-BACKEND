@@ -4,7 +4,7 @@ from schemas.alumno import Alumno
 router = APIRouter()
 
 
-@router.post("/alumno")
+@router.post("/alumnos")
 async def recuperar_alumno(nombre: str, apellido: str | None = None, acta_id: str | None = None):
     filtrado_1 = ''
     filtrado_2 = ''

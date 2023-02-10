@@ -7,9 +7,9 @@ now = datetime.utcfromtimestamp(1675673005)
 
 lista_acciones = [
     {"action_label": "Crear una convocatoria",
-        "url": "acta/create"},  # Form vacio -> Post
+        "url": "actas/create"},  # Form vacio -> Post
     # Get todas las convocatorias
-    {"action_label": "Listar acta", "url": "acta/list"},
+    {"action_label": "Listar acta", "url": "actas/list"},
     # Put fichero CSV para crear algo
     {"action_label": "Cargar CSV", "url": "cargar"},
     # Get todos los alumnos # Entiendo que para los correctores

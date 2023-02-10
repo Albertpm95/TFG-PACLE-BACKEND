@@ -6,17 +6,17 @@ from typing import get_args
 router = APIRouter()
 
 
+@router.get("/actas")
+async def recuperar_acta(id_acta: str):
+    acta = filter(lambda x: x.id_acta == id_acta, fake_actas_DB)
+    return acta
+
+
 @router.get("/actas/list")
 async def recuperar_actas():
     actas = []
     actas = fake_actas_DB
     return actas
-
-
-@router.get("/actas")
-async def recuperar_acta(id_acta: str):
-    acta = filter(lambda x: x.id_acta == id_acta, fake_actas_DB)
-    return acta
 
 
 @router.get("/actas/idiomas")

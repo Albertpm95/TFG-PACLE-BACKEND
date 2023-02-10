@@ -3,6 +3,6 @@ from constants import lista_acciones
 router = APIRouter()
 
 
-@router.get("/user/actions")
+@router.get("/usuarios/actions")
 async def get_list_de_acciones():
     return lista_acciones
