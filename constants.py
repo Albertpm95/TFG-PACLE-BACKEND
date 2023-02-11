@@ -6,7 +6,6 @@ import random  # TODO QUitar
 
 now = datetime.utcfromtimestamp(random.randint(1675000000, 1675999999))
 
-
 lista_acciones = [
     {"action_label": "Crear una convocatoria",
         "url": "actas/create"},  # Form vacio -> Post
