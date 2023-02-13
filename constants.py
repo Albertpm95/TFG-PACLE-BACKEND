@@ -1,9 +1,10 @@
+import random  # TODO QUitar
+from datetime import datetime
 from typing import Literal
-from schemas.usuario import UsuarioLogin
+
 from schemas.acta import ActaBase
 from schemas.alumno import AlumnoBase
-from datetime import datetime
-import random  # TODO QUitar
+from schemas.usuario import UsuarioLogin
 
 TIPOS_ACTA = Literal["Ordinaria", "Extraordinaria"]
 IDIOMAS_DISPONIBLES = Literal[
@@ -12,12 +13,17 @@ IDIOMAS_DISPONIBLES = Literal[
 HORARIOS = Literal["9:00"]
 
 lista_acciones = [
-    {"action_label": "Crear una convocatoria", "url": "acta/create"},
-    {"action_label": "Listar acta", "url": "acta/list"},
-    {"action_label": "Cargar CSV", "url": "alumno/upload"},
-    {"action_label": "Editar alumnos", "url": "alumno/edit"},
-    {"action_label": "Listar alumnos", "url": "alumno/list"},
-    {"action_label": "Listar convocatorias estados", "url": "alumno/activo"},
+    {"url": "acta/correct", "action_label": "Iniciar correcciones"},
+    {"url": "acta/create", "action_label": "Crear una convocatoria nueva"},
+    {"url": "acta/edit", "action_label": "Editar los parametros de una convocatoria"},
+    {"url": "acta/list", "action_label": "Listar todas las convocatoria"},
+    {"url": "alumno/activo", "action_label": "Listar convocatorias activas"},
+    {"url": "alumno/edit", "action_label": "Editar alumnos"},
+    {"url": "alumno/list", "action_label": "Listar alumnos"},
+    {"url": "alumno/upload", "action_label": "Cargar CSV"},
+    {"url": "usuario/create", "action_label": "Dar de alta usuario nuevo"},
+    {"url": "usuario/list", "action_label": "Gestionar usuarios"},
+    {"url": "usuario/edit", "action_label": "Editar usuario"},
 ]
 
 fake_usuarios_DB = [
