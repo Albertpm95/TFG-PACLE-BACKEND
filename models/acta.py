@@ -8,7 +8,7 @@ class Acta(Base):
     __tablename__ = 'actas'
 
     id = Column(String, primary_key=True, index=True)
-    lenguage = Column(String, nullable=False)
+    lenguaje = Column(String, nullable=False)
     tipo = Column(String, nullable=False)
     fecha = Column(DateTime, nullable=False)
     presentados = relationship(
