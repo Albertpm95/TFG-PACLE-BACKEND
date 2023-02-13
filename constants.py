@@ -1,22 +1,27 @@
+from typing import Literal
 from schemas.usuario import UsuarioLogin
 from schemas.acta import ActaBase
 from schemas.alumno import AlumnoBase
 from datetime import datetime
 import random  # TODO QUitar
 
-now = datetime.utcfromtimestamp(random.randint(1675000000, 1675999999))
+TIPOS_ACTA = Literal['Ordinaria', 'Extraordinaria']
+IDIOMAS_DISPONIBLES = Literal['Español', 'English',
+                              'Català', 'Français', 'Chainese', 'Deutsch']
+HORARIOS = Literal['9:00']
+
 
 lista_acciones = [
     {"action_label": "Crear una convocatoria",
-        "url": "actas/create"},  # Form vacio -> Post
+        "url": "acta/create"},  # Form vacio -> Post
     # Get todas las convocatorias
-    {"action_label": "Listar acta", "url": "actas/list"},
+    {"action_label": "Listar acta", "url": "acta/list"},
     # Put fichero CSV para crear algo
-    {"action_label": "Cargar CSV", "url": "alumnos/upload"},
+    {"action_label": "Cargar CSV", "url": "alumno/upload"},
     # Get todos los alumnos # Entiendo que para los correctores
-    {"action_label": "Editar alumnos", "url": "alumnos/edit"},
-    {"action_label": "Listar alumnos", "url": "alumnos/list"},
-    {"action_label": "Listar convocatorias estados", "url": "alumnos/activo"}
+    {"action_label": "Editar alumnos", "url": "alumno/edit"},
+    {"action_label": "Listar alumnos", "url": "alumno/list"},
+    {"action_label": "Listar convocatorias estados", "url": "alumno/activo"}
 ]
 fake_usuarios_DB = [
     UsuarioLogin(username="rick_sanchez", password="1234"),

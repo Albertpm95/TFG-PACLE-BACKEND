@@ -7,6 +7,7 @@ from schemas.alumno import Alumno
 IDIOMAS_DISPONIBLES = Literal['Español', 'English',
                               'Català', 'Français', 'Chainese', 'Deutsch']
 TIPOS_ACTA = Literal['Ordinaria', 'Extraordinaria']
+HORARIOS = Literal['9:00', ]
 
 
 class ActaBase(BaseModel):

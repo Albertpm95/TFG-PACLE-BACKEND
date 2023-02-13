@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship
 from db.base_class import Base
 from models.shared import presentados_acta
 
+
 class Alumno(Base):
     __tablename__ = 'alumnos'
 

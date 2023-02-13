@@ -1,10 +1,9 @@
 from fastapi import APIRouter
 from constants import fake_alumnos_DB
-from schemas.alumno import Alumno
 router = APIRouter()
 
 
-@router.post("/alumnos")
+@router.post("/alumno")
 async def recuperar_alumno(nombre: str, apellido: str | None = None, acta_id: str | None = None):
     filtrado_1 = ''
     filtrado_2 = ''
@@ -18,3 +17,8 @@ async def recuperar_alumno(nombre: str, apellido: str | None = None, acta_id: st
         filtrado_3 = filter(lambda x: x. == acta_id, fake_alumnos_DB)
     '''
     return {"filtrado_1": filtrado_1, "filtrado_2": filtrado_2, "filtrado_3": filtrado_3}
+
+
+@router.post("/alumno")
+async def recuperar_alumnos():
+    return fake_alumnos_DB
