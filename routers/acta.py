@@ -5,10 +5,9 @@ from constants import IDIOMAS_DISPONIBLES, fake_actas_DB,  TIPOS_ACTA
 router = APIRouter()
 
 
-@router.get("/acta")
-async def recuperar_acta(id_acta: str):
-    acta = filter(lambda x: x.id_acta == id_acta, fake_actas_DB)
-    return acta
+@router.get("/acta/correct/{id}")
+async def recuperar_acta(id: str):
+    return fake_actas_DB[1]
 
 
 @router.get("/acta/list")

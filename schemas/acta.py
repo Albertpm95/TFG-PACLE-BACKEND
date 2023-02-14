@@ -1,4 +1,5 @@
 from datetime import datetime
+import numbers
 from typing import Literal
 from pydantic import BaseModel
 
@@ -9,6 +10,14 @@ IDIOMAS_DISPONIBLES = Literal['Español', 'English',
 TIPOS_ACTA = Literal['Ordinaria', 'Extraordinaria']
 HORARIOS = Literal['9:00']
 
+class ComprensionLectora(BaseModel):
+  puntuacionMaximaParte: int
+  puntuacion_tarea1: int
+  puntuacion_tarea2: int
+  puntuacion_tarea3: int
+  puntosConseguidos: int
+  observaciones: str
+  porcentaje: int
 
 class ActaBase(BaseModel):
     id: str | None = None

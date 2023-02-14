@@ -38,6 +38,7 @@ fake_actas_DB = [
         lenguaje="Español",
         fecha=datetime.utcfromtimestamp(random.randint(1675000000, 1675999999)),
         tipo="Extraordinaria",
+        
         id="1",
     ),
     ActaBase(
