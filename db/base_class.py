@@ -1,13 +1,4 @@
-from typing import Any
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
 
-from sqlalchemy.ext.declarative import as_declarative, declared_attr
-
-
-@as_declarative()
-class Base:
-    id: Any
-    __name__: str
-
-    @declared_attr
-    def __tablename_(cls) -> str:
-        return cls.__name__.lower()
+Base = declarative_base()

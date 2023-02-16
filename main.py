@@ -1,13 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import login, usuario, alumno, acta
+from routers import convocatoria, login, usuario, alumno
 
 app = FastAPI()
 app.include_router(login.router)
 app.include_router(usuario.router)
 app.include_router(alumno.router)
-app.include_router(acta.router)
+app.include_router(convocatoria.router)
 
 origins = ["http://localhost:4200",
            "http://localhost:4200/", "http://localhost:4200/*"]

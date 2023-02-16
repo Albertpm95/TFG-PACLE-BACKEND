@@ -131,3 +131,5 @@ secrets.py
 environment.py
 
 \.vscode
+
+fake_db.py

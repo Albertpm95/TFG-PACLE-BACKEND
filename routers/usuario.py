@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from constants import lista_acciones
+from fake_db import lista_acciones
 router = APIRouter()
 
 

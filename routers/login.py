@@ -1,7 +1,8 @@
 from fastapi import APIRouter
 
 from schemas.usuario import UsuarioLogin
-from constants import fake_usuarios_DB
+
+from fake_db import fake_usuarios_DB
 router = APIRouter()
 
 

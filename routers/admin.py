@@ -1,7 +1,7 @@
 from fastapi import APIRouter, UploadFile
 import csv
 import codecs
-from constants import fake_usuarios_DB
+from fake_db import fake_usuarios_DB
 router = APIRouter()
 
 
