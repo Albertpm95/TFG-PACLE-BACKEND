@@ -1,37 +1,20 @@
-import numbers
-from datetime import datetime
-from typing import Literal
-
 from pydantic import BaseModel
-from constants import IDIOMAS_DISPONIBLES, TIPOS_ACTA, VALOR_PUNTUACION_MAX_DEFECTO
+from sqlalchemy import DateTime
 
-from schemas.alumno import Alumno
-from schemas.comprension import Comprension
-from schemas.expresion import Expresion
-from schemas.tarea import Tarea
+from constants import IDIOMAS_DISPONIBLES, TIPOS_ACTA
 
 
-
-
-
-
-  
 class ConvocatoriaNueva(BaseModel):
-  estado: bool
-  fecha: datetime | None = None
-  id: str | None = None
-  lenguaje: IDIOMAS_DISPONIBLES
-  puntuacionMaximaParteComprensionAuditiva: int
-  puntuacionMaximaParteComprensionLectora: int
-  puntuacionMaximaParteExpresionEscrita: int
-  puntuacionMaximaParteExpresionOral: int
-  tipo: TIPOS_ACTA
+    comprension_auditiva_puntuacion_maxima_parte: int
+    comprension_lectora_puntuacion_maxima_parte: int
+    expresion_escrita_puntuacion_maxima_parte: int
+    expresion_oral_puntuacion_maxima_parte: int
+    id_convocatoria: str
+    estado: bool
+    fecha: DateTime | None = None
+    id: str | None = None
+    lenguaje: IDIOMAS_DISPONIBLES
+    tipo: TIPOS_ACTA
 
-class ConvocatoriaCorregida(ConvocatoriaNueva):
-    participantes: list[Alumno] = []
-    comprensionLectora: Comprension
-    comprensionAuditiva: Comprension
-    expresionEscrita: Expresion
-    expresionOral: Expresion
     class Config:
         orm_mode = True
