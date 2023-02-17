@@ -9,7 +9,7 @@ class AlumnoBase(BaseModel):
 
 
 class AlumnoActa(AlumnoBase):
-    id_acta: str
+    
 
     class Config:
         orm_mode = True
