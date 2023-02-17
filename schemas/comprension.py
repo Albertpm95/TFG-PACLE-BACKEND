@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from constants import VALOR_PUNTUACION_MAX_DEFECTO
 
 
-class Comprension(BaseModel):
+class ComprensionActa(BaseModel):
     id_comprension: str
     observaciones: str = ""
     porcentaje: int = VALOR_PUNTUACION_MAX_DEFECTO

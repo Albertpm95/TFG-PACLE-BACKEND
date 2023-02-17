@@ -1,5 +1,6 @@
+from datetime import datetime
 from pydantic import BaseModel
-from sqlalchemy import DateTime
+
 
 from constants import IDIOMAS_DISPONIBLES, TIPOS_ACTA
 
@@ -11,7 +12,7 @@ class ConvocatoriaNueva(BaseModel):
     expresion_oral_puntuacion_maxima_parte: int
     id_convocatoria: str
     estado: bool
-    fecha: DateTime | None = None
+    fecha: datetime | None = None
     id: str | None = None
     lenguaje: IDIOMAS_DISPONIBLES
     tipo: TIPOS_ACTA

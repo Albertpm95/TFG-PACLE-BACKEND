@@ -1,16 +1,17 @@
+from datetime import datetime
 from pydantic import BaseModel
-from sqlalchemy import DateTime
 
-from schemas.comprension import Comprension
+
+from schemas.comprension import ComprensionActa
 from schemas.expresion import Expresion
 
 
 class Acta(BaseModel):
-    comprension_auditiva: Comprension
-    comprension_lectora: Comprension
+    comprension_auditiva: ComprensionActa
+    comprension_lectora: ComprensionActa
     expresion_escrita: Expresion
     expresion_oral: Expresion
-    fecha: DateTime
+    fecha: datetime
     id_acta: str
     id_alumno: str
     id_convocatoria: str
