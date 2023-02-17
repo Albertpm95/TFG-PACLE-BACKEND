@@ -4,10 +4,12 @@ from constants import VALOR_PUNTUACION_MAX_DEFECTO
 
 
 class Comprension(BaseModel):
-  observaciones: str = ''
-  porcentaje: int = VALOR_PUNTUACION_MAX_DEFECTO
-  puntosConseguidos: int = VALOR_PUNTUACION_MAX_DEFECTO
-  puntuacion_tarea1: int = VALOR_PUNTUACION_MAX_DEFECTO
-  puntuacion_tarea2: int = VALOR_PUNTUACION_MAX_DEFECTO
-  puntuacion_tarea3: int = VALOR_PUNTUACION_MAX_DEFECTO
-  puntuacionMaximaParte: int = VALOR_PUNTUACION_MAX_DEFECTO
+    id_comprension: str
+    observaciones: str = ""
+    porcentaje: int = VALOR_PUNTUACION_MAX_DEFECTO
+    puntos_conseguidos: int = VALOR_PUNTUACION_MAX_DEFECTO
+    puntuacion_maxima_parte: int = VALOR_PUNTUACION_MAX_DEFECTO
+    puntuacion_tarea_1: int = VALOR_PUNTUACION_MAX_DEFECTO
+    puntuacion_tarea_2: int = VALOR_PUNTUACION_MAX_DEFECTO
+    puntuacion_tarea_3: int = VALOR_PUNTUACION_MAX_DEFECTO
+    id_acta: str
