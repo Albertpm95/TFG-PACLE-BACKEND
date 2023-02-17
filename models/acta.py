@@ -27,4 +27,3 @@ class Acta(Base):
     id_convocatoria = Column(
         String, ForeignKey("Pacle_db.convocatorias.id_convocatoria")
     )
-    nombre = Column(String, nullable=False)
