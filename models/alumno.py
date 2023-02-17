@@ -1,15 +1,14 @@
-from sqlalchemy import Column, String
+from sqlalchemy import Column, ForeignKey, String
 from sqlalchemy.orm import relationship
 
 from db.base_class import Base
-from models.shared import presentados_acta
 
 
 class Alumno(Base):
-    __tablename__ = 'alumnos'
+    __tablename__ = "alumnos"
 
-    id = Column(String, primary_key=True, index=True)
+    id_alumno = Column(String, primary_key=True, index=True)
+    id_acta = Column(String, ForeignKey("Pacle_db.actas.id_acta"))
     nombre = Column(String, nullable=False)
     apellidos = Column(String, nullable=False)
-    examinado_convocatorias = relationship(
-        "Acta", secondary=presentados_acta, back_populates=True)
+    dni = Column(String, nullable=False)

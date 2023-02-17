@@ -2,14 +2,14 @@ from pydantic import BaseModel
 
 
 class AlumnoBase(BaseModel):
-    id: str
+    id_alumno: str
     nombre: str
     apellidos: str
+    dni: str
 
 
-class Alumno(AlumnoBase):
-
-    examinado_convocatoria: str
+class AlumnoActa(AlumnoBase):
+    id_acta: str
 
     class Config:
         orm_mode = True
