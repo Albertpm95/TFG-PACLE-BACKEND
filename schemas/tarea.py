@@ -1,9 +1,10 @@
 from pydantic import BaseModel
+from schemas.usuario import Usuario
+
 
 class Tarea(BaseModel):
-  alcance: int
-  coherencia: int
-  correccion: int
-  eficaciaC: int
-  id_corrector: str | None = None
-  nombre_corrector: str | None = None
+    alcance: int
+    coherencia: int
+    correccion: int
+    eficaciaC: int
+    corrector: Usuario

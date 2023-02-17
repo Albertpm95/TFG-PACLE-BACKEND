@@ -6,31 +6,26 @@ from fake_db import fake_convocatorias_nuevas_DB
 router = APIRouter()
 
 
-@router.get("/acta/correct/{id}")
-async def recuperar_acta(id: str):
-    return fake_convocatorias_nuevas_DB[1]
+@router.get("/convocatorias/{id}")
+async def recuperar_convocatoria(id: str):
+    return fake_convocatorias_nuevas_DB[0]  # TODO Change index for id
 
 
-@router.get("/acta/list")
-async def recuperar_actas():
-    actas = []
-    actas = fake_convocatorias_nuevas_DB
-    return actas
+@router.get("/convocatorias")
+async def recuperar_convocatorias():
+    return fake_convocatorias_nuevas_DB
 
 
-@router.get("/acta/idiomas")
+@router.get("/convocatoria/idiomas")
 async def recuperar_idiomas_disponibles():
     return get_args(IDIOMAS_DISPONIBLES)
 
-@router.get("/acta/horarios")
+
+@router.get("/convocatoria/horarios")
 async def recuperar_horarios_disponibles():
     return get_args(HORARIOS)
 
-@router.get("/acta/tipos")
+
+@router.get("/convocatoria/tipos")
 async def recuperar_tipos_acta():
-    return get_args(TIPOS_ACTA)
-
-
-@router.get("/acta/tipos")
-async def recuperar_horarios_acta():
     return get_args(TIPOS_ACTA)
