@@ -1,7 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, PrimaryKeyConstraint, String
 from sqlalchemy.orm import relationship
 
-from db.base_class import Base
+from db.database import Base
 
 
 class Comprension(Base):

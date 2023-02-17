@@ -1,5 +1,5 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
-from db.base_class import Base
+from db.database import Base
 
 
 class Tarea(Base):

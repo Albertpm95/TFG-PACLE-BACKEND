@@ -1,6 +1,6 @@
 from sqlalchemy import Column, DateTime, Integer, String
 
-from db.base_class import Base
+from db.database import Base
 
 
 class ConvocatoriaBase(Base):

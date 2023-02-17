@@ -3,7 +3,7 @@ from psycopg2 import Date
 from sqlalchemy import Column, DateTime, ForeignKey, String
 from sqlalchemy.orm import relationship
 
-from db.base_class import Base
+from db.database import Base
 
 
 class Acta(Base):
