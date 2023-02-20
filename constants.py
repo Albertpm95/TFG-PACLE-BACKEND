@@ -1,6 +1,8 @@
 from typing import Literal
 
 TIPOS_ACTA = Literal["Ordinaria", "Extraordinaria"]
+TPOS_COMPRENSION = Literal["Lectiva", "Auditiva"]
+TIPOS_EXPRESION = Literal["Oral", "Escrita"]
 ROLES = Literal["Administrador", "Gestor", "Corrector"]
 IDIOMAS_DISPONIBLES = Literal[
     "Español", "English", "Català", "Français", "Chainese", "Deutsch"
