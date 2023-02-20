@@ -26,5 +26,17 @@ async def recuperar_idiomas(db: Session = Depends(crud.get_db)):
 
 
 @router.post("/acta/idiomas/{lenguaje}")
-async def add_idiomas(lenguaje: str, db: Session = Depends(crud.get_db)):
-    return crud.add_idiomas(db, lenguaje)
+async def add_idioma(lenguaje: str, db: Session = Depends(crud.get_db)):
+    return crud.add_idioma(db, lenguaje)
+
+
+@router.get("/acta/tipos")
+async def recuperar_tiposs(db: Session = Depends(crud.get_db)):
+    idiomas = []
+    idiomas = crud.get_tipos(db)
+    return idiomas
+
+
+@router.post("/acta/tipos/{tipo}")
+async def add_tipo(tipo: str, db: Session = Depends(crud.get_db)):
+    return crud.add_tipo(db, tipo)

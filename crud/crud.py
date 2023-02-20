@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from db.database import SessionLocal
 
 import models.idiomas
+import models.tipos
 import schemas
 
 
@@ -19,12 +20,24 @@ def get_idiomas(db: Session):
     return db.query(models.idiomas.Idiomas).all()
 
 
-def add_idiomas(db: Session, lenguaje: str):
+def add_idioma(db: Session, lenguaje: str):
     db_idioma = models.idiomas.Idiomas(lenguaje=lenguaje)
     db.add(db_idioma)
     db.commit()
     db.refresh(db_idioma)
     return db_idioma
+
+
+def get_tipos(db: Session):
+    return db.query(models.tipos.Tipos).all()
+
+
+def add_tipo(db: Session, tipo: str):
+    db_tipo = models.tipos.Tipos(tipo=tipo)
+    db.add(db_tipo)
+    db.commit()
+    db.refresh(db_tipo)
+    return db_tipo
 
 
 """ 
