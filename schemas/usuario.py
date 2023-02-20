@@ -5,14 +5,6 @@ from constants import ROLES
 
 
 class UsuarioBase(BaseModel):
-    username: str
-
-
-class UsuarioLogin(UsuarioBase):
-    password: str
-
-
-class Usuario(UsuarioBase):
     id_usuario: int
     username: str
     nombre: str
@@ -20,3 +12,8 @@ class Usuario(UsuarioBase):
     password: str
     active: bool
     rol: ROLES
+
+
+class UsuarioLogin(BaseModel):
+    username: str
+    password: str

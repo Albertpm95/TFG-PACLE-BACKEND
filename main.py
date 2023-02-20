@@ -11,6 +11,7 @@ app.include_router(convocatoria.router)
 app.include_router(acta.router)
 # app.include_router(admin.router)
 
+
 origins = ["http://localhost:4200", "http://localhost:4200/", "http://localhost:4200/*"]
 
 app.add_middleware(

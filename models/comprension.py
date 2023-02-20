@@ -16,4 +16,4 @@ class Comprension(Base):
     puntuacion_tarea_2 = Column(Integer, nullable=False, default=0)
     puntuacion_tarea_3 = Column(Integer, nullable=False, default=0)
     tipo = Column(String, nullable=False)
-    id_acta = Column(String, ForeignKey("Pacle_db.actas.id_acta"), nullable=False)
+    id_acta = Column(String, ForeignKey("actas.id_acta"), nullable=False)

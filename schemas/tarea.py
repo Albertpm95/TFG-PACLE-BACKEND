@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from schemas.usuario import Usuario
+from schemas.usuario import UsuarioBase
 
 
 class Tarea(BaseModel):
@@ -7,4 +7,4 @@ class Tarea(BaseModel):
     coherencia: int
     correccion: int
     eficaciaC: int
-    corrector: Usuario
+    corrector: UsuarioBase

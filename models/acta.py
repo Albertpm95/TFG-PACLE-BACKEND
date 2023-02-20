@@ -10,20 +10,18 @@ class Acta(Base):
     __tablename__ = "actas"
 
     comprension_auditiva = Column(
-        String, ForeignKey("Pacle_db.comprension.id_comprension"), nullable=False
+        String, ForeignKey("comprension.id_comprension"), nullable=False
     )
     comprension_lectora = Column(
-        String, ForeignKey("Pacle_db.comprension.id_comprension"), nullable=False
+        String, ForeignKey("comprension.id_comprension"), nullable=False
     )
     expresion_escrita = Column(
-        String, ForeignKey("Pacle_db.expresion.id_comprension"), nullable=False
+        String, ForeignKey("expresion.id_comprension"), nullable=False
     )
     expresion_oral = Column(
-        String, ForeignKey("Pacle_db.expresion.id_comprension"), nullable=False
+        String, ForeignKey("expresion.id_comprension"), nullable=False
     )
     fecha = Column(DateTime, nullable=False)
-    id_acta = Column(String, ForeignKey("Pacle_db.actas.id_acta"))
-    id_alumno = Column(String, primary_key=True, index=True)
-    id_convocatoria = Column(
-        String, ForeignKey("Pacle_db.convocatorias.id_convocatoria")
-    )
+    id_acta = Column(String, primary_key=True)
+    id_alumno = Column(String, ForeignKey("alumnos.id_alumnos"))
+    id_convocatoria = Column(String, ForeignKey("convocatorias.id_convocatoria"))
