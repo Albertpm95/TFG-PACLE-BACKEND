@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from schemas.usuario import UsuarioLogin
 
 from fake_db import fake_usuarios_DB
+
 router = APIRouter()
 
 
