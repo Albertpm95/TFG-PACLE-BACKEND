@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from fake_db import fake_actas_corregidas_DB
 from crud import crud
@@ -31,7 +31,7 @@ async def add_idioma(lenguaje: str, db: Session = Depends(crud.get_db)):
 
 
 @router.get("/acta/tipos")
-async def recuperar_tiposs(db: Session = Depends(crud.get_db)):
+async def recuperar_tipos(db: Session = Depends(crud.get_db)):
     idiomas = []
     idiomas = crud.get_tipos(db)
     return idiomas
@@ -40,3 +40,18 @@ async def recuperar_tiposs(db: Session = Depends(crud.get_db)):
 @router.post("/acta/tipos/{tipo}")
 async def add_tipo(tipo: str, db: Session = Depends(crud.get_db)):
     return crud.add_tipo(db, tipo)
+
+
+@router.get("/acta/horarios")
+async def recuperar_horarios(db: Session = Depends(crud.get_db)):
+    idiomas = []
+    idiomas = crud.get_horarios(db)
+    return idiomas
+
+
+@router.post("/acta/horarios/{horario}")
+async def add_horario(
+    horario: str = Query(regex="/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/"),
+    db: Session = Depends(crud.get_db),
+):
+    return crud.add_horario(db, horario)

@@ -1,9 +1,12 @@
+from fastapi import Query
+from pydantic import validate_arguments
 from sqlalchemy.orm import Session
 
 from db.database import SessionLocal
 
 import models.idiomas
 import models.tipos
+import models.horarios
 import schemas
 
 
@@ -38,6 +41,21 @@ def add_tipo(db: Session, tipo: str):
     db.commit()
     db.refresh(db_tipo)
     return db_tipo
+
+
+def get_horarios(db: Session):
+    return db.query(models.horarios.Horarios).all()
+
+
+def add_horario(
+    db: Session,
+    horario: str = Query(regex="/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/"),
+):
+    db_horario = models.horarios.Horarios(horario=horario)
+    db.add(db_horario)
+    db.commit()
+    db.refresh(db_horario)
+    return db_horario
 
 
 """ 
