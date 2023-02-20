@@ -32,8 +32,8 @@ def get_user_username(db: Session, username: str):
     )
 
 
-def get_users(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(usuario_mod.Usuario).offset(skip).limit(limit).all()
+def get_users(db: Session):
+    return db.query(usuario_mod.Usuario).all()
 
 
 def create_user(db: Session, usuario: usuario_sch.UsuarioBase):

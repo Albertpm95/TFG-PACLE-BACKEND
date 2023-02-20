@@ -9,7 +9,6 @@ class UsuarioBase(BaseModel):
     username: str
     nombre: str
     apellidos: str
-    password: str
     active: bool
     rol: ROLES
 
