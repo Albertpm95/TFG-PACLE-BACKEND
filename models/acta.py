@@ -1,5 +1,4 @@
 from datetime import date, datetime
-from psycopg2 import Date
 from sqlalchemy import Column, DateTime, ForeignKey, String
 from sqlalchemy.orm import relationship
 
