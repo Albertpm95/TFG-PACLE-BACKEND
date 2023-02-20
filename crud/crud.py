@@ -1,10 +1,9 @@
 from sqlalchemy.orm import Session
 
-from db.database import Base, SessionLocal, engine
-from models import alumno as alumno_mod
-from models import usuario as usuario_mod
-from schemas import alumno as alumno_sch
-from schemas import usuario as usuario_sch
+from db.database import SessionLocal
+
+import models.idiomas
+import schemas
 
 
 # Dependency
@@ -15,6 +14,20 @@ def get_db():
     finally:
         db.close()
 
+
+def get_idiomas(db: Session):
+    return db.query(models.idiomas.Idiomas).all()
+
+
+def add_idiomas(db: Session, lenguaje: str):
+    db_idioma = models.idiomas.Idiomas(lenguaje=lenguaje)
+    db.add(db_idioma)
+    db.commit()
+    db.refresh(db_idioma)
+    return db_idioma
+
+
+""" 
 
 def get_user_id(db: Session, id_usuario: str):
     return (
@@ -36,7 +49,7 @@ def get_users(db: Session):
     return db.query(usuario_mod.Usuarios).all()
 
 
-def create_user(db: Session, usuario: usuario_sch.UsuarioBase):
+def create_user(db: Session, usuario: usuario_sch.UsuarioFront):
     fake_hashed_password = usuario.username + "notreallyhashed"
     db_user = usuario_mod.Usuarios(
         username=usuario.username,
@@ -58,3 +71,4 @@ def create_alumno(db: Session, alumno: alumno_sch.AlumnoActa):
     db.commit()
     db.refresh(alumno_db)
     return alumno_db
+"""
