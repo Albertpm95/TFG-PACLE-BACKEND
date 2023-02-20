@@ -18,27 +18,27 @@ def get_db():
 
 def get_user_id(db: Session, id_usuario: str):
     return (
-        db.query(usuario_mod.Usuario)
-        .filter(usuario_mod.Usuario.id_usuario == id_usuario)
+        db.query(usuario_mod.Usuarios)
+        .filter(usuario_mod.Usuarios.id_usuario == id_usuario)
         .first()
     )
 
 
 def get_user_username(db: Session, username: str):
     return (
-        db.query(usuario_mod.Usuario)
-        .filter(usuario_mod.Usuario.username == username)
+        db.query(usuario_mod.Usuarios)
+        .filter(usuario_mod.Usuarios.username == username)
         .first()
     )
 
 
 def get_users(db: Session):
-    return db.query(usuario_mod.Usuario).all()
+    return db.query(usuario_mod.Usuarios).all()
 
 
 def create_user(db: Session, usuario: usuario_sch.UsuarioBase):
-    fake_hashed_password = usuario.password + "notreallyhashed"
-    db_user = usuario_mod.Usuario(
+    fake_hashed_password = usuario.username + "notreallyhashed"
+    db_user = usuario_mod.Usuarios(
         username=usuario.username,
         hashed_password=fake_hashed_password,
         nombre=usuario.nombre,
