@@ -13,3 +13,6 @@ class ComprensionActa(BaseModel):
     puntuacion_tarea_2: int = VALOR_PUNTUACION_MAX_DEFECTO
     puntuacion_tarea_3: int = VALOR_PUNTUACION_MAX_DEFECTO
     id_acta: str
+
+    class Config:
+        orm_mode = True

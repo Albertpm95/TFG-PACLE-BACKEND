@@ -1,7 +1,5 @@
 from datetime import datetime
 from pydantic import BaseModel
-from routers import convocatoria
-
 
 from schemas.comprension import ComprensionActa
 from schemas.convocatoria import ConvocatoriaNueva

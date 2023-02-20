@@ -11,3 +11,6 @@ class Expresion(BaseModel):
     puntuacion_maxima_parte: int
     tarea_1: Tarea
     tarea_2: Tarea
+
+    class Config:
+        orm_mode = True

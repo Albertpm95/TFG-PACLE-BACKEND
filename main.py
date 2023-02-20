@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import models
-from db.database import engine
+
+from db.database import engine, Base
 from routers import convocatoria, login, usuario, alumno, acta, admin
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 app.include_router(login.router)

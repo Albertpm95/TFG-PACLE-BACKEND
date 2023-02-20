@@ -1,8 +1,4 @@
 fastapi
 pydantic
 uvicorn
-fastapi_login
 sqlalchemy
-sqlalchemy_utils
-sqlmodel
-python-multipart
