@@ -8,6 +8,6 @@ class Tarea(BaseModel):
     correccion: int
     eficaciaC: int
     corrector: UsuarioBase
-
+    
     class Config:
         orm_mode = True

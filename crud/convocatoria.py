@@ -8,12 +8,12 @@ from models import convocatoria as mod_convocatoria
 
 
 def get_convocatorias(db: Session):
-    return db.query(mod_convocatoria.ConvocatoriaBase).all()
+    return db.query(mod_convocatoria.Convocatoria).all()
 
 
 def get_convocatoria_id(id_convocatoria: str, db: Session):
-    return db.query(mod_convocatoria.ConvocatoriaBase).filter(
-        mod_convocatoria.ConvocatoriaBase.id_convocatoria == id_convocatoria
+    return db.query(mod_convocatoria.Convocatoria).filter(
+        mod_convocatoria.Convocatoria.id_convocatoria == id_convocatoria
     )
 
 

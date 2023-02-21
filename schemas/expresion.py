@@ -3,8 +3,7 @@ from schemas.tarea import Tarea
 
 
 class Expresion(BaseModel):
-    id_acta: str
-    id_expresion: str
+    id_expresion: int
     observaciones: str | None = None
     pocentaje: int
     puntos_conseguidos: int

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, Integer, String
 
 from db.database import Base
 
@@ -6,7 +6,7 @@ from db.database import Base
 class Comprension(Base):
     __tablename__ = "comprension"
 
-    id_comprension = Column(String, nullable=False, primary_key=True)
+    id_comprension = Column(Integer, primary_key=True, index=True)
     observaciones = Column(String)
     porcentaje = Column(Integer, nullable=False, default=0)
     puntos_conseguidos = Column(Integer, nullable=False, default=0)
@@ -15,4 +15,3 @@ class Comprension(Base):
     puntuacion_tarea_2 = Column(Integer, nullable=False, default=0)
     puntuacion_tarea_3 = Column(Integer, nullable=False, default=0)
     tipo = Column(String, nullable=False)
-    id_acta = Column(String, ForeignKey("actas.id_acta"), nullable=False)
