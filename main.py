@@ -12,8 +12,7 @@ app.include_router(usuario.router)
 app.include_router(alumno.router)
 app.include_router(convocatoria.router)
 app.include_router(acta.router)
-# app.include_router(admin.router)
-
+app.include_router(admin.router)
 
 origins = ["http://localhost:4200", "http://localhost:4200/", "http://localhost:4200/*"]
 
