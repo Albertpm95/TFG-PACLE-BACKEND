@@ -7,7 +7,6 @@ import models.idiomas
 import models.tipos
 import models.horarios
 import models.usuario
-import schemas
 
 from schemas.usuario import UsuarioLogin
 
@@ -23,6 +22,7 @@ def get_db():
         yield db
     finally:
         db.close()
+
 
 def get_user_id(db: Session, id_usuario: str):
     return (
@@ -57,13 +57,3 @@ def alta_usuario(db: Session, usuario: UsuarioLogin):
     db.commit()
     db.refresh(db_usuario)
     return db_usuario
-
-
-
-def create_alumno(db: Session, alumno: alumno_sch.AlumnoActa):
-    alumno_db = alumno_mod.Alumno(**alumno.dict())
-    db.add(alumno_db)
-    db.commit()
-    db.refresh(alumno_db)
-    return alumno_db
-
