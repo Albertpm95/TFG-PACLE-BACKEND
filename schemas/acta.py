@@ -2,20 +2,18 @@ from datetime import datetime
 from pydantic import BaseModel
 
 from schemas.comprension import Comprension
-from schemas.convocatoria import ConvocatoriaNueva
+from schemas.convocatoria import Convocatoria
 from schemas.expresion import Expresion
 from schemas.alumno import AlumnoActa
 
 
 class Acta(BaseModel):
-    comprension_auditiva: Comprension
-    comprension_lectora: Comprension
-    expresion_escrita: Expresion
-    expresion_oral: Expresion
-    fecha: datetime
     alumno: AlumnoActa
-    convocatoria: ConvocatoriaNueva
+    convocatoria: Convocatoria
+    fecha: datetime
     id_acta: str
+    expresiones: list[Expresion] = []
+    comprensiones: list[Comprension] = []
 
     class Config:
         orm_mode = True

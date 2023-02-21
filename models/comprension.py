@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
 
 from db.database import Base
 
@@ -14,4 +15,7 @@ class Comprension(Base):
     puntuacion_tarea_1 = Column(Integer, nullable=False, default=0)
     puntuacion_tarea_2 = Column(Integer, nullable=False, default=0)
     puntuacion_tarea_3 = Column(Integer, nullable=False, default=0)
+    id_acta = Column(Integer, ForeignKey("actas.id_acta"))
     tipo = Column(String, nullable=False)
+
+    acta = relationship("Acta", back_populates="comprensiones")

@@ -2,7 +2,7 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
-class ConvocatoriaNueva(BaseModel):
+class Convocatoria(BaseModel):
     comprension_auditiva_puntuacion_maxima_parte: int
     comprension_lectora_puntuacion_maxima_parte: int
     expresion_escrita_puntuacion_maxima_parte: int
