@@ -22,3 +22,4 @@ class Convocatoria(Base):
     lenguaje = Column(String, nullable=False)
     tipo = Column(String, nullable=False)
     fecha = Column(DateTime, nullable=False)
+    horario = Column(String, nullable=False)

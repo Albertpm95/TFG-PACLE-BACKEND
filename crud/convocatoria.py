@@ -4,17 +4,36 @@ from sqlalchemy.orm import Session
 from models import idiomas as mod_idiomas
 from models import tipos as mod_tipos
 from models import horarios as mod_horarios
-from models import convocatoria as mod_convocatoria
+from models.convocatoria import Convocatoria as mod_convocatoria
+from schemas.convocatoria import Convocatoria as sch_convocatoria
 
 
 def get_convocatorias(db: Session):
-    return db.query(mod_convocatoria.Convocatoria).all()
+    return db.query(mod_convocatoria).all()
 
 
 def get_convocatoria_id(id_convocatoria: str, db: Session):
-    return db.query(mod_convocatoria.Convocatoria).filter(
-        mod_convocatoria.Convocatoria.id_convocatoria == id_convocatoria
+    return db.query(mod_convocatoria).filter(
+        mod_convocatoria.id_convocatoria == id_convocatoria
     )
+
+
+def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
+    db_convocatoria = mod_convocatoria(
+        comprension_auditiva_puntuacion_maxima_parte=convocatoria.comprension_auditiva_puntuacion_maxima_parte,
+        comprension_lectora_puntuacion_maxima_parte=convocatoria.comprension_lectora_puntuacion_maxima_parte,
+        expresion_escrita_puntuacion_maxima_parte=convocatoria.expresion_escrita_puntuacion_maxima_parte,
+        expresion_oral_puntuacion_maxima_parte=convocatoria.expresion_oral_puntuacion_maxima_parte,
+        estado=True,
+        fecha=convocatoria.fecha,
+        lenguaje=convocatoria.lenguaje,
+        tipo=convocatoria.tipo,
+        horario=convocatoria.horario,
+    )
+    db.add(db_convocatoria)
+    db.commit()
+    db.refresh(db_convocatoria)
+    return db_convocatoria
 
 
 def get_idiomas(db: Session):
