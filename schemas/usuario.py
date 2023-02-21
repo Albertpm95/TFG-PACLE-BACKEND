@@ -10,7 +10,7 @@ class UsuarioBase(BaseModel):
         orm_mode = True
 
 
-class UsuarioLogin(BaseModel):
+class UsuarioLogin(UsuarioBase):
     password: str
 
     class Config:

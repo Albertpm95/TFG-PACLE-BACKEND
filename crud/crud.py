@@ -7,6 +7,7 @@ from db.database import SessionLocal
 import models.idiomas
 import models.tipos
 import models.horarios
+import models.usuario
 import schemas
 
 
@@ -58,26 +59,28 @@ def add_horario(
     return db_horario
 
 
-""" 
-
 def get_user_id(db: Session, id_usuario: str):
     return (
-        db.query(usuario_mod.Usuarios)
-        .filter(usuario_mod.Usuarios.id_usuario == id_usuario)
+        db.query(models.usuario.Usuarios)
+        .filter(models.usuario.Usuarios.id_usuario == id_usuario)
         .first()
     )
 
 
 def get_user_username(db: Session, username: str):
     return (
-        db.query(usuario_mod.Usuarios)
-        .filter(usuario_mod.Usuarios.username == username)
+        db.query(models.usuario.Usuarios)
+        .filter(models.usuario.Usuarios.username == username)
         .first()
     )
 
 
 def get_users(db: Session):
-    return db.query(usuario_mod.Usuarios).all()
+    return db.query(models.usuario.Usuarios).all()
+
+
+"""
+
 
 
 def create_user(db: Session, usuario: usuario_sch.UsuarioFront):
