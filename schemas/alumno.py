@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class AlumnoBase(BaseModel):
-    id_alumno: str
+    id_alumno: int
     nombre: str
     apellidos: str
     dni: str

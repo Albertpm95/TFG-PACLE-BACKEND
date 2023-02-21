@@ -1,7 +1,5 @@
 from sqlalchemy.orm import Session
 
-from db.database import SessionLocal
-
 from crud import crud
 from models import usuario as mod_usuario
 from schemas.usuario import UsuarioLogin as sch_UsuarioLogin

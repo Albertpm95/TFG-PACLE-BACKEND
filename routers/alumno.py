@@ -1,31 +1,22 @@
-from fastapi import APIRouter
-from fake_db import fake_alumnos_DB
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+
+from crud import crud
+from crud import alumno as crud_alumno
 
 router = APIRouter()
 
 
 @router.post("/alumno/{nombre}")
-async def recuperar_alumno(
-    nombre: str, apellido: str | None = None, acta_id: str | None = None
-):
-    filtrado_1 = ""
-    filtrado_2 = ""
-    filtrado_3 = ""
-    filtrado_1 = filter(lambda x: x.nombre == nombre, fake_alumnos_DB)
-    if apellido:
-        filtrado_2 = filter(lambda x: x.apellidos == apellido, fake_alumnos_DB)
-
-    """
-    if acta_id:
-        filtrado_3 = filter(lambda x: x. == acta_id, fake_alumnos_DB)
-    """
-    return {
-        "filtrado_1": filtrado_1,
-        "filtrado_2": filtrado_2,
-        "filtrado_3": filtrado_3,
-    }
+async def recuperar_alumno_nombre():
+    return
 
 
-@router.post("/alumno")
-async def recuperar_alumnos():
-    return fake_alumnos_DB
+@router.post("/alumno/{id}")
+async def recuperar_alumno_id():
+    return
+
+
+@router.post("/alumnos")
+async def recuperar_alumnos(db: Session = Depends(crud.get_db)):
+    return crud_alumno.get_alumnos(db)
