@@ -10,6 +10,12 @@ import models.horarios
 import models.usuario
 import schemas
 
+from schemas.usuario import UsuarioLogin
+
+
+def fake_hash_password(password: str):  # TODO Delete
+    return "fakehashed" + password
+
 
 # Dependency
 def get_db():
@@ -77,6 +83,21 @@ def get_user_username(db: Session, username: str):
 
 def get_users(db: Session):
     return db.query(models.usuario.Usuarios).all()
+
+
+def alta_usuario(db: Session, usuario: UsuarioLogin):
+    db_usuario = models.usuario.Usuarios(
+        username=usuario.username,
+        active=True,
+        hashed_password=fake_hash_password(usuario.hashed_password),
+        nombre=usuario.nombre,
+        apellidos=usuario.apellidos,
+        rol=usuario.rol,
+    )
+    db.add(db_usuario)
+    db.commit()
+    db.refresh(db_usuario)
+    return db_usuario
 
 
 """

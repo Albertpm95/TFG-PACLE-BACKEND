@@ -39,7 +39,7 @@ async def login(
         raise HTTPException(status_code=400, detail="Usuario o contraseña incorrectos.")
     usuario_sch = UsuarioLogin(**user_dict)
     hashed_password = fake_hash_password(form_data.password)
-    if not hashed_password == usuario_sch.password:
+    if not hashed_password == usuario_sch.hashed_password:
         raise HTTPException(status_code=400, detail="Usuario o contraseña incorrectos.")
 
     return {"access_token": usuario_sch.username, "token_type": "bearer"}
