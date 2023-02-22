@@ -4,12 +4,12 @@ from constants import ROLES
 
 
 class UsuarioBase(BaseModel):
-    id_usuario: int
-    username: str
-    nombre: str
     apellidos: str
-    active: bool
+    estado: bool
+    id_usuario: int
+    nombre: str
     rol: ROLES
+    username: str
 
     class Config:
         orm_mode = True

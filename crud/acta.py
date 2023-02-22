@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 
 from models import acta as mod_acta
 
+""" CRUD Principal """
+
 
 def get_convocatorias(db: Session):
     return db.query(mod_acta.Acta).all()

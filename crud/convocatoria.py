@@ -7,9 +7,15 @@ from models import horarios as mod_horarios
 from models.convocatoria import Convocatoria as mod_convocatoria
 from schemas.convocatoria import Convocatoria as sch_convocatoria
 
+""" CRUD PRINCIPAL """
+
 
 def get_convocatorias(db: Session):
     return db.query(mod_convocatoria).all()
+
+
+def get_convocatorias_activas(db: Session):
+    return db.query(mod_convocatoria).filter_by(estado=True).all()
 
 
 def get_convocatoria_id(id_convocatoria: str, db: Session):
@@ -36,28 +42,15 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
     return db_convocatoria
 
 
+""" CRUD APOYO """
+
+
 def get_idiomas(db: Session):
     return db.query(mod_idiomas.Idiomas).all()
 
 
-def add_idioma(lenguaje: str, db: Session):
-    db_idioma = mod_idiomas.Idiomas(lenguaje=lenguaje)
-    db.add(db_idioma)
-    db.commit()
-    db.refresh(db_idioma)
-    return db_idioma
-
-
 def get_tipos(db: Session):
     return db.query(mod_tipos.Tipos).all()
-
-
-def add_tipo(db: Session, tipo: str):
-    db_tipo = mod_tipos.Tipos(tipo=tipo)
-    db.add(db_tipo)
-    db.commit()
-    db.refresh(db_tipo)
-    return db_tipo
 
 
 def get_horarios(db: Session):
@@ -73,3 +66,19 @@ def add_horario(
     db.commit()
     db.refresh(db_horario)
     return db_horario
+
+
+def add_idioma(lenguaje: str, db: Session):
+    db_idioma = mod_idiomas.Idiomas(lenguaje=lenguaje)
+    db.add(db_idioma)
+    db.commit()
+    db.refresh(db_idioma)
+    return db_idioma
+
+
+def add_tipo(db: Session, tipo: str):
+    db_tipo = mod_tipos.Tipos(tipo=tipo)
+    db.add(db_tipo)
+    db.commit()
+    db.refresh(db_tipo)
+    return db_tipo
