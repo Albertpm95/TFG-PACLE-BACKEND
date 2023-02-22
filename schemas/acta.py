@@ -10,11 +10,6 @@ class Acta(BaseModel):
     alumno: AlumnoActa
     convocatoria: Convocatoria
     fecha: datetime
-    id_acta: int
-    # expresion_escrita: ExpresionEscrita
-    # expresion_oral: ExpresionOral
-    # comprension_auditiva: ComprensionAuditiva
-    # comprension_lectiva: ComprensionLectiva
     expresion: Expresion
     comprension: Comprension
     horario: str

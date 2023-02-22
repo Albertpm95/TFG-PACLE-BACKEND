@@ -46,10 +46,14 @@ async def alta_usuario(usuario: UsuarioLogin, db: Session = Depends(crud.get_db)
 async def desactivar_usuario(id_usuario: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.desactivar_usuario(db, id_usuario)
 
+
 @router.patch("/admin/usuario/activar")
 async def activar_usuario(id_usuario: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.activar_usuario(db, id_usuario)
 
+
 @router.patch("/admin/usuario/update")
-async def update_usuario(usuario: UsuarioBase, db: Session = Depends(crud.get_db)):
-    return crud_usuario.update_usuario(db, usuario)
+async def update_usuario(
+    id_usuario, usuario_updated: UsuarioBase, db: Session = Depends(crud.get_db)
+):
+    return crud_usuario.update_usuario(db, id_usuario, usuario_updated)
