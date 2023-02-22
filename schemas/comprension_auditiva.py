@@ -5,7 +5,6 @@ from constants import VALOR_PUNTUACION_MAX_DEFECTO
 
 class ComprensionAuditiva(BaseModel):
     id_comprension_auditiva: int
-    id_acta: int
     observaciones: str | None = None
     porcentaje: int = VALOR_PUNTUACION_MAX_DEFECTO
     puntos_conseguidos: int = VALOR_PUNTUACION_MAX_DEFECTO

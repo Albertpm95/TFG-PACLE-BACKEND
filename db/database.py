@@ -4,11 +4,26 @@ from sqlalchemy.orm import sessionmaker
 
 from environment import SQLALCHEMY_DATABASE_URI
 
+metadata = MetaData()
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URI, connect_args={"options": "-csearch_path=Pacle_db"}
+    SQLALCHEMY_DATABASE_URI, connect_args={"options": "-csearch_path=pacle_db"}
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-Base = declarative_base()
+Base = declarative_base(metadata=metadata)
+
+from models import (
+    alumno,
+    usuario,
+    tarea,
+    expresion_escrita,
+    expresion_oral,
+    comprension_auditiva,
+    comprension_lectiva,
+    convocatoria,
+    acta,
+)
+
+Base.metadata.create_all(bind=engine)

@@ -1,6 +1,4 @@
-from colorama import Fore
 from sqlalchemy import Column, DateTime, ForeignKey, Integer
-
 
 from db.database import Base
 
@@ -15,9 +13,7 @@ class Acta(Base):
     id_expresion_escrita = Column(
         Integer, ForeignKey("expresion_escrita.id_expresion_escrita")
     )
-    id_expresion_oral = Column(
-        Integer, ForeignKey("expresion_escrita.id_expresion_escrita")
-    )
+    id_expresion_oral = Column(Integer, ForeignKey("expresion_oral.id_expresion_oral"))
     id_comprension_auditiva = Column(
         Integer, ForeignKey("comprension_auditiva.id_comprension_auditiva")
     )

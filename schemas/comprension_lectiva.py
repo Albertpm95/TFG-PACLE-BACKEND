@@ -5,7 +5,6 @@ from constants import VALOR_PUNTUACION_MAX_DEFECTO
 
 class ComprensionLectiva(BaseModel):
     id_comprension_lectiva: int
-    id_acta: int
     observaciones: str | None = None
     porcentaje: int = VALOR_PUNTUACION_MAX_DEFECTO
     puntos_conseguidos: int = VALOR_PUNTUACION_MAX_DEFECTO

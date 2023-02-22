@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy import Column, Integer, String
 
 from db.database import Base
 
@@ -7,7 +7,6 @@ class ComprensionLectiva(Base):
     __tablename__ = "comprension_lectiva"
 
     id_comprension_lectiva = Column(Integer, primary_key=True, index=True)
-
     observaciones = Column(String)
     porcentaje = Column(Integer, nullable=False, default=0)
     puntos_conseguidos = Column(Integer, nullable=False, default=0)
