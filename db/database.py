@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-
 from environment import SQLALCHEMY_DATABASE_URI
 
 metadata = MetaData()
@@ -17,13 +16,11 @@ Base = declarative_base(metadata=metadata)
 from models import (
     alumno,
     usuario,
+    comprension,
     tarea,
-    expresion_escrita,
-    expresion_oral,
-    comprension_auditiva,
-    comprension_lectiva,
+    expresion,
     convocatoria,
     acta,
-)
+)  # Order in wich the tables have to be created
 
 Base.metadata.create_all(bind=engine)

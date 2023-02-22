@@ -1,13 +1,13 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, ForeignKey, null
 
 from db.database import Base
 
 
-class ExpresionOral(Base):
-    __tablename__ = "expresion_oral"
+class Expresion(Base):
+    __tablename__ = "expresion"
 
-    id_expresion_oral = Column(Integer, primary_key=True, index=True)
+    id_expresion = Column(Integer, primary_key=True, index=True)
+    tipo = Column(String, nullable=False)
     observaciones = Column(String)
     porcentaje = Column(Integer, nullable=False, default=0)
     puntos_conseguidos = Column(Integer, nullable=False, default=0)

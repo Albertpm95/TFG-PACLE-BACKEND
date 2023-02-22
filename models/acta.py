@@ -10,13 +10,7 @@ class Acta(Base):
     fecha = Column(DateTime, nullable=False)
     id_acta = Column(Integer, primary_key=True, index=True)
     id_alumno = Column(Integer, ForeignKey("alumnos.id_alumno"))
-    id_expresion_escrita = Column(
-        Integer, ForeignKey("expresion_escrita.id_expresion_escrita")
-    )
-    id_expresion_oral = Column(Integer, ForeignKey("expresion_oral.id_expresion_oral"))
-    id_comprension_auditiva = Column(
-        Integer, ForeignKey("comprension_auditiva.id_comprension_auditiva")
-    )
-    id_comprension_lectiva = Column(
-        Integer, ForeignKey("comprension_lectiva.id_comprension_lectiva")
-    )
+    expresion_escrita = Column(Integer, ForeignKey("expresion.id_expresion"))
+    expresion_oral = Column(Integer, ForeignKey("expresion.id_expresion"))
+    comprension_lectiva = Column(Integer, ForeignKey("comprension.id_comprension"))
+    comprension_auditiva = Column(Integer, ForeignKey("comprension.id_comprension"))

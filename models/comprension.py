@@ -3,10 +3,11 @@ from sqlalchemy import Column, Integer, String
 from db.database import Base
 
 
-class ComprensionAuditiva(Base):
-    __tablename__ = "comprension_auditiva"
+class Comprension(Base):
+    __tablename__ = "comprension"
 
-    id_comprension_auditiva = Column(Integer, primary_key=True, index=True)
+    id_comprension = Column(Integer, primary_key=True, index=True)
+    tipo = Column(String, nullable=False)
     observaciones = Column(String)
     porcentaje = Column(Integer, nullable=False, default=0)
     puntos_conseguidos = Column(Integer, nullable=False, default=0)
