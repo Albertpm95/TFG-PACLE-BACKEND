@@ -1,12 +1,13 @@
 from fastapi import HTTPException
-from sqlalchemy import update
 from sqlalchemy.orm import Session
 
 from crud import crud
 from models.usuario import Usuario as mod_usuario
-from schemas.usuario import UsuarioLogin as sch_UsuarioLogin, UsuarioOptional
+from schemas.usuario import (
+    UsuarioLogin as sch_UsuarioLogin,
+    UsuarioOptional as sch_UsuarioOptional,
+)
 from schemas.usuario import UsuarioBase as sch_UsuarioBase
-from schemas.usuario import UsuarioOptional as sch_UsuarioOptional
 
 """ CRUD Principal """
 
@@ -41,7 +42,7 @@ def alta_usuario(db: Session, usuario: sch_UsuarioLogin):
     return db_usuario
 
 
-def update_usuario(db: Session, id_usuario: str, usuario_updated: UsuarioOptional):
+def update_usuario(db: Session, id_usuario: str, usuario_updated: sch_UsuarioOptional):
     db_usuario = get_user_id(db, id_usuario)
     if not db_usuario:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
