@@ -10,29 +10,19 @@ from schemas.token import TokenData
 from schemas.usuario import UsuarioBase
 
 from jose import JWTError, jwt
-from passlib.context import CryptContext
 from environment import ALGORITHM, SECRET_KEY
 
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
-
-
-def get_password_hash(password):
-    return pwd_context.hash(password)
 
 
 def authenticate_user(username: str, password: str, db: Session):
     usuario = crud_usuario.get_user_username(db, username)
     if not usuario:
         return False
-    hashed_password = get_password_hash(password)
-    if not verify_password(hashed_password, usuario.hashed_password):
-        return usuario
+    if not crud.verify_password(
+        plain_password=password, usuario_db_hashed_password=usuario.hashed_password
+    ):
+        return False
     return usuario
 
 

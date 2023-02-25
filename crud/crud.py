@@ -1,8 +1,6 @@
 from db.database import SessionLocal
 
-
-def fake_hash_password(password: str):  # TODO Delete
-    return "fakehashed" + password
+from environment import SECRET_KEY
 
 
 # Dependency
@@ -12,3 +10,11 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+def verify_password(plain_password, usuario_db_hashed_password):
+    return True
+
+
+def get_password_hash(plain_password):
+    return

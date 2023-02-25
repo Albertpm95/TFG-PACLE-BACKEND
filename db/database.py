@@ -15,6 +15,7 @@ Base = declarative_base(metadata=metadata)
 
 from models import (
     alumno,
+    rol_usuario,
     usuario,
     comprension,
     tarea,

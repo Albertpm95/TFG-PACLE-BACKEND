@@ -2,6 +2,7 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from crud import crud
+from crud import usuario as crud_usuario
 from models.usuario import Usuario as mod_usuario
 from schemas.usuario import (
     UsuarioLogin as sch_UsuarioLogin,
@@ -31,7 +32,7 @@ def alta_usuario(db: Session, usuario: sch_UsuarioLogin):
     db_usuario = mod_usuario(
         username=usuario.username,
         estado=True,
-        hashed_password=crud.fake_hash_password(usuario.hashed_password),
+        hashed_password=crud.get_password_hash(usuario.hashed_password),
         nombre=usuario.nombre,
         apellidos=usuario.apellidos,
         rol=usuario.rol,

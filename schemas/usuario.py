@@ -1,14 +1,14 @@
 from typing import Optional
 from pydantic import BaseModel
 
-from constants import ROLES
+from schemas.rol_usuario import Rol
 
 
 class UsuarioBase(BaseModel):
     apellidos: str
     estado: bool
     nombre: str
-    rol: ROLES
+    rol: Rol
     username: str
 
     class Config:

@@ -10,8 +10,6 @@ from crud import crud
 from crud import login as crud_login
 from schemas.token import Token
 
-from schemas.usuario import UsuarioBase
-
 router = APIRouter()
 
 
