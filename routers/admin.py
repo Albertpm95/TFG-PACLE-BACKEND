@@ -6,7 +6,7 @@ import codecs
 
 from crud import crud
 from crud import usuario as crud_usuario
-from schemas.usuario import UsuarioBase, UsuarioLogin
+from schemas.usuario import UsuarioBase, UsuarioLogin, UsuarioOptional
 
 router = APIRouter()
 
@@ -22,7 +22,7 @@ async def cargar_excel(excel: UploadFile):
     return numero_de_alumnos_cargados
 
 
-@router.get("/admin/usuarios")
+@router.get("/admin/usuarios", response_model=list[UsuarioBase])
 async def get_list_usuarios(db: Session = Depends(crud.get_db)):
     return crud_usuario.get_users(db)
 
@@ -52,8 +52,8 @@ async def activar_usuario(id_usuario: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.activar_usuario(db, id_usuario)
 
 
-@router.patch("/admin/usuario/update")
+@router.patch("/admin/usuario/update", response_model=UsuarioBase)
 async def update_usuario(
-    id_usuario, usuario_updated: UsuarioBase, db: Session = Depends(crud.get_db)
+    id_usuario, usuario_updated: UsuarioOptional, db: Session = Depends(crud.get_db)
 ):
     return crud_usuario.update_usuario(db, id_usuario, usuario_updated)

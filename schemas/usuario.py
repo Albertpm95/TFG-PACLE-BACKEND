@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel
 
 from constants import ROLES
@@ -19,3 +20,7 @@ class UsuarioLogin(UsuarioBase):
 
     class Config:
         orm_mode = True
+
+
+class UsuarioOptional(UsuarioBase):
+    __annotations__ = {k: Optional[v] for k, v in UsuarioBase.__annotations__.items()}

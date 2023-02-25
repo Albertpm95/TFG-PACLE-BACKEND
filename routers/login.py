@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 
 from crud import crud
+from crud import usuario as crud_usuario
 from schemas.usuario import UsuarioLogin
 
 router = APIRouter()
@@ -16,7 +17,7 @@ def fake_hash_password(password: str):
 
 
 def fake_decode_token(token, db: Session = Depends(crud.get_db)):
-    user = crud.get_user_username(db, token)
+    user = crud_usuario.get_user_username(db, token)
     return user
 
 
@@ -34,7 +35,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 async def login(
     form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(crud.get_db)
 ):
-    user_dict = crud.get_user_username(db, form_data.username)
+    user_dict = crud_usuario.get_user_username(db, form_data.username)
     if not user_dict:
         raise HTTPException(status_code=400, detail="Usuario o contraseña incorrectos.")
     usuario_sch = UsuarioLogin(**user_dict)
