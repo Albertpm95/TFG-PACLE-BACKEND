@@ -1,5 +1,6 @@
 from db.database import SessionLocal
 
+import bcrypt
 from environment import SECRET_KEY
 
 
@@ -13,8 +14,10 @@ def get_db():
 
 
 def verify_password(plain_password, usuario_db_hashed_password):
-    return True
+    if get_password_hash(plain_password) == usuario_db_hashed_password:
+        return True
+    return False
 
 
 def get_password_hash(plain_password):
-    return
+    return plain_password

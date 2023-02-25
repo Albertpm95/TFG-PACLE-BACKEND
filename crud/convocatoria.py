@@ -49,12 +49,24 @@ def get_idiomas(db: Session):
     return db.query(mod_idiomas.Idiomas).all()
 
 
+def get_idioma_id(db: Session, id_idioma):
+    return db.query(mod_idiomas.Idiomas).filter_by(id_idioma=id_idioma).first()
+
+
 def get_tipos(db: Session):
     return db.query(mod_tipos.Tipos).all()
 
 
+def get_tipo_id(db: Session, id_tipo):
+    return db.query(mod_tipos.Tipos).filter_by(id_tipo=id_tipo).first()
+
+
 def get_horarios(db: Session):
     return db.query(mod_horarios.Horarios).all()
+
+
+def get_horario_id(db: Session, id_horario):
+    return db.query(mod_horarios.Horarios).filter_by(id_horario=id_horario).first()
 
 
 def add_horario(

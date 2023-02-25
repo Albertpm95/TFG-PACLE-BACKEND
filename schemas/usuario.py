@@ -8,8 +8,15 @@ class UsuarioBase(BaseModel):
     apellidos: str
     estado: bool
     nombre: str
-    rol: Rol
+    rol: str
     username: str
+
+    class Config:
+        orm_mode = True
+
+
+class UsuarioCreacion(UsuarioBase):
+    plain_password: str
 
     class Config:
         orm_mode = True

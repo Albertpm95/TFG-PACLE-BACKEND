@@ -6,7 +6,7 @@ import codecs
 
 from crud import crud
 from crud import usuario as crud_usuario
-from schemas.usuario import UsuarioBase, UsuarioLogin, UsuarioOptional
+from schemas.usuario import UsuarioBase, UsuarioCreacion, UsuarioLogin, UsuarioOptional
 
 router = APIRouter()
 
@@ -38,7 +38,7 @@ async def get_usuario_by_username(username: str, db: Session = Depends(crud.get_
 
 
 @router.post("/admin/usuario/alta")
-async def alta_usuario(usuario: UsuarioLogin, db: Session = Depends(crud.get_db)):
+async def alta_usuario(usuario: UsuarioCreacion, db: Session = Depends(crud.get_db)):
     return crud_usuario.alta_usuario(db, usuario)
 
 
