@@ -31,10 +31,3 @@ async def login_for_access_token(
         data={"sub": usuario.username}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
-
-
-@router.get("/usuario/actual/", response_model=UsuarioBase)
-async def recuperar_usuario_actual(
-    current_user: UsuarioBase = Depends(crud_login.get_current_active_user),
-):
-    return current_user
