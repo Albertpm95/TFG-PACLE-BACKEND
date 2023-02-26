@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy import Column, DateTime, Integer, String, Boolean
 
 from db.database import Base
 
@@ -23,3 +23,4 @@ class Convocatoria(Base):
     tipo = Column(String, nullable=False)
     fecha = Column(DateTime, nullable=False)
     horario = Column(String, nullable=False)
+    estado = Column(Boolean, nullable=False, default=True)

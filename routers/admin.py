@@ -11,6 +11,11 @@ from schemas.usuario import UsuarioBase, UsuarioCreacion, UsuarioLogin, UsuarioO
 router = APIRouter()
 
 
+@router.get("/admin/usuarios/list", response_model=list[UsuarioBase])
+async def recuperar_list_usuarios(db: Session = Depends(crud.get_db)):
+    return crud_usuario.get_users(db)
+
+
 @router.post("/admin/upload")
 async def cargar_excel(excel: UploadFile):
     numero_de_alumnos_cargados = 0
@@ -22,18 +27,13 @@ async def cargar_excel(excel: UploadFile):
     return numero_de_alumnos_cargados
 
 
-@router.get("/admin/usuarios", response_model=list[UsuarioBase])
-async def get_list_usuarios(db: Session = Depends(crud.get_db)):
-    return crud_usuario.get_users(db)
-
-
 @router.get("/admin/usuario/{id_usuario}")
-async def get_usuario_by_id(id_usuario: str, db: Session = Depends(crud.get_db)):
+async def get_usuario_id(id_usuario: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.get_user_id(db, id_usuario)
 
 
 @router.get("/admin/usuario/{username}")
-async def get_usuario_by_username(username: str, db: Session = Depends(crud.get_db)):
+async def get_usuario_username(username: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.get_user_username(db, username)
 
 

@@ -1,4 +1,4 @@
-from fastapi import Query
+from fastapi import Query, HTTPException
 from sqlalchemy.orm import Session
 
 from models import idiomas as mod_idiomas
@@ -11,7 +11,13 @@ from schemas.convocatoria import Convocatoria as sch_convocatoria
 
 
 def get_convocatorias(db: Session):
-    return db.query(mod_convocatoria).all()
+    convocatorias = db.query(mod_convocatoria).all()
+    if not convocatorias:
+        raise HTTPException(
+            status_code=404,
+            detail="No se ha podido recuperar la lista de convocatorias o esta vacia.",
+        )
+    return convocatorias
 
 
 def get_convocatorias_activas(db: Session):

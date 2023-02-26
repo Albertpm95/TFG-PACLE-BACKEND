@@ -12,6 +12,7 @@ class Convocatoria(BaseModel):
     lenguaje: str
     tipo: str
     horario: str
+    id_convocatoria: int
 
     class Config:
         orm_mode = True
