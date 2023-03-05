@@ -9,7 +9,7 @@ class UsuarioBase(BaseModel):
     estado: bool
     id_usuario: int
     nombre: str
-    rol: str
+    rol: Rol
     username: str
 
     class Config:

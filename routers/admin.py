@@ -7,16 +7,16 @@ import codecs
 from crud import crud
 from crud import usuario as crud_usuario
 from schemas.usuario import UsuarioBase, UsuarioCreacion, UsuarioLogin, UsuarioOptional
-
+from schemas.rol_usuario import Rol
 router = APIRouter()
 
 
-@router.get("/admin/usuarios/list", response_model=list[UsuarioBase])
+@router.get("/admins/usuarios/list", response_model=list[UsuarioBase])
 async def recuperar_list_usuarios(db: Session = Depends(crud.get_db)):
     return crud_usuario.get_users(db)
 
 
-@router.post("/admin/upload")
+@router.post("/admins/upload")
 async def cargar_excel(excel: UploadFile):
     numero_de_alumnos_cargados = 0
     csvReader = csv.DictReader(codecs.iterdecode(excel.file, "utf-8"))
@@ -27,33 +27,35 @@ async def cargar_excel(excel: UploadFile):
     return numero_de_alumnos_cargados
 
 
-@router.get("/admin/usuario/{id_usuario}")
+@router.get("/admins/usuario/{id_usuario}")
 async def get_usuario_id(id_usuario: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.get_user_id(db, id_usuario)
 
 
-@router.get("/admin/usuario/{username}")
+@router.get("/admins/usuario/{username}")
 async def get_usuario_username(username: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.get_user_username(db, username)
 
 
-@router.post("/admin/usuario/alta")
+@router.post("/admins/usuario/alta")
 async def alta_usuario(usuario: UsuarioCreacion, db: Session = Depends(crud.get_db)):
     return crud_usuario.alta_usuario(db, usuario)
 
 
-@router.patch("/admin/usuario/desactivar")
+@router.patch("/admins/usuario/desactivar")
 async def desactivar_usuario(id_usuario: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.desactivar_usuario(db, id_usuario)
 
 
-@router.patch("/admin/usuario/activar")
+@router.patch("/admins/usuario/activar")
 async def activar_usuario(id_usuario: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.activar_usuario(db, id_usuario)
 
 
-@router.patch("/admin/usuario/update", response_model=UsuarioBase)
+@router.patch("/admins/usuario/update", response_model=UsuarioBase)
 async def update_usuario(
     id_usuario, usuario_updated: UsuarioOptional, db: Session = Depends(crud.get_db)
 ):
     return crud_usuario.update_usuario(db, id_usuario, usuario_updated)
+
+@router.put("/admin/usuario/rol", response_model=Rol)

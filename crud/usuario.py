@@ -1,3 +1,4 @@
+from operator import mod
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
@@ -29,18 +30,27 @@ def get_users(db: Session):
 
 
 def alta_usuario(db: Session, usuario: sch_UsuarioCreacion):
-    db_usuario = mod_usuario(
-        username=usuario.username,
-        estado=True,
-        hashed_password=crud.get_password_hash(usuario.plain_password),
-        nombre=usuario.nombre,
-        apellidos=usuario.apellidos,
-        rol=get_rol_id(db, usuario.rol.id_rol),
-    )
-    db.add(db_usuario)
-    db.commit()
-    db.refresh(db_usuario)
-    return db_usuario
+    existe_usuario = get_user_username(db, username=usuario.username)
+    if existe_usuario:
+        raise HTTPException(
+            status_code=404, detail="Ya existe un usuario con ese username."
+        )
+    rol = get_rol_id(db, usuario.rol.id_rol)
+    if not rol:
+        raise HTTPException(status_code=404, detail="No existe el rol")
+    if rol:
+        db_usuario = mod_usuario(
+            username=usuario.username,
+            estado=True,
+            hashed_password=crud.get_password_hash(usuario.plain_password),
+            nombre=usuario.nombre,
+            apellidos=usuario.apellidos,
+            id_rol=rol.id_rol,
+        )
+        db.add(db_usuario)
+        db.commit()
+        db.refresh(db_usuario)
+        return db_usuario
 
 
 def update_usuario(db: Session, id_usuario: str, usuario_updated: sch_UsuarioOptional):
@@ -87,3 +97,7 @@ def get_roles(db: Session):
 
 def get_rol_id(db: Session, id_rol):
     return db.query(mod_rol).filter_by(id_rol=id_rol).first()
+
+
+def get_rol_nombre(db: Session, rol: str):
+    return db.query(mod_rol).filter_by(rol=rol).first()

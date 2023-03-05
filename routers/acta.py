@@ -19,6 +19,6 @@ async def recuperar_lista_actas(db: Session = Depends(crud.get_db)):
     return actas
 
 
-@router.get("/acta/edit/{id_acta}")
+@router.get("/actas/edit/{id_acta}")
 async def recuperar_acta_id(id_acta: str, db: Session = Depends(crud.get_db)):
     return crud_acta.get_convocatoria_id(id_acta, db)

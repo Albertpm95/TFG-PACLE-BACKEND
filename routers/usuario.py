@@ -10,12 +10,12 @@ from schemas.rol_usuario import Rol
 router = APIRouter()
 
 
-@router.get("/usuario/roles/list", response_model=list[Rol])
+@router.get("/usuarios/roles/list", response_model=list[Rol])
 async def recuperar_roles_disponibles(db: Session = Depends(crud.get_db)):
     return crud_usuario.get_roles(db)
 
 
-@router.get("/usuario/actual/", response_model=UsuarioBase)
+@router.get("/usuarios/actual", response_model=UsuarioBase)
 async def recuperar_usuario_actual(
     current_user: UsuarioBase = Depends(crud_login.get_current_active_user),
 ):

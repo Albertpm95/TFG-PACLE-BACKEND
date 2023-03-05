@@ -20,30 +20,30 @@ async def recuperar_lista_convocatorias(db: Session = Depends(crud.get_db)):
     return convocatorias
 
 
-@router.get("/convocatoria/{id_convocatoria}")
+@router.get("/convocatorias/{id_convocatoria}")
 async def recuperar_convocatoria_id(
     id_convocatoria: str, db: Session = Depends(crud.get_db)
 ):
     return crud_convocatoria.get_convocatoria_id(id_convocatoria, db)
 
 
-@router.post("/convocatoria/create", response_model=convocatoria.Convocatoria)
+@router.post("/convocatorias/create", response_model=convocatoria.Convocatoria)
 async def crear_convocatoria(
     convocatoria: convocatoria.Convocatoria, db: Session = Depends(crud.get_db)
 ):
     return crud_convocatoria.create_convocatoria(convocatoria=convocatoria, db=db)
 
 
-@router.get("/convocatoria/idiomas")
+@router.get("/convocatorias/idiomas")
 async def recuperar_idiomas_disponibles(db: Session = Depends(crud.get_db)):
     return crud_convocatoria.get_idiomas(db)
 
 
-@router.get("/convocatoria/horarios")
+@router.get("/convocatorias/horarios")
 async def recuperar_horarios_disponibles(db: Session = Depends(crud.get_db)):
     return crud_convocatoria.get_horarios(db)
 
 
-@router.get("/convocatoria/tipos")
+@router.get("/convocatorias/tipos")
 async def recuperar_tipos_convocatoria(db: Session = Depends(crud.get_db)):
     return crud_convocatoria.get_tipos(db)

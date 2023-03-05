@@ -13,11 +13,11 @@ async def recuperar_alumnos(db: Session = Depends(crud.get_db)):
     return crud_alumno.get_alumnos(db)
 
 
-@router.post("/alumno/{nombre}")
+@router.post("/alumnos/{nombre}")
 async def recuperar_alumno_nombre():
     return
 
 
-@router.post("/alumno/{id}")
+@router.post("/alumnos/{id}")
 async def recuperar_alumno_id():
     return
