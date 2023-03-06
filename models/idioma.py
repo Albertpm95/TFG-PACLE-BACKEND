@@ -2,7 +2,7 @@ from sqlalchemy import Column, String, Integer
 from db.database import Base
 
 
-class Idiomas(Base):
+class Idioma(Base):
     __tablename__ = "idiomas"
 
     id_lenguaje = Column(Integer, primary_key=True)

@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from models.idiomas import Idiomas as mod_idioma
+from models.idioma import Idioma as mod_idioma
 
 
 def crear_idioma(db: Session, idioma_nuevo: str):
@@ -22,8 +22,8 @@ def get_idioma_nombre(db: Session, idioma: str):
     return db.query(mod_idioma).filter_by(idioma=idioma).first()
 
 
-def get_idioma_id(db: Session, idioma: str):
-    return db.query(mod_idioma).filter_by(idioma=idioma).first()
+def get_idioma_id(db: Session, id_lenguaje: int):
+    return db.query(mod_idioma).filter_by(idioma=id_lenguaje).first()
 
 
 def get_idiomas(db: Session):

@@ -1,10 +1,10 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from models.tipos import Tipos as mod_tipos
+from models.tipo import Tipo as mod_tipos
 
 
-def crear_idioma(db: Session, tipo_nuevo: str):
+def crear_tipo(db: Session, tipo_nuevo: str):
     existe_tipo = get_tipo_nombre(db, tipo_nuevo)
     if existe_tipo:
         raise HTTPException(
