@@ -14,6 +14,7 @@ from schemas.usuario import UsuarioBase, UsuarioCreacion, UsuarioLogin, UsuarioO
 from schemas.rol_usuario import Rol
 from schemas.idiomas import Idioma
 from schemas.tipo import Tipo
+from schemas.horario import Horario
 
 router = APIRouter()
 
@@ -66,21 +67,21 @@ async def update_usuario(
     return crud_usuario.update_usuario(db, id_usuario, usuario_updated)
 
 
-@router.put("admin/rol/create", response_model=Rol)
+@router.put("/admin/rol/create", response_model=Rol)
 async def create_rol(rol: str, db: Session = Depends(crud.get_db)):
     return crud_rol.crear_rol(db=db, rol_nuevo=rol)
 
 
-@router.put("admin/horario/create", response_model=Rol)
+@router.put("/admin/horario/create", response_model=Horario)
 async def create_horario(horario_nuevo: str, db: Session = Depends(crud.get_db)):
     return crud_horario.crear_horario(db=db, horario_nuevo=horario_nuevo)
 
 
-@router.put("admin/tipo/create", response_model=Rol)
+@router.put("/admin/tipo/create", response_model=Tipo)
 async def create_tipo(tipo: str, db: Session = Depends(crud.get_db)):
     return crud_tipo.crear_tipo(db=db, tipo_nuevo=tipo)
 
 
-@router.put("admin/idioma/create", response_model=Rol)
+@router.put("/admin/idioma/create", response_model=Idioma)
 async def create_idioma(idioma_nuevo: str, db: Session = Depends(crud.get_db)):
     return crud_idioma.crear_idioma(db=db, idioma_nuevo=idioma_nuevo)

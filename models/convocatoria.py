@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, Integer, String, Boolean
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Boolean
 
 from db.database import Base
 
@@ -19,8 +19,8 @@ class Convocatoria(Base):
         Integer(), nullable=False, default=0
     )
     id_convocatoria = Column(Integer, primary_key=True, index=True)
-    lenguaje = Column(String, nullable=False)
-    tipo = Column(String, nullable=False)
+    lenguaje = Column(Integer, ForeignKey("idiomas.id_lenguaje"))
+    tipo = Column(Integer, ForeignKey("tipos.id_tipo"))
     fecha = Column(DateTime, nullable=False)
-    horario = Column(String, nullable=False)
+    horario = Column(Integer, ForeignKey("horarios.id_horario"))
     estado = Column(Boolean, nullable=False, default=True)
