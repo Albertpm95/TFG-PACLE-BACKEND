@@ -3,8 +3,8 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from crud import crud
+from crud.rol import get_rol_id
 from models.usuario import Usuario as mod_usuario
-from models.rol_usuario import Rol as mod_rol
 from schemas.usuario import (
     UsuarioCreacion as sch_UsuarioCreacion,
     UsuarioOptional as sch_UsuarioOptional,
@@ -89,15 +89,3 @@ def activar_usuario(db: Session, id_usuario: str):
 
 
 """ CRUD APOYO """
-
-
-def get_roles(db: Session):
-    return db.query(mod_rol).all()
-
-
-def get_rol_id(db: Session, id_rol):
-    return db.query(mod_rol).filter_by(id_rol=id_rol).first()
-
-
-def get_rol_nombre(db: Session, rol: str):
-    return db.query(mod_rol).filter_by(rol=rol).first()

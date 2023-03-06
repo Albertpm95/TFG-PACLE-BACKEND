@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class Tipos(BaseModel):
+class Tipo(BaseModel):
     tipo: str
 
     class Config:

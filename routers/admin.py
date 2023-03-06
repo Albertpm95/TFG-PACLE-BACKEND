@@ -6,8 +6,14 @@ import codecs
 
 from crud import crud
 from crud import usuario as crud_usuario
+from crud import rol as crud_rol
+from crud import tipo as crud_tipo
+from crud import horario as crud_horario
 from schemas.usuario import UsuarioBase, UsuarioCreacion, UsuarioLogin, UsuarioOptional
 from schemas.rol_usuario import Rol
+from schemas.idiomas import Idioma
+from schemas.tipo import Tipo
+
 router = APIRouter()
 
 
@@ -58,4 +64,7 @@ async def update_usuario(
 ):
     return crud_usuario.update_usuario(db, id_usuario, usuario_updated)
 
-@router.put("/admin/usuario/rol", response_model=Rol)
+
+@router.put("", response_model=Rol)
+async def add_rol(rol: Rol, db: Session = Depends(crud.get_db)):
+    return crud_rol

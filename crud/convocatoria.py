@@ -51,14 +51,6 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
 """ CRUD APOYO """
 
 
-def get_idiomas(db: Session):
-    return db.query(mod_idiomas.Idiomas).all()
-
-
-def get_idioma_id(db: Session, id_idioma):
-    return db.query(mod_idiomas.Idiomas).filter_by(id_idioma=id_idioma).first()
-
-
 def get_tipos(db: Session):
     return db.query(mod_tipos.Tipos).all()
 
@@ -66,37 +58,3 @@ def get_tipos(db: Session):
 def get_tipo_id(db: Session, id_tipo):
     return db.query(mod_tipos.Tipos).filter_by(id_tipo=id_tipo).first()
 
-
-def get_horarios(db: Session):
-    return db.query(mod_horarios.Horarios).all()
-
-
-def get_horario_id(db: Session, id_horario):
-    return db.query(mod_horarios.Horarios).filter_by(id_horario=id_horario).first()
-
-
-def add_horario(
-    db: Session,
-    horario: str = Query(regex="/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/"),
-):
-    db_horario = mod_horarios.Horarios(horario=horario)
-    db.add(db_horario)
-    db.commit()
-    db.refresh(db_horario)
-    return db_horario
-
-
-def add_idioma(lenguaje: str, db: Session):
-    db_idioma = mod_idiomas.Idiomas(lenguaje=lenguaje)
-    db.add(db_idioma)
-    db.commit()
-    db.refresh(db_idioma)
-    return db_idioma
-
-
-def add_tipo(db: Session, tipo: str):
-    db_tipo = mod_tipos.Tipos(tipo=tipo)
-    db.add(db_tipo)
-    db.commit()
-    db.refresh(db_tipo)
-    return db_tipo
