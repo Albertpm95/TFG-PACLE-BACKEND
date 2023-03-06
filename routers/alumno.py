@@ -14,10 +14,10 @@ async def recuperar_alumnos(db: Session = Depends(crud.get_db)):
 
 
 @router.post("/alumnos/{nombre}")
-async def recuperar_alumno_nombre():
-    return
+async def recuperar_alumno_nombre(nombre: str, db: Session = Depends(crud.get_db)):
+    return crud_alumno.get_alumno_nombre(db=db, nombre=nombre)
 
 
-@router.post("/alumnos/{id}")
-async def recuperar_alumno_id():
-    return
+@router.get("/alumnos/{id_alumno}", response_model=AlumnoActa)
+async def recuperar_alumno_id(id_alumno: int, db: Session = Depends(crud.get_db)):
+    return crud_alumno.get_alumno_id(id_alumno=id_alumno, db=db)

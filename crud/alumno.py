@@ -23,12 +23,16 @@ def create_alumno(alumno: sch_alumno.AlumnoActa, db: Session):
 
 
 def get_alumnos(db: Session):
-    return db.query(mod_alumno).all()
+    return db.query(mod_alumno.Alumno).all()
 
 
 def get_alumno_dni(dni: str, db: Session):
-    return db.query(mod_alumno).filter_by(dni=dni)
+    return db.query(mod_alumno.Alumno).filter_by(dni=dni)
 
 
 def get_alumno_nombre(nombre: str, db: Session):
-    return db.query(mod_alumno).filter_by(nombre=nombre)
+    return db.query(mod_alumno.Alumno).filter_by(nombre=nombre)
+
+
+def get_alumno_id(id_alumno: int, db: Session):
+    return db.query(mod_alumno.Alumno).filter_by(id_alumno=id_alumno)
