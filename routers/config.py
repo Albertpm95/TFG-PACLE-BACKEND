@@ -37,4 +37,10 @@ async def recuperar_horarios_disponibles(db: Session = Depends(crud.get_db)):
 
 @router.get("/config/tipos", response_model=list[Tipo])
 async def recuperar_tipos_convocatoria(db: Session = Depends(crud.get_db)):
-    return crud_tipo.get_tipos(db=db)
+    tipos = crud_tipo.get_tipos(db=db)
+    if not tipos:
+        raise HTTPException(
+            status_code=404,
+            detail="No se ha podido recuperar la lista de tipos o esta vacia.",
+        )
+    return tipos

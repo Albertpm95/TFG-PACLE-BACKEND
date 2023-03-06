@@ -19,12 +19,12 @@ def crear_horario(db: Session, horario_nuevo: str):
 
 
 def get_horarios(db: Session):
-    return db.query(mod_horarios.Horarios).all()
+    return db.query(mod_horarios).all()
 
 
 def get_horario_id(db: Session, id_horario):
-    return db.query(mod_horarios.Horarios).filter_by(id_horario=id_horario).first()
+    return db.query(mod_horarios).filter_by(id_horario=id_horario).first()
 
 
 def get_horario_nombre(db: Session, horario: str):
-    return db.query(mod_horarios.Horarios).filter_by(horario=horario).first()
+    return db.query(mod_horarios).filter_by(horario=horario).first()
