@@ -19,7 +19,13 @@ def crear_tipo(db: Session, tipo_nuevo: str):
 
 
 def get_tipos(db: Session):
-    return db.query(mod_tipos).all()
+    tipos = db.query(mod_tipos).all()
+    if not tipos:
+        raise HTTPException(
+            status_code=404,
+            detail="No se ha podido recuperar la tipos de tipos o esta vacia.",
+        )
+    return tipos
 
 
 def get_tipo_id(db: Session, id_tipo):

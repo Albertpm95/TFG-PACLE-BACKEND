@@ -13,7 +13,7 @@ app.include_router(admin.router)
 app.include_router(acta.router)
 app.include_router(config.router)
 
-origins = ["http://localhost:4200*"]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
