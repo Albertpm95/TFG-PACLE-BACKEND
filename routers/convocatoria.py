@@ -10,7 +10,7 @@ from schemas.convocatoria import Convocatoria
 router = APIRouter()
 
 
-@router.get("/convocatorias/list", response_model=list[Convocatoria])
+@router.get("/convocatoria/list", response_model=list[Convocatoria])
 async def recuperar_lista_convocatorias(db: Session = Depends(crud.get_db)):
     convocatorias = crud_convocatoria.get_convocatorias(db)
     if not convocatorias:
@@ -21,14 +21,14 @@ async def recuperar_lista_convocatorias(db: Session = Depends(crud.get_db)):
     return convocatorias
 
 
-@router.get("/convocatorias/{id_convocatoria}")
+@router.get("/convocatoria/{id_convocatoria}")
 async def recuperar_convocatoria_id(
     id_convocatoria: str, db: Session = Depends(crud.get_db)
 ):
     return crud_convocatoria.get_convocatoria_id(id_convocatoria, db)
 
 
-@router.post("/convocatorias/create", response_model=convocatoria.Convocatoria)
+@router.put("/convocatoria/create", response_model=convocatoria.Convocatoria)
 async def crear_convocatoria(
     convocatoria: convocatoria.Convocatoria, db: Session = Depends(crud.get_db)
 ):

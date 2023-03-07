@@ -26,7 +26,7 @@ def get_convocatorias_activas(db: Session):
     return db.query(mod_convocatoria).filter_by(estado=True).all()
 
 
-def get_convocatoria_id(id_convocatoria: str, db: Session):
+def get_convocatoria_id(id_convocatoria: int, db: Session):
     return db.query(mod_convocatoria).filter(
         mod_convocatoria.id_convocatoria == id_convocatoria
     )

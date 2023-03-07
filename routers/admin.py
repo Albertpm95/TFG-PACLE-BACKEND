@@ -19,7 +19,7 @@ from schemas.horario import Horario
 router = APIRouter()
 
 
-@router.get("/admin/usuarios/list", response_model=list[UsuarioBase])
+@router.get("/admin/usuario/list", response_model=list[UsuarioBase])
 async def recuperar_list_usuarios(db: Session = Depends(crud.get_db)):
     return crud_usuario.get_users(db)
 
@@ -45,17 +45,17 @@ async def get_usuario_username(username: str, db: Session = Depends(crud.get_db)
     return crud_usuario.get_user_username(db, username)
 
 
-@router.post("/admin/usuario/alta")
+@router.put("/admin/usuario/create")
 async def alta_usuario(usuario: UsuarioCreacion, db: Session = Depends(crud.get_db)):
     return crud_usuario.alta_usuario(db, usuario)
 
 
-@router.patch("/admin/usuario/desactivar")
+@router.patch("/admin/usuario/disable")
 async def desactivar_usuario(id_usuario: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.desactivar_usuario(db, id_usuario)
 
 
-@router.patch("/admin/usuario/activar")
+@router.patch("/admin/usuario/enable")
 async def activar_usuario(id_usuario: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.activar_usuario(db, id_usuario)
 

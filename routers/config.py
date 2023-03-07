@@ -13,7 +13,7 @@ from crud import idioma as crud_idioma
 router = APIRouter()
 
 
-@router.get("/config/idiomas", response_model=list[Idioma])
+@router.get("/config/idioma/list", response_model=list[Idioma])
 async def recuperar_idiomas_disponibles(db: Session = Depends(crud.get_db)):
     idiomas = crud_idioma.get_idiomas(db=db)
     if not idiomas:
@@ -24,7 +24,7 @@ async def recuperar_idiomas_disponibles(db: Session = Depends(crud.get_db)):
     return idiomas
 
 
-@router.get("/config/horarios", response_model=list[Horario])
+@router.get("/config/horario/list", response_model=list[Horario])
 async def recuperar_horarios_disponibles(db: Session = Depends(crud.get_db)):
     horarios = crud_horario.get_horarios(db=db)
     if not horarios:
@@ -35,7 +35,7 @@ async def recuperar_horarios_disponibles(db: Session = Depends(crud.get_db)):
     return horarios
 
 
-@router.get("/config/tipos", response_model=list[Tipo])
+@router.get("/config/tipo/list", response_model=list[Tipo])
 async def recuperar_tipos_convocatoria(db: Session = Depends(crud.get_db)):
     tipos = crud_tipo.get_tipos(db=db)
     if not tipos:

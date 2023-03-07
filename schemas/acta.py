@@ -7,6 +7,7 @@ from schemas.alumno import AlumnoActa
 
 
 class Acta(BaseModel):
+    id_acta: int
     alumno: AlumnoActa
     convocatoria: Convocatoria
     fecha: datetime

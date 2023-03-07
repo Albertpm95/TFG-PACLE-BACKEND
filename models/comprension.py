@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String
 
 from db.database import Base
 
@@ -6,6 +6,7 @@ from db.database import Base
 class Comprension(Base):
     __tablename__ = "comprension"
 
+    id_acta = Column(Integer, ForeignKey("actas.id_acta"))
     id_comprension = Column(Integer, primary_key=True, index=True)
     tipo = Column(String, nullable=False)
     observaciones = Column(String)
