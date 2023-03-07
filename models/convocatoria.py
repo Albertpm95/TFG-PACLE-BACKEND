@@ -20,7 +20,6 @@ class Convocatoria(Base):
     )
     id_convocatoria = Column(Integer, primary_key=True, index=True)
     lenguaje = Column(Integer, ForeignKey("idiomas.id_lenguaje"))
-    tipo = Column(Integer, ForeignKey("tipos.id_tipo"))
     fecha = Column(DateTime, nullable=False)
     horario = Column(Integer, ForeignKey("horarios.id_horario"))
     estado = Column(Boolean, nullable=False, default=True)
