@@ -1,12 +1,10 @@
-from fastapi import Query, HTTPException
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from models import tipo as mod_tipos
 from models.convocatoria import Convocatoria as mod_convocatoria
 from schemas.convocatoria import Convocatoria as sch_convocatoria
 
 from crud import idioma as crud_idioma
-from crud import tipo as crud_tipo
 from crud import horario as crud_horario
 
 """ CRUD PRINCIPAL """
@@ -47,12 +45,7 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
             status_code=404,
             detail="No se encuentra el horario seleccionado, no se ha podido crear la convocatoria.",
         )
-    existe_tipo = crud_tipo.get_tipo_id(db, convocatoria.tipo.id_tipo)
-    if not existe_tipo:
-        raise HTTPException(
-            status_code=404,
-            detail="No se encuentra el tipo seleccionado, no se ha podido crear la convocatoria.",
-        )
+
     db_convocatoria = mod_convocatoria(
         comprension_auditiva_puntuacion_maxima_parte=convocatoria.comprension_auditiva_puntuacion_maxima_parte,
         comprension_lectora_puntuacion_maxima_parte=convocatoria.comprension_lectora_puntuacion_maxima_parte,
@@ -61,7 +54,6 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
         estado=True,
         fecha=convocatoria.fecha,
         lenguaje=existe_lenguaje,
-        tipo=existe_tipo,
         horario=existe_horario,
     )
     db.add(db_convocatoria)
