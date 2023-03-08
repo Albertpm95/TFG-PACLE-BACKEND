@@ -6,7 +6,6 @@ from constants import VALOR_PUNTUACION_MAX_DEFECTO
 
 
 class Expresion(BaseModel):
-    id_acta: int
     tipo: str
     observaciones: str | None = None
     pocentaje: int = VALOR_PUNTUACION_MAX_DEFECTO

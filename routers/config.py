@@ -7,7 +7,6 @@ from schemas.idiomas import Idioma
 
 
 from crud import horario as crud_horario
-from crud import tipo as crud_tipo
 from crud import idioma as crud_idioma
 
 router = APIRouter()

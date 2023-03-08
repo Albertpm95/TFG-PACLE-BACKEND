@@ -4,7 +4,6 @@ from constants import VALOR_PUNTUACION_MAX_DEFECTO
 
 
 class Comprension(BaseModel):
-    id_acta: int
     tipo: str
     observaciones: str | None = None
     porcentaje: int = VALOR_PUNTUACION_MAX_DEFECTO

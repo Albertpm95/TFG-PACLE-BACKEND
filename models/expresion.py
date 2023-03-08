@@ -6,7 +6,6 @@ from db.database import Base
 class Expresion(Base):
     __tablename__ = "expresion"
 
-    id_acta = Column(Integer, ForeignKey("actas.id_acta"))
     id_expresion = Column(Integer, primary_key=True, index=True)
     tipo = Column(String, nullable=False)
     observaciones = Column(String)

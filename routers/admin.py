@@ -1,20 +1,18 @@
-from fastapi import APIRouter, UploadFile, Depends
+import codecs
+import csv
+
+from fastapi import APIRouter, Depends, UploadFile
 from sqlalchemy.orm import Session
 
-import csv
-import codecs
-
 from crud import crud
-from crud import usuario as crud_usuario
-from crud import rol as crud_rol
-from crud import tipo as crud_tipo
 from crud import horario as crud_horario
 from crud import idioma as crud_idioma
-from schemas.usuario import UsuarioBase, UsuarioCreacion, UsuarioLogin, UsuarioOptional
-from schemas.rol_usuario import Rol
-from schemas.idiomas import Idioma
-from schemas.tipo import Tipo
+from crud import rol as crud_rol
+from crud import usuario as crud_usuario
 from schemas.horario import Horario
+from schemas.idiomas import Idioma
+from schemas.rol_usuario import Rol
+from schemas.usuario import UsuarioBase, UsuarioCreacion, UsuarioOptional
 
 router = APIRouter()
 
@@ -75,11 +73,6 @@ async def create_rol(rol: str, db: Session = Depends(crud.get_db)):
 @router.put("/admin/horario/create", response_model=Horario)
 async def create_horario(horario_nuevo: str, db: Session = Depends(crud.get_db)):
     return crud_horario.crear_horario(db=db, horario_nuevo=horario_nuevo)
-
-
-@router.put("/admin/tipo/create", response_model=Tipo)
-async def create_tipo(tipo: str, db: Session = Depends(crud.get_db)):
-    return crud_tipo.crear_tipo(db=db, tipo_nuevo=tipo)
 
 
 @router.put("/admin/idioma/create", response_model=Idioma)
