@@ -4,7 +4,7 @@ from crud import crud
 from schemas.horario import Horario
 
 from schemas.idiomas import Idioma
-from schemas.tipo import Tipo
+
 
 from crud import horario as crud_horario
 from crud import tipo as crud_tipo
@@ -33,14 +33,3 @@ async def recuperar_horarios_disponibles(db: Session = Depends(crud.get_db)):
             detail="No se ha podido recuperar la lista de horarios o esta vacia.",
         )
     return horarios
-
-
-@router.get("/config/tipo/list", response_model=list[Tipo])
-async def recuperar_tipos_convocatoria(db: Session = Depends(crud.get_db)):
-    tipos = crud_tipo.get_tipos(db=db)
-    if not tipos:
-        raise HTTPException(
-            status_code=404,
-            detail="No se ha podido recuperar la lista de tipos o esta vacia.",
-        )
-    return tipos
