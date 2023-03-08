@@ -4,7 +4,6 @@ from sqlalchemy.orm import Session
 from crud import crud
 from crud import convocatoria as crud_convocatoria
 
-from schemas import convocatoria
 from schemas.convocatoria import Convocatoria
 
 router = APIRouter()
@@ -21,15 +20,15 @@ async def recuperar_lista_convocatorias(db: Session = Depends(crud.get_db)):
     return convocatorias
 
 
-@router.get("/convocatoria/{id_convocatoria}")
+@router.get("/convocatoria/{id_convocatoria}", response_model=Convocatoria)
 async def recuperar_convocatoria_id(
-    id_convocatoria: str, db: Session = Depends(crud.get_db)
+    id_convocatoria: int, db: Session = Depends(crud.get_db)
 ):
-    return crud_convocatoria.get_convocatoria_id(id_convocatoria, db)
+    return crud_convocatoria.get_convocatoria_id(id_convocatoria=id_convocatoria, db=db)
 
 
-@router.put("/convocatoria/create", response_model=convocatoria.Convocatoria)
-async def crear_convocatoria(
-    convocatoria: convocatoria.Convocatoria, db: Session = Depends(crud.get_db)
+@router.put("/convocatoria/create", response_model=Convocatoria)
+async def create_convocatoria(
+    convocatoria: Convocatoria, db: Session = Depends(crud.get_db)
 ):
     return crud_convocatoria.create_convocatoria(convocatoria=convocatoria, db=db)

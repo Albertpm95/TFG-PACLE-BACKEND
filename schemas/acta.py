@@ -3,12 +3,12 @@ from pydantic import BaseModel
 from schemas.convocatoria import Convocatoria
 from schemas.comprension import Comprension
 from schemas.expresion import Expresion
-from schemas.alumno import AlumnoActa
+from schemas.alumno import Alumno
 
 
 class Acta(BaseModel):
     id_acta: int
-    alumno: AlumnoActa
+    alumno: Alumno
     convocatoria: Convocatoria
     fecha: datetime
     expresion: Expresion
