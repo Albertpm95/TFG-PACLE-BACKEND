@@ -1,6 +1,9 @@
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Boolean
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, Boolean
+from sqlalchemy.orm import relationship, Mapped
 
 from db.database import Base
+from models.horario import Horario
+from models.idioma import Idioma
 
 
 class Convocatoria(Base):
@@ -19,7 +22,9 @@ class Convocatoria(Base):
         Integer(), nullable=False, default=0
     )
     id_convocatoria = Column(Integer, primary_key=True, index=True)
-    lenguaje = Column(Integer, ForeignKey("idiomas.id_lenguaje"))
+    id_lenguaje = Column(Integer, ForeignKey("idiomas.id_lenguaje"))
+    lenguaje: Mapped[Idioma] = relationship()
     fecha = Column(DateTime, nullable=False)
-    horario = Column(Integer, ForeignKey("horarios.id_horario"))
+    id_horario = Column(Integer, ForeignKey("horarios.id_horario"))
+    horario: Mapped[Horario] = relationship()
     estado = Column(Boolean, nullable=False, default=True)

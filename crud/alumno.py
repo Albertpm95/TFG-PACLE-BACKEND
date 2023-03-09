@@ -1,4 +1,3 @@
-from http.client import HTTPException
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
@@ -10,7 +9,7 @@ def create_alumno(alumno: sch_alumno.Alumno, db: Session):
     existe_alumno = get_alumno_dni(alumno.dni, db)
     if existe_alumno:
         raise HTTPException(
-            status_code=404, detail="Ya existe ese horario, no puede crearse otra vez."
+            status_code=404, detail="Ya existe ese alumno, no puede crearse otra vez."
         )
     if not existe_alumno:
         alumno_db = mod_alumno.Alumno(
@@ -24,11 +23,9 @@ def create_alumno(alumno: sch_alumno.Alumno, db: Session):
 
 def update_alumno(alumno: sch_alumno.Alumno, db: Session):
     existe_alumno = get_alumno_dni(alumno.dni, db)
-    if existe_alumno:
-        raise HTTPException(
-            status_code=404, detail="Ya existe ese horario, no puede crearse otra vez."
-        )
     if not existe_alumno:
+        raise HTTPException(status_code=404, detail="El alumno no existe.")
+    if existe_alumno:
         alumno_db = mod_alumno.Alumno(
             nombre=alumno.nombre, apellidos=alumno.apellidos, dni=alumno.dni
         )

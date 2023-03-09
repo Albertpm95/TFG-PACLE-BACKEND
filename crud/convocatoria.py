@@ -12,11 +12,6 @@ from crud import horario as crud_horario
 
 def get_convocatorias(db: Session):
     convocatorias = db.query(mod_convocatoria).all()
-    if not convocatorias:
-        raise HTTPException(
-            status_code=404,
-            detail="No se ha podido recuperar la lista de convocatorias o esta vacia.",
-        )
     return convocatorias
 
 

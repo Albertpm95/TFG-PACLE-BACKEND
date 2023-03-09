@@ -1,11 +1,10 @@
+from typing import Optional
 from pydantic import BaseModel
-
-from constants import ROLES
 
 
 class Rol(BaseModel):
     id_rol: int
-    rol: ROLES
+    rol: Optional[str]
 
     class Config:
         orm_mode = True

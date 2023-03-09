@@ -5,7 +5,6 @@ from crud import crud
 from crud import usuario as crud_usuario
 from crud import login as crud_login
 from schemas.usuario import UsuarioBase, UsuarioCreacion, UsuarioOptional
-from schemas.rol_usuario import Rol
 
 router = APIRouter()
 
@@ -22,27 +21,27 @@ async def recuperar_list_usuarios(db: Session = Depends(crud.get_db)):
     return crud_usuario.get_users(db)
 
 
-@router.get("/usuario/{id_usuario}")
+@router.get("/usuario/{id_usuario}", response_model=UsuarioBase)
 async def get_usuario_id(id_usuario: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.get_user_id(db, id_usuario)
 
 
-@router.get("/usuario/{username}")
+@router.get("/usuario/{username}", response_model=UsuarioBase)
 async def get_usuario_username(username: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.get_user_username(db, username)
 
 
-@router.put("/usuario/create")
+@router.put("/usuario/create", response_model=UsuarioBase)
 async def alta_usuario(usuario: UsuarioCreacion, db: Session = Depends(crud.get_db)):
     return crud_usuario.alta_usuario(db, usuario)
 
 
-@router.patch("/usuario/disable")
+@router.patch("/usuario/disable", response_model=UsuarioBase)
 async def desactivar_usuario(id_usuario: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.desactivar_usuario(db, id_usuario)
 
 
-@router.patch("/usuario/enable")
+@router.patch("/usuario/enable", response_model=UsuarioBase)
 async def activar_usuario(id_usuario: str, db: Session = Depends(crud.get_db)):
     return crud_usuario.activar_usuario(db, id_usuario)
 

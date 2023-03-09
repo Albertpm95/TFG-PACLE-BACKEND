@@ -11,13 +11,7 @@ router = APIRouter()
 
 @router.get("/convocatoria/list", response_model=list[Convocatoria])
 async def recuperar_lista_convocatorias(db: Session = Depends(crud.get_db)):
-    convocatorias = crud_convocatoria.get_convocatorias(db)
-    if not convocatorias:
-        raise HTTPException(
-            status_code=404,
-            detail="No se ha podido recuperar la lista de convocatorias o esta vacia.",
-        )
-    return convocatorias
+    return crud_convocatoria.get_convocatorias(db)
 
 
 @router.get("/convocatoria/{id_convocatoria}", response_model=Convocatoria)

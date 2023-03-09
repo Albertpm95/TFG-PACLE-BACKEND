@@ -9,26 +9,20 @@ class UsuarioBase(BaseModel):
     estado: bool
     id_usuario: int
     nombre: str
-    rol: Rol
     username: str
+    rol: Rol
 
     class Config:
         orm_mode = True
 
 
-class UsuarioCreacion(UsuarioBase):
+class UsuarioCreacion(Rol):
     plain_password: str
 
-    class Config:
-        orm_mode = True
 
-
-class UsuarioLogin(UsuarioBase):
+class UsuarioLogin(Rol):
     hashed_password: str
 
-    class Config:
-        orm_mode = True
 
-
-class UsuarioOptional(UsuarioBase):
+class UsuarioOptional(Rol):
     __annotations__ = {k: Optional[v] for k, v in UsuarioBase.__annotations__.items()}

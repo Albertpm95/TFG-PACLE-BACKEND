@@ -4,15 +4,15 @@ from sqlalchemy.orm import Session
 from models import comprension as mod_comprension
 
 
-def get_expresion_auditiva(id_acta: int, db: Session):
+def get_compresion_auditiva(id_compresion: int, db: Session):
     return db.query(mod_comprension).filter(
         mod_comprension.Comprension.tipo == "auditiva",
-        mod_comprension.Comprension.id_acta == id_acta,
+        mod_comprension.Comprension.id_comprension == id_compresion,
     )
 
 
-def get_expresion_lectiva(id_acta: int, db: Session):
+def get_compresion_lectiva(id_compresion: int, db: Session):
     return db.query(mod_comprension).filter(
         mod_comprension.Comprension.tipo == "lectiva",
-        mod_comprension.Comprension.id_acta == id_acta,
+        mod_comprension.Comprension.id_comprension == id_compresion,
     )

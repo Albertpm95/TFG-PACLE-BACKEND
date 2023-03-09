@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from sqlalchemy import Integer
 from schemas.tarea import Tarea
 
 from constants import VALOR_PUNTUACION_MAX_DEFECTO
