@@ -7,5 +7,4 @@ class Rol(Base):
     __tablename__ = "rol"
 
     id_rol = Column(Integer, primary_key=True)
-    rol = Column(String, nullable=False)
-    
+    rol = Column(String, nullable=False, unique=True)
