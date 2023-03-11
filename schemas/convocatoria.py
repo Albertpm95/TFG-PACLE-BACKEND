@@ -3,7 +3,8 @@ from datetime import datetime
 from pydantic import BaseModel
 
 from schemas.horario import Horario
-from schemas.idiomas import Idioma
+from schemas.lenguaje import Lenguaje
+from schemas.nivel import Nivel
 
 
 class Convocatoria(BaseModel):
@@ -14,8 +15,15 @@ class Convocatoria(BaseModel):
     expresion_oral_puntuacion_maxima_parte: int
     fecha: datetime | None = None
     horario: Horario
+    lenguaje: Lenguaje
+    nivel: Nivel
+
+    class Config:
+        orm_mode = True
+
+
+class ConvocatoriaDB(Convocatoria):
     id_convocatoria: int
-    lenguaje: Idioma
 
     class Config:
         orm_mode = True

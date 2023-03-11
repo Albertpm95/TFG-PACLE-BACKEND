@@ -14,7 +14,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base(metadata=metadata)
 
 from models import (
-    idioma,
+    lenguaje,
     horario,
     convocatoria,
     rol_usuario,

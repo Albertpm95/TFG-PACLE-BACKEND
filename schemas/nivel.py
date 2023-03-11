@@ -1,9 +1,9 @@
 from pydantic import BaseModel
 
 
-class Idioma(BaseModel):
-    id_lenguaje: int
-    lenguaje: str
+class Nivel(BaseModel):
+    id_nivel: int
+    nivel: str
 
     class Config:
         orm_mode = True

@@ -3,19 +3,19 @@ from sqlalchemy.orm import Session
 
 from crud import crud
 from crud import horario as crud_horario
-from crud import idioma as crud_idioma
+from crud import lenguaje as crud_idioma
 from schemas.horario import Horario
-from schemas.idiomas import Idioma
+from schemas.lenguaje import Lenguaje
 
 router = APIRouter()
 
 
-@router.get("/config/idioma/list", response_model=list[Idioma])
+@router.get("/config/lenguaje/list", response_model=list[Lenguaje])
 async def recuperar_idiomas_disponibles(db: Session = Depends(crud.get_db)):
     return crud_idioma.get_idiomas(db=db)
 
 
-@router.put("/config/idioma/create", response_model=Idioma)
+@router.put("/config/lenguaje/create", response_model=Lenguaje)
 async def create_idioma(idioma_nuevo: str, db: Session = Depends(crud.get_db)):
     return crud_idioma.crear_idioma(db=db, idioma_nuevo=idioma_nuevo)
 
