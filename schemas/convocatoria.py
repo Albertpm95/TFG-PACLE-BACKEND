@@ -8,11 +8,11 @@ from schemas.nivel import Nivel
 
 
 class Convocatoria(BaseModel):
-    comprension_auditiva_puntuacion_maxima_parte: int
-    comprension_lectora_puntuacion_maxima_parte: int
+    maximo_comprension_lectora: int
+    maximo_comprension_auditiva: int
     estado: bool
-    expresion_escrita_puntuacion_maxima_parte: int
-    expresion_oral_puntuacion_maxima_parte: int
+    maximo_expresion_escrita: int
+    maximo_expresion_oral: int
     fecha: datetime | None = None
     horario: Horario
     lenguaje: Lenguaje

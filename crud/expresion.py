@@ -18,19 +18,15 @@ def get_expresion_escrita(id_expresion: int, db: Session):
 
 
 def create_expresion_escrita(expresion_nueva: sch_expresion_escrita, db: Session):
-    nueva_tarea_1 = crud_tarea.create_tarea(expresion_nueva.tarea_1, db)
-    nueva_tarea_2 = crud_tarea.create_tarea(expresion_nueva.tarea_2, db)
     expresion_db = mod_expresion_escrita(
         observaciones=expresion_nueva.observaciones,
         porcentaje=expresion_nueva.porcentaje,
         puntos_conseguidos=expresion_nueva.puntos_conseguidos,
         puntuacion_maxima_parte=expresion_nueva.puntuacion_maxima_parte,
-        tarea_1=nueva_tarea_1,
-        tarea_2=nueva_tarea_2,
     )
-    db.add(expresion_db)
-    db.commit()
-    db.refresh(expresion_db)
+    # db.add(expresion_db)
+    # db.commit()
+    # db.refresh(expresion_db)
     return expresion_db
 
 

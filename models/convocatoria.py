@@ -10,10 +10,10 @@ from models.nivel import Nivel
 class Convocatoria(Base):
     __tablename__ = "convocatorias"
 
-    comprension_auditiva_puntuacion_maxima_parte = Column(Integer, nullable=False)
-    comprension_lectora_puntuacion_maxima_parte = Column(Integer, nullable=False)
-    expresion_escrita_puntuacion_maxima_parte = Column(Integer, nullable=False)
-    expresion_oral_puntuacion_maxima_parte = Column(Integer, nullable=False)
+    maximo_comprension_lectora = Column(Integer, nullable=False)
+    maximo_comprension_auditiva = Column(Integer, nullable=False)
+    maximo_expresion_escrita = Column(Integer, nullable=False)
+    maximo_expresion_oral = Column(Integer, nullable=False)
     id_convocatoria = Column(Integer, primary_key=True, index=True)
     id_lenguaje = Column(Integer, ForeignKey("lenguajes.id_lenguaje"))
     lenguaje: Mapped[Lenguaje] = relationship()

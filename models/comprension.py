@@ -1,4 +1,3 @@
-from typing import List
 
 from sqlalchemy import Column, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -15,9 +14,7 @@ class Comprension(Base):
     porcentaje = Column(Integer, nullable=False, default=0)
     puntos_conseguidos = Column(Integer, nullable=False, default=0)
     puntuacion_maxima_parte = Column(Integer, nullable=False, default=0)
-    puntuacion_tarea_1 = Column(Integer, nullable=False, default=0)
-    puntuacion_tarea_2 = Column(Integer, nullable=False, default=0)
-    puntuacion_tarea_3 = Column(Integer, nullable=False, default=0)
+
     __table_args__ = (
         UniqueConstraint("id_comprension", "tipo", name="acta_comprension_unique"),
     )

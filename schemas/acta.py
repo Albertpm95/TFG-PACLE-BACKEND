@@ -3,17 +3,17 @@ from typing import Optional
 from pydantic import BaseModel
 from schemas.comprension_lectora import ComprensionLectora
 
-from schemas.convocatoria import Convocatoria
+from schemas.convocatoria import ConvocatoriaDB
 from schemas.comprension_auditiva import ComprensionAuditiva
 from schemas.comprension_auditiva import ComprensionAuditiva
 from schemas.expresion_escrita import ExpresionEscrita
 from schemas.expresion_oral import ExpresionOral
-from schemas.alumno import Alumno
+from schemas.alumno import AlumnoDB
 
 
 class ActaBase(BaseModel):
-    alumno: Alumno
-    convocatoria: Convocatoria
+    alumno: AlumnoDB
+    convocatoria: ConvocatoriaDB
     fecha: datetime
     expresion_oral: ExpresionOral
     expresion_escrita: ExpresionOral

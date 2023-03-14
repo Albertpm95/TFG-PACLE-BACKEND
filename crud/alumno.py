@@ -61,10 +61,11 @@ def get_alumno_nombre(nombre: str, db: Session):
 
 
 def get_alumno_id(id_alumno: int, db: Session):
-    alumno = db.query(mod_alumno).first()
+    alumno = db.query(mod_alumno).filter(mod_alumno.id_alumno == id_alumno).first()
     if not alumno:
         raise HTTPException(
             status_code=404,
             detail="No se encuentra el alumno solicitado.",
         )
-    return db.query(mod_alumno).filter(mod_alumno.id_alumno == id_alumno).first()
+    print(str(db.query(mod_alumno).first()))
+    return alumno

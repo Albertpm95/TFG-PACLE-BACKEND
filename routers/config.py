@@ -4,8 +4,10 @@ from sqlalchemy.orm import Session
 from crud import crud
 from crud import horario as crud_horario
 from crud import lenguaje as crud_idioma
+from crud import nivel as crud_nivel
 from schemas.horario import Horario
 from schemas.lenguaje import Lenguaje
+from schemas.nivel import Nivel
 
 router = APIRouter()
 
@@ -28,3 +30,13 @@ async def recuperar_horarios_disponibles(db: Session = Depends(crud.get_db)):
 @router.put("/config/horario/create", response_model=Horario)
 async def create_horario(horario_nuevo: str, db: Session = Depends(crud.get_db)):
     return crud_horario.crear_horario(db=db, horario_nuevo=horario_nuevo)
+
+
+@router.get("/config/nivel/list", response_model=list[Nivel])
+async def recuperar_niveles_disponibles(db: Session = Depends(crud.get_db)):
+    return crud_nivel.get_niveles(db=db)
+
+
+@router.put("/config/nivel/create", response_model=Nivel)
+async def create_nivel(nivel_nuevo: str, db: Session = Depends(crud.get_db)):
+    return crud_nivel.crear_nivel(db=db, nivel_nuevo=nivel_nuevo)

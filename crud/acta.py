@@ -28,17 +28,17 @@ def create_acta(db: Session, acta: ActaBase):
         )
 
 
-def get_convocatorias(db: Session):
+def get_actas(db: Session):
     return db.query(mod_acta.Acta).all()
 
 
-def get_convocatoria_id(id_convocatoria: int, db: Session):
+def get_acta_id(id_convocatoria: int, db: Session):
     return db.query(mod_acta.Acta).filter(
         mod_acta.Acta.id_convocatoria == id_convocatoria
     )
 
 
-def existe_acta_alumno_convocatoria(id_convocatoria: int, id_alumno: int, db: Session):
+def existe_acta_alumno_acta(id_convocatoria: int, id_alumno: int, db: Session):
     return db.query(mod_acta.Acta).filter(
         mod_acta.Acta.id_convocatoria == id_convocatoria,
         mod_acta.Acta.id_alumno == id_alumno,

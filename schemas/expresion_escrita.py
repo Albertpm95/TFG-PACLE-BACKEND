@@ -9,8 +9,7 @@ class ExpresionEscrita(BaseModel):
     porcentaje: int = VALOR_PUNTUACION_MAX_DEFECTO
     puntos_conseguidos: int = VALOR_PUNTUACION_MAX_DEFECTO
     puntuacion_maxima_parte: int = VALOR_PUNTUACION_MAX_DEFECTO
-    tarea_1: Tarea
-    tarea_2: Tarea
+    tareas: list[Tarea]
 
     class Config:
         orm_mode = True

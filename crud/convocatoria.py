@@ -51,10 +51,10 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
         )
 
     db_convocatoria = mod_convocatoria(
-        comprension_auditiva_puntuacion_maxima_parte=convocatoria.comprension_auditiva_puntuacion_maxima_parte,
-        comprension_lectora_puntuacion_maxima_parte=convocatoria.comprension_lectora_puntuacion_maxima_parte,
-        expresion_escrita_puntuacion_maxima_parte=convocatoria.expresion_escrita_puntuacion_maxima_parte,
-        expresion_oral_puntuacion_maxima_parte=convocatoria.expresion_oral_puntuacion_maxima_parte,
+        maximo_comprension_auditiva=convocatoria.maximo_comprension_auditiva,
+        maximo_comprension_lectora=convocatoria.maximo_comprension_lectora,
+        maximo_expresion_escrita=convocatoria.maximo_expresion_escrita,
+        maximo_expresion_oral=convocatoria.maximo_expresion_oral,
         estado=True,
         fecha=convocatoria.fecha,
         lenguaje=existe_lenguaje,

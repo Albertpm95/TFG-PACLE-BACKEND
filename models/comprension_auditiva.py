@@ -1,6 +1,9 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship, Mapped
 
 from db.database import Base
+
+from models.tarea import Tarea
 
 
 class ComprensionAuditiva(Base):
@@ -11,6 +14,5 @@ class ComprensionAuditiva(Base):
     porcentaje = Column(Integer, nullable=False, default=0)
     puntos_conseguidos = Column(Integer, nullable=False, default=0)
     puntuacion_maxima_parte = Column(Integer, nullable=False, default=0)
-    puntuacion_tarea_1 = Column(Integer, nullable=False, default=0)
-    puntuacion_tarea_2 = Column(Integer, nullable=False, default=0)
-    puntuacion_tarea_3 = Column(Integer, nullable=False, default=0)
+    id_tarea = Column(Integer, ForeignKey("tarea.id_tarea"))
+    tareas: Mapped[Tarea] = relationship()

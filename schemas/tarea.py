@@ -1,13 +1,16 @@
 from pydantic import BaseModel
-from schemas.usuario import UsuarioBase
 
 
 class Tarea(BaseModel):
-    alcance: int
-    coherencia: int
-    correccion: int
-    eficaciaC: int
-    corrector: UsuarioBase
-    
+    valor: int
+    nombre_tarea: str
+
+    class Config:
+        orm_mode = True
+
+
+class TareaDB(Tarea):
+    id_tarea: int
+
     class Config:
         orm_mode = True
