@@ -1,24 +1,24 @@
 from fastapi import Query, HTTPException
 from sqlalchemy.orm import Session
 
-from schemas.expresion_escrita import ExpresionEscrita as sch_expresion_escrita
+from schemas.expresion_escrita import ExpresionEscrita as sch_expresionEscrita
 from schemas.expresion_oral import ExpresionOral as sch_expresion_oral
-from models.expresion_escrita import ExpresionEscrita as mod_expresion_escrita
+from models.expresion_escrita import ExpresionEscrita as mod_expresionEscrita
 from models.expresion_oral import ExpresionOral as mod_expresion_oral
 
 from crud import tarea as crud_tarea
 
 
-def get_expresion_escrita(id_expresion: int, db: Session):
+def get_expresionEscrita(id_expresion: int, db: Session):
     return (
-        db.query(mod_expresion_escrita)
-        .filter(mod_expresion_escrita.id_expresion == id_expresion)
+        db.query(mod_expresionEscrita)
+        .filter(mod_expresionEscrita.id_expresion == id_expresion)
         .first()
     )
 
 
-def create_expresion_escrita(expresion_nueva: sch_expresion_escrita, db: Session):
-    expresion_db = mod_expresion_escrita(
+def create_expresionEscrita(expresion_nueva: sch_expresionEscrita, db: Session):
+    expresion_db = mod_expresionEscrita(
         observaciones=expresion_nueva.observaciones,
         porcentaje=expresion_nueva.porcentaje,
         puntos_conseguidos=expresion_nueva.puntos_conseguidos,

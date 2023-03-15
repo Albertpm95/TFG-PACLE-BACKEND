@@ -13,21 +13,27 @@ from models.comprension_lectora import ComprensionLectora
 class Acta(Base):
     __tablename__ = "actas"
 
-    id_acta = Column(Integer, primary_key=True)
-    id_convocatoria = Column(Integer, ForeignKey("convocatorias.id_convocatoria"))
-    convocatoria: Mapped[Convocatoria] = relationship()
-    id_alumno = Column(Integer, ForeignKey("alumnos.id_alumno"))
-    alumno: Mapped[Alumno] = relationship()
+    idActa = Column(Integer, primary_key=True)
     fecha = Column(DateTime, nullable=False)
-    id_expresion_escrita = Column(Integer, ForeignKey("expresion_escrita.id_expresion"))
-    expresion_escrita: Mapped[ExpresionEscrita] = relationship()
-    id_expresion_oral = Column(Integer, ForeignKey("expresion_oral.id_expresion"))
+
+    idConvocatoria = Column(Integer, ForeignKey("convocatorias.idConvocatoria"))
+    convocatoria: Mapped[Convocatoria] = relationship()
+
+    idAlumno = Column(Integer, ForeignKey("alumnos.idAlumno"))
+    alumno: Mapped[Alumno] = relationship()
+
+    idExpresionEscrita = Column(Integer, ForeignKey("expresion_escrita.idExpresion"))
+    expresionEscrita: Mapped[ExpresionEscrita] = relationship()
+
+    idExpresionOral = Column(Integer, ForeignKey("expresion_oral.idExpresion"))
     expresion_oral: Mapped[ExpresionOral] = relationship()
-    id_comprension_lectora = Column(
-        Integer, ForeignKey("comprension_lectora.id_comprension")
+
+    idComprensionLectora = Column(
+        Integer, ForeignKey("comprension_lectora.idComprension")
     )
-    comprension_lectora: Mapped[ComprensionLectora] = relationship()
-    id_comprension_auditiva = Column(
-        Integer, ForeignKey("comprension_auditiva.id_comprension")
+    comprensionLectora: Mapped[ComprensionLectora] = relationship()
+
+    idComprensionAuditiva = Column(
+        Integer, ForeignKey("comprension_auditiva.idComprension")
     )
-    comprension_auditiva: Mapped[ComprensionAuditiva] = relationship()
+    comprensionAuditiva: Mapped[ComprensionAuditiva] = relationship()

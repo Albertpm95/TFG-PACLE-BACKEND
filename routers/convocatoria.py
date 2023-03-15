@@ -14,11 +14,11 @@ async def recuperar_lista_convocatorias(db: Session = Depends(crud.get_db)):
     return crud_convocatoria.get_convocatorias(db)
 
 
-@router.get("/convocatoria/update/{id_convocatoria}", response_model=ConvocatoriaDB)
+@router.get("/convocatoria/update/{idConvocatoria}", response_model=ConvocatoriaDB)
 async def recuperar_convocatoria_id(
-    id_convocatoria: int, db: Session = Depends(crud.get_db)
+    idConvocatoria: int, db: Session = Depends(crud.get_db)
 ):
-    return crud_convocatoria.get_convocatoria_id(id_convocatoria=id_convocatoria, db=db)
+    return crud_convocatoria.get_convocatoria_id(idConvocatoria=idConvocatoria, db=db)
 
 
 @router.put("/convocatoria/create", response_model=ConvocatoriaDB)

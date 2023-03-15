@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class Lenguaje(BaseModel):
-    id_lenguaje: int
+    idLenguaje: int
     lenguaje: str
 
     class Config:

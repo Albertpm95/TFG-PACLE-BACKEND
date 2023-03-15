@@ -8,11 +8,11 @@ from schemas.nivel import Nivel
 
 
 class Convocatoria(BaseModel):
-    maximo_comprension_lectora: int
-    maximo_comprension_auditiva: int
+    maxComprensionLectora: int
+    maxComprensionAuditiva: int
     estado: bool
-    maximo_expresion_escrita: int
-    maximo_expresion_oral: int
+    maxExpresionEscrita: int
+    maxExpresion_oral: int
     fecha: datetime | None = None
     horario: Horario
     lenguaje: Lenguaje
@@ -23,7 +23,7 @@ class Convocatoria(BaseModel):
 
 
 class ConvocatoriaDB(Convocatoria):
-    id_convocatoria: int
+    idConvocatoria: int
 
     class Config:
         orm_mode = True

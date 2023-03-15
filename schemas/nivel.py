@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class Nivel(BaseModel):
-    id_nivel: int
+    idNivel: int
     nivel: str
 
     class Config:

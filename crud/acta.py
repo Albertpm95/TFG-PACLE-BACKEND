@@ -12,7 +12,7 @@ from crud import alumno as crud_alumno
 
 def create_acta(db: Session, acta: ActaBase):
     existe_convocatoria = crud_convocatoria.get_convocatoria_id(
-        db=db, id_convocatoria=acta.convocatoria.id_convocatoria
+        db=db, idConvocatoria=acta.convocatoria.idConvocatoria
     )
     if not existe_convocatoria:
         raise HTTPException(
@@ -20,7 +20,7 @@ def create_acta(db: Session, acta: ActaBase):
             detail="No se ha podido crear el acta, no existe la convocatoria.",
         )
 
-    existe_alumno = crud_alumno.get_alumno_id(acta.alumno.id_alumno, db=db)
+    existe_alumno = crud_alumno.get_alumno_id(acta.alumno.idAlumno, db=db)
     if not existe_alumno:
         raise HTTPException(
             status_code=404,
@@ -32,14 +32,14 @@ def get_actas(db: Session):
     return db.query(mod_acta.Acta).all()
 
 
-def get_acta_id(id_convocatoria: int, db: Session):
+def get_acta_id(idConvocatoria: int, db: Session):
     return db.query(mod_acta.Acta).filter(
-        mod_acta.Acta.id_convocatoria == id_convocatoria
+        mod_acta.Acta.idConvocatoria == idConvocatoria
     )
 
 
-def existe_acta_alumno_acta(id_convocatoria: int, id_alumno: int, db: Session):
+def existe_acta_alumno_acta(idConvocatoria: int, idAlumno: int, db: Session):
     return db.query(mod_acta.Acta).filter(
-        mod_acta.Acta.id_convocatoria == id_convocatoria,
-        mod_acta.Acta.id_alumno == id_alumno,
+        mod_acta.Acta.idConvocatoria == idConvocatoria,
+        mod_acta.Acta.idAlumno == idAlumno,
     )

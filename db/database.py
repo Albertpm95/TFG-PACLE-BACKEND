@@ -16,14 +16,17 @@ Base = declarative_base(metadata=metadata)
 from models import (
     lenguaje,
     horario,
+    genero,
+    nivel,
+    shared,
     convocatoria,
     rol_usuario,
     usuario,
     tarea,
     expresion_escrita,
     expresion_oral,
-    comprension_lectora,
     comprension_auditiva,
+    comprension_lectora,
     alumno,
     acta,
 )  # Order in wich the tables have to be created

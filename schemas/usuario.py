@@ -16,13 +16,13 @@ class UsuarioBase(BaseModel):
         orm_mode = True
 
 
-class UsuarioCreacion(Rol):
+class UsuarioCreacion(UsuarioBase):
     plain_password: str
 
 
-class UsuarioLogin(Rol):
+class UsuarioLogin(UsuarioBase):
     hashed_password: str
 
 
-class UsuarioOptional(Rol):
+class UsuarioOptional(UsuarioBase):
     __annotations__ = {k: Optional[v] for k, v in UsuarioBase.__annotations__.items()}

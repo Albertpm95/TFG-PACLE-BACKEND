@@ -22,8 +22,8 @@ def get_horarios(db: Session):
     return db.query(mod_horario).all()
 
 
-def get_horario_id(db: Session, id_horario):
-    return db.query(mod_horario).filter_by(id_horario=id_horario).first()
+def get_horario_id(db: Session, idHorario):
+    return db.query(mod_horario).filter_by(idHorario=idHorario).first()
 
 
 def get_horario_nombre(db: Session, horario: str):

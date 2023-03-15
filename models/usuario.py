@@ -14,5 +14,5 @@ class Usuario(Base):
     id_usuario = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, nullable=False)
     username = Column(String, unique=True, nullable=False)
-    id_rol = Column(Integer, ForeignKey("rol.id_rol"))
+    idRol = Column(Integer, ForeignKey("roles.idRol"))
     rol: Mapped[Rol] = relationship()

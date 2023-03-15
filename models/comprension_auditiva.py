@@ -9,10 +9,10 @@ from models.tarea import Tarea
 class ComprensionAuditiva(Base):
     __tablename__ = "comprension_auditiva"
 
-    id_comprension = Column(Integer, primary_key=True)
+    idComprension = Column(Integer, primary_key=True)
     observaciones = Column(String)
     porcentaje = Column(Integer, nullable=False, default=0)
     puntos_conseguidos = Column(Integer, nullable=False, default=0)
     puntuacion_maxima_parte = Column(Integer, nullable=False, default=0)
-    id_tarea = Column(Integer, ForeignKey("tarea.id_tarea"))
+    idTarea = Column(Integer, ForeignKey("tareas.idTarea"))
     tareas: Mapped[Tarea] = relationship()

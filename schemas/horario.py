@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class Horario(BaseModel):
-    id_horario: int
+    idHorario: int
     horario: str
 
     class Config:

@@ -4,7 +4,7 @@ from db.database import Base
 
 
 class Rol(Base):
-    __tablename__ = "rol"
+    __tablename__ = "roles"
 
-    id_rol = Column(Integer, primary_key=True)
+    idRol = Column(Integer, primary_key=True)
     rol = Column(String, nullable=False, unique=True)

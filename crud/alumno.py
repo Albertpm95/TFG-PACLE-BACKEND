@@ -60,8 +60,8 @@ def get_alumno_nombre(nombre: str, db: Session):
     return alumno
 
 
-def get_alumno_id(id_alumno: int, db: Session):
-    alumno = db.query(mod_alumno).filter(mod_alumno.id_alumno == id_alumno).first()
+def get_alumno_id(idAlumno: int, db: Session):
+    alumno = db.query(mod_alumno).filter(mod_alumno.idAlumno == idAlumno).first()
     if not alumno:
         raise HTTPException(
             status_code=404,

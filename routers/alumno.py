@@ -18,9 +18,9 @@ async def recuperar_alumno_nombre(nombre: str, db: Session = Depends(crud.get_db
     return crud_alumno.get_alumno_nombre(db=db, nombre=nombre)
 
 
-@router.get("/alumno/update/{id_alumno}", response_model=AlumnoDB)
-async def recuperar_alumno_id(id_alumno: int, db: Session = Depends(crud.get_db)):
-    return crud_alumno.get_alumno_id(id_alumno=id_alumno, db=db)
+@router.get("/alumno/update/{idAlumno}", response_model=AlumnoDB)
+async def recuperar_alumno_id(idAlumno: int, db: Session = Depends(crud.get_db)):
+    return crud_alumno.get_alumno_id(idAlumno=idAlumno, db=db)
 
 
 @router.get("/alumno/update/{dni}", response_model=AlumnoDB)

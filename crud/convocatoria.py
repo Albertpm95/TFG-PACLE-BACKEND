@@ -20,10 +20,10 @@ def get_convocatorias_activas(db: Session):
     return db.query(mod_convocatoria).filter_by(estado=True).all()
 
 
-def get_convocatoria_id(id_convocatoria: int, db: Session):
+def get_convocatoria_id(idConvocatoria: int, db: Session):
     convocatoria = (
         db.query(mod_convocatoria)
-        .filter(mod_convocatoria.id_convocatoria == id_convocatoria)
+        .filter(mod_convocatoria.idConvocatoria == idConvocatoria)
         .first()
     )
     if not convocatoria:
@@ -35,14 +35,14 @@ def get_convocatoria_id(id_convocatoria: int, db: Session):
 
 
 def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
-    existe_lenguaje = crud_idioma.get_idioma_id(db, convocatoria.lenguaje.id_lenguaje)
+    existe_lenguaje = crud_idioma.get_idioma_id(db, convocatoria.lenguaje.idLenguaje)
     if not existe_lenguaje:
         raise HTTPException(
             status_code=404,
             detail="No se encuentra el lenguaje seleccionado, no se ha podido crear la convocatoria.",
         )
     existe_horario = crud_horario.get_horario_id(
-        db, id_horario=convocatoria.horario.id_horario
+        db, idHorario=convocatoria.horario.idHorario
     )
     if not existe_horario:
         raise HTTPException(
@@ -51,10 +51,10 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
         )
 
     db_convocatoria = mod_convocatoria(
-        maximo_comprension_auditiva=convocatoria.maximo_comprension_auditiva,
-        maximo_comprension_lectora=convocatoria.maximo_comprension_lectora,
-        maximo_expresion_escrita=convocatoria.maximo_expresion_escrita,
-        maximo_expresion_oral=convocatoria.maximo_expresion_oral,
+        maxComprensionAuditiva=convocatoria.maxComprensionAuditiva,
+        maxComprensionLectora=convocatoria.maxComprensionLectora,
+        maxExpresionEscrita=convocatoria.maxExpresionEscrita,
+        maxExpresion_oral=convocatoria.maxExpresion_oral,
         estado=True,
         fecha=convocatoria.fecha,
         lenguaje=existe_lenguaje,
@@ -67,14 +67,14 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
 
 
 def update_convocatoria(convocatoria: sch_convocatoria_DB, db: Session):
-    existe_lenguaje = crud_idioma.get_idioma_id(db, convocatoria.lenguaje.id_lenguaje)
+    existe_lenguaje = crud_idioma.get_idioma_id(db, convocatoria.lenguaje.idLenguaje)
     if not existe_lenguaje:
         raise HTTPException(
             status_code=404,
             detail="No se encuentra el lenguaje seleccionado, no se ha podido crear la convocatoria.",
         )
     existe_horario = crud_horario.get_horario_id(
-        db, id_horario=convocatoria.horario.id_horario
+        db, idHorario=convocatoria.horario.idHorario
     )
     if not existe_horario:
         raise HTTPException(

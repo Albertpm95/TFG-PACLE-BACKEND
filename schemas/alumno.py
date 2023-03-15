@@ -11,7 +11,7 @@ class Alumno(BaseModel):
 
 
 class AlumnoDB(Alumno):
-    id_alumno: int
+    idAlumno: int
 
     class Config:
         orm_mode = True
