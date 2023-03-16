@@ -2,7 +2,7 @@ from sqlalchemy import Column, String, Integer
 from db.database import Base
 
 
-class Horario(Base):
+class Genero(Base):
     __tablename__ = "generos"
 
     idGenero = Column(Integer, primary_key=True)

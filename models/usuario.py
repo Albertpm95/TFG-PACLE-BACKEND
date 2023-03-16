@@ -11,7 +11,7 @@ class Usuario(Base):
     apellidos = Column(String, nullable=False)
     estado = Column(Boolean, nullable=False)
     hashed_password = Column(String(length=60), nullable=False)
-    id_usuario = Column(Integer, primary_key=True, index=True)
+    idUsuario = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, nullable=False)
     username = Column(String, unique=True, nullable=False)
     idRol = Column(Integer, ForeignKey("roles.idRol"))

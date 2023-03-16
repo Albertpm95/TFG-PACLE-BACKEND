@@ -16,3 +16,4 @@ class ComprensionAuditiva(Base):
     puntuacion_maxima_parte = Column(Integer, nullable=False, default=0)
     idTarea = Column(Integer, ForeignKey("tareas.idTarea"))
     tareas: Mapped[Tarea] = relationship()
+    

@@ -1,8 +1,7 @@
-from sqlalchemy import Column, DateTime, ForeignKey, ForeignKeyConstraint, Integer
-from sqlalchemy.orm import relationship, Mapped, mapped_column
+from sqlalchemy import Column, DateTime, ForeignKey, Integer
+from sqlalchemy.orm import relationship, Mapped
 
 from db.database import Base
-from models.alumno import Alumno
 from models.convocatoria import Convocatoria
 from models.expresion_escrita import ExpresionEscrita
 from models.expresion_oral import ExpresionOral
@@ -18,9 +17,6 @@ class Acta(Base):
 
     idConvocatoria = Column(Integer, ForeignKey("convocatorias.idConvocatoria"))
     convocatoria: Mapped[Convocatoria] = relationship()
-
-    idAlumno = Column(Integer, ForeignKey("alumnos.idAlumno"))
-    alumno: Mapped[Alumno] = relationship()
 
     idExpresionEscrita = Column(Integer, ForeignKey("expresion_escrita.idExpresion"))
     expresionEscrita: Mapped[ExpresionEscrita] = relationship()

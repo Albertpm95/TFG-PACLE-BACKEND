@@ -27,6 +27,7 @@ from models import (
     expresion_oral,
     comprension_auditiva,
     comprension_lectora,
+    shared,
     alumno,
     acta,
 )  # Order in wich the tables have to be created
