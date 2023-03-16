@@ -13,7 +13,7 @@ class Convocatoria(Base):
     maxComprensionLectora = Column(Integer, nullable=False)
     maxComprensionAuditiva = Column(Integer, nullable=False)
     maxExpresionEscrita = Column(Integer, nullable=False)
-    maxExpresion_oral = Column(Integer, nullable=False)
+    maxExpresionOral = Column(Integer, nullable=False)
     idConvocatoria = Column(Integer, primary_key=True, index=True)
     idLenguaje = Column(Integer, ForeignKey("lenguajes.idLenguaje"))
     lenguaje: Mapped[Lenguaje] = relationship()

@@ -9,7 +9,6 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 from db.database import Base
-from models.acta import Acta
 from models.genero import Genero
 
 

@@ -23,7 +23,7 @@ def get_idioma_nombre(db: Session, lenguaje: str):
 
 
 def get_idioma_id(db: Session, idLenguaje: int):
-    return db.query(mod_idioma).filter_by(lenguaje=idLenguaje).first()
+    return db.query(mod_idioma).filter_by(idLenguaje=idLenguaje).first()
 
 
 def get_idiomas(db: Session):

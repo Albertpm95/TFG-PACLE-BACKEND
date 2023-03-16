@@ -1,29 +1,36 @@
 from __future__ import annotations
 
-from sqlalchemy import Column
-from sqlalchemy import Table
-from sqlalchemy import ForeignKey
+from sqlalchemy import Column, Table, ForeignKey, Integer, String
+from sqlalchemy.orm import mapped_column, Mapped, relationship
 
+from typing import Set
 from db.database import Base
+from models.tarea import Tarea
 
 
-alumnos_acta = Table(
-    "alumnos_acta",
-    Base.metadata,
-    Column("idActa", ForeignKey("actas.idActa"), primary_key=True),
-    Column("idAlumno", ForeignKey("alumnos.idAlumno"), primary_key=True),
-)
+class AlumnosActa(Base):
+    __tablename__ = "alumnos_acta"
 
-correctores_auditiva = Table(
-    "correctores_auditiva",
-    Base.metadata,
-    Column("idUsuario", ForeignKey("usuarios.idUsuario")),
-    Column("idComprensionAuditiva", ForeignKey("comprension_auditiva.idComprension")),
-)
+    id = Column(Integer, primary_key=True)
+    idActa = Column(Integer, ForeignKey("actas.idActa"))
+    idAlumno = Column(Integer, ForeignKey("alumnos.idAlumno"))
 
-correctores_lectora = Table(
-    "correctores_lectora",
-    Base.metadata,
-    Column("idUsuario", ForeignKey("usuarios.idUsuario")),
-    Column("idComprensionLectora", ForeignKey("comprension_lectora.idComprension")),
-)
+
+"""
+class CorrectorCompresion(Base):
+    __tablename__ = "corrector_compresion"
+
+    id = Column(Integer, primary_key=True)
+    idCorrector = Column(Integer, ForeignKey("usuarios.idUsuario"))
+    idComprension = Column(Integer, ForeignKey("comprension.idComprension"))
+"""
+
+
+class ParteExpresion(Base):
+    __tablename__ = "parte_expresion"
+
+    idParte = Column(Integer, primary_key=True)
+    idUsuario = Column(Integer, ForeignKey("usuarios.idUsuario"))
+    idExpresion = Column(Integer, ForeignKey("expresion.idExpresion"))
+    idTarea = Column(Integer, ForeignKey("tareas.idTarea"))
+    tareas: Mapped[list[Tarea]] = relationship()

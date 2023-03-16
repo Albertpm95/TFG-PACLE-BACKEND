@@ -1,12 +1,10 @@
 from sqlalchemy import Column, DateTime, ForeignKey, Integer
 from sqlalchemy.orm import relationship, Mapped
-
 from db.database import Base
 from models.convocatoria import Convocatoria
-from models.expresion_escrita import ExpresionEscrita
-from models.expresion_oral import ExpresionOral
-from models.comprension_auditiva import ComprensionAuditiva
-from models.comprension_lectora import ComprensionLectora
+from models.expresion import Expresion
+from models.comprension import Comprension
+from models.shared import AlumnosActa
 
 
 class Acta(Base):
@@ -18,18 +16,14 @@ class Acta(Base):
     idConvocatoria = Column(Integer, ForeignKey("convocatorias.idConvocatoria"))
     convocatoria: Mapped[Convocatoria] = relationship()
 
-    idExpresionEscrita = Column(Integer, ForeignKey("expresion_escrita.idExpresion"))
-    expresionEscrita: Mapped[ExpresionEscrita] = relationship()
+    idExpresionEscrita = Column(Integer, ForeignKey("expresion.idExpresion"))
+    expresionEscrita: Mapped[Expresion] = relationship()
 
-    idExpresionOral = Column(Integer, ForeignKey("expresion_oral.idExpresion"))
-    expresion_oral: Mapped[ExpresionOral] = relationship()
+    idExpresionOral = Column(Integer, ForeignKey("expresion.idExpresion"))
+    expresion_oral: Mapped[Expresion] = relationship()
 
-    idComprensionLectora = Column(
-        Integer, ForeignKey("comprension_lectora.idComprension")
-    )
-    comprensionLectora: Mapped[ComprensionLectora] = relationship()
+    idComprensionLectora = Column(Integer, ForeignKey("comprension.idComprension"))
+    comprensionLectora: Mapped[Comprension] = relationship()
 
-    idComprensionAuditiva = Column(
-        Integer, ForeignKey("comprension_auditiva.idComprension")
-    )
-    comprensionAuditiva: Mapped[ComprensionAuditiva] = relationship()
+    idComprensionAuditiva = Column(Integer, ForeignKey("comprension.idComprension"))
+    comprensionAuditiva: Mapped[Comprension] = relationship()

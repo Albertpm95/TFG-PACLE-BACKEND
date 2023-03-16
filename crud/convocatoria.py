@@ -7,6 +7,7 @@ from schemas.convocatoria import ConvocatoriaDB as sch_convocatoria_DB
 
 from crud import lenguaje as crud_idioma
 from crud import horario as crud_horario
+from crud import nivel as crud_nivel
 
 """ CRUD PRINCIPAL """
 
@@ -50,6 +51,13 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
             detail="No se encuentra el horario seleccionado, no se ha podido crear la convocatoria.",
         )
 
+    existe_nivel = crud_nivel.get_nivel_id(db, convocatoria.nivel.idNivel)
+    if not existe_nivel:
+        raise HTTPException(
+            status_code=404,
+            detail="No se encuentra el nivel seleccionado, no se ha podido crear la convocatoria.",
+        )
+
     db_convocatoria = mod_convocatoria(
         maxComprensionAuditiva=convocatoria.maxComprensionAuditiva,
         maxComprensionLectora=convocatoria.maxComprensionLectora,
@@ -59,6 +67,7 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
         fecha=convocatoria.fecha,
         lenguaje=existe_lenguaje,
         horario=existe_horario,
+        nivel=existe_nivel,
     )
     db.add(db_convocatoria)
     db.commit()

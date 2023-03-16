@@ -22,7 +22,7 @@ def get_niveles(db: Session):
     return db.query(mod_nivel).all()
 
 
-def get_nivel_id(db: Session, idNivel):
+def get_nivel_id(db: Session, idNivel: int):
     return db.query(mod_nivel).filter_by(idNivel=idNivel).first()
 
 

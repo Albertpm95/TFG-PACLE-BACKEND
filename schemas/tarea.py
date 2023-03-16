@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 
+from schemas.usuario import UsuarioBase
+
 
 class Tarea(BaseModel):
     valor: int
@@ -11,6 +13,14 @@ class Tarea(BaseModel):
 
 class TareaDB(Tarea):
     id_tarea: int
+
+    class Config:
+        orm_mode = True
+
+
+class TareasExpresion(BaseModel):
+    corrector: UsuarioBase
+    listaTareas: list[Tarea]
 
     class Config:
         orm_mode = True

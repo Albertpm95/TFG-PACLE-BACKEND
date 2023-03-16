@@ -7,7 +7,7 @@ from schemas.rol_usuario import Rol
 class UsuarioBase(BaseModel):
     apellidos: str
     estado: bool
-    id_usuario: int
+    idUsuario: int
     nombre: str
     username: str
     rol: Rol

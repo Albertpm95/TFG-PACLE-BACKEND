@@ -1,9 +1,9 @@
 from fastapi import Query, HTTPException
 from sqlalchemy.orm import Session
 
-from schemas.expresion_escrita import ExpresionEscrita as sch_expresionEscrita
+from schemas.expresion import ExpresionEscrita as sch_expresionEscrita
 from schemas.expresion_oral import ExpresionOral as sch_expresion_oral
-from models.expresion_escrita import ExpresionEscrita as mod_expresionEscrita
+from models.expresion import ExpresionEscrita as mod_expresionEscrita
 from models.expresion_oral import ExpresionOral as mod_expresion_oral
 
 from crud import tarea as crud_tarea
@@ -21,8 +21,8 @@ def create_expresionEscrita(expresion_nueva: sch_expresionEscrita, db: Session):
     expresion_db = mod_expresionEscrita(
         observaciones=expresion_nueva.observaciones,
         porcentaje=expresion_nueva.porcentaje,
-        puntos_conseguidos=expresion_nueva.puntos_conseguidos,
-        puntuacion_maxima_parte=expresion_nueva.puntuacion_maxima_parte,
+        puntosConseguidos=expresion_nueva.puntosConseguidos,
+        puntuacionMaxima=expresion_nueva.puntuacionMaxima,
     )
     # db.add(expresion_db)
     # db.commit()
@@ -44,8 +44,8 @@ def create_expresion_oral(expresion_nueva: sch_expresion_oral, db: Session):
     expresion_db = mod_expresion_oral(
         observaciones=expresion_nueva.observaciones,
         porcentaje=expresion_nueva.porcentaje,
-        puntos_conseguidos=expresion_nueva.puntos_conseguidos,
-        puntuacion_maxima_parte=expresion_nueva.puntuacion_maxima_parte,
+        puntosConseguidos=expresion_nueva.puntosConseguidos,
+        puntuacionMaxima=expresion_nueva.puntuacionMaxima,
         tarea_1=nueva_tarea_1,
         tarea_2=nueva_tarea_2,
     )
