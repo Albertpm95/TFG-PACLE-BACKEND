@@ -6,4 +6,4 @@ class Lenguaje(Base):
     __tablename__ = "lenguajes"
 
     idLenguaje = Column(Integer, primary_key=True)
-    lenguaje = Column(String, nullable=False)
+    lenguaje = Column(String, nullable=False, unique=True)

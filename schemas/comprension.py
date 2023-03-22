@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 from constants import VALOR_PUNTUACION_MAX_DEFECTO
-from schemas.tarea import Tarea
+from schemas.correccion import Correccion
 
 
 class Comprension(BaseModel):
@@ -10,7 +10,7 @@ class Comprension(BaseModel):
     porcentaje: int = VALOR_PUNTUACION_MAX_DEFECTO
     puntosConseguidos: int = VALOR_PUNTUACION_MAX_DEFECTO
     puntuacionMaxima: int = VALOR_PUNTUACION_MAX_DEFECTO
-    tareas: list[Tarea]
+    correccion: Correccion
 
     class Config:
         orm_mode = True

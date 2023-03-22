@@ -8,5 +8,5 @@ class Tarea(Base):
     __tablename__ = "tareas"
 
     idTarea = Column(Integer, nullable=False, primary_key=True)
-    nombreTarea = Column(String, nullable=False)
+    nombreTarea = Column(String, nullable=False, unique=True)
     valor = Column(Integer, nullable=False)

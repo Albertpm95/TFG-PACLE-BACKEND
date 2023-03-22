@@ -18,7 +18,7 @@ class TareaDB(Tarea):
         orm_mode = True
 
 
-class TareasExpresion(BaseModel):
+class ListaTareas(BaseModel):
     corrector: UsuarioBase
     listaTareas: list[Tarea]
 

@@ -7,7 +7,6 @@ from schemas.rol_usuario import Rol
 class UsuarioBase(BaseModel):
     apellidos: str
     estado: bool
-    idUsuario: int
     nombre: str
     username: str
     rol: Rol
@@ -19,9 +18,22 @@ class UsuarioBase(BaseModel):
 class UsuarioCreacion(UsuarioBase):
     plain_password: str
 
+    class Config:
+        orm_mode = True
+
 
 class UsuarioLogin(UsuarioBase):
     hashed_password: str
+
+    class Config:
+        orm_mode = True
+
+
+class UsuarioDB(UsuarioBase):
+    idUsuario: int
+
+    class Config:
+        orm_mode = True
 
 
 class UsuarioOptional(UsuarioBase):
