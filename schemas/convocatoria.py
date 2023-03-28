@@ -12,7 +12,7 @@ class Convocatoria(BaseModel):
     maxComprensionAuditiva: int
     estado: bool
     maxExpresionEscrita: int
-    maxExpresion_oral: int
+    maxExpresionOral: int
     fecha: datetime | None = None
     horario: Horario
     lenguaje: Lenguaje

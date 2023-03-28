@@ -62,7 +62,7 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
         maxComprensionAuditiva=convocatoria.maxComprensionAuditiva,
         maxComprensionLectora=convocatoria.maxComprensionLectora,
         maxExpresionEscrita=convocatoria.maxExpresionEscrita,
-        maxExpresion_oral=convocatoria.maxExpresion_oral,
+        maxExpresionOral=convocatoria.maxExpresionOral,
         estado=True,
         fecha=convocatoria.fecha,
         lenguaje=existe_lenguaje,
