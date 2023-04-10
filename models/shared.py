@@ -14,6 +14,14 @@ class AlumnosActa(Base):
     id = Column(Integer, primary_key=True)
     idActa = Column(Integer, ForeignKey("actas.idActa"))
     idAlumno = Column(Integer, ForeignKey("alumnos.idAlumno"))
+    
+
+class AlumnosConvocatoria(Base):
+    __tablename__: str = "matriculados_convocatoria"
+    
+    id = Column(Integer, primary_key=True)
+    idConvocatoria = Column(Integer, ForeignKey("convocatorias.idConvocatoria"))
+    idAlumno = Column(Integer, ForeignKey("alumnos.idAlumno"))
 
 
 class ActaCompresion(Base):

@@ -15,6 +15,7 @@ class Convocatoria(Base):
     maxExpresionEscrita = Column(Integer, nullable=False)
     maxExpresionOral = Column(Integer, nullable=False)
     idConvocatoria = Column(Integer, primary_key=True, index=True)
+    specificIdentifier = Column(Integer, nullable=True)
     idLenguaje = Column(Integer, ForeignKey("lenguajes.idLenguaje"))
     lenguaje: Mapped[Lenguaje] = relationship()
     fecha = Column(DateTime, nullable=False)
