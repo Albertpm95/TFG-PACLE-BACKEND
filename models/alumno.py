@@ -1,14 +1,8 @@
-from sqlalchemy import (
-    Column,
-    String,
-    DateTime,
-    ForeignKey,
-    ForeignKeyConstraint,
-    Integer,
-)
-from sqlalchemy.orm import relationship, Mapped, mapped_column
+from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.orm import Mapped, relationship
 
 from db.database import Base
+from models.colectivoUV import ColectivoUV
 from models.genero import Genero
 
 
@@ -21,3 +15,5 @@ class Alumno(Base):
     dni = Column(String, unique=True)
     idGenero = Column(Integer, ForeignKey("generos.idGenero"))
     genero: Mapped[Genero] = relationship()
+    idColectivo = Column(Integer, ForeignKey("colectivoUV.idGenero"))
+    colectivo: Mapped[ColectivoUV] = relationship()

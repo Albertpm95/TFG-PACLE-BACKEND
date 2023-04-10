@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from crud import crud
 
+
 router = APIRouter(prefix="/admin")
 
 
@@ -18,3 +19,4 @@ async def cargar_excel(excel: UploadFile, db: Session = Depends(crud.get_db)):
         key = rows["DNI"]
         data[key] = rows
     return numero_de_alumnos_cargados
+
