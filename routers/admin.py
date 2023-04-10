@@ -6,10 +6,10 @@ from sqlalchemy.orm import Session
 
 from crud import crud
 
-router = APIRouter()
+router = APIRouter(prefix="/admin")
 
 
-@router.post("/admin/upload", response_model=int)
+@router.post("/upload", response_model=int)
 async def cargar_excel(excel: UploadFile, db: Session = Depends(crud.get_db)):
     numero_de_alumnos_cargados = 0
     csvReader = csv.DictReader(codecs.iterdecode(excel.file, "utf-8"))
