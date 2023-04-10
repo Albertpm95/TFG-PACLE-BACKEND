@@ -1,3 +1,4 @@
+from fastapi import HTTPException, status
 from db.database import SessionLocal
 
 import bcrypt
@@ -14,10 +15,14 @@ def get_db():
 
 
 def verify_password(plain_password, usuario_db_hashed_password):
-    if get_password_hash(plain_password) == usuario_db_hashed_password:
-        return True
-    return False
+    if not get_password_hash(plain_password) == usuario_db_hashed_password:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Usuario o contraseña incorrectos.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    return True
 
 
 def get_password_hash(plain_password):
-    return plain_password
+    return 'hashed_' + plain_password

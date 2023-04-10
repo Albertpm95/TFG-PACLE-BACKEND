@@ -17,6 +17,7 @@ class Convocatoria(BaseModel):
     horario: Horario
     lenguaje: Lenguaje
     nivel: Nivel
+    specificIdentifier: int
 
     class Config:
         orm_mode = True

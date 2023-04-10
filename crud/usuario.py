@@ -2,11 +2,13 @@ from operator import mod
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from crud import crud
+from crud import crud, fakeDB
 from crud.rol import get_rol_id
 from models.usuario import Usuario as mod_usuario
 from schemas.usuario import (
     UsuarioCreacion as sch_UsuarioCreacion,
+    UsuarioDB,
+    UsuarioLogin,
     UsuarioOptional as sch_UsuarioOptional,
 )
 from schemas.usuario import UsuarioBase as sch_UsuarioBase
@@ -14,22 +16,28 @@ from schemas.usuario import UsuarioBase as sch_UsuarioBase
 """ CRUD Principal """
 
 
-def get_user_username(db: Session, username: str):
+def get_user_username(db: Session, username: str) -> UsuarioDB:
+    return fakeDB.usuario1
     return db.query(mod_usuario).filter(mod_usuario.username == username).first()
 
+def get_user_login(db: Session, username: str) -> UsuarioLogin:
+    return fakeDB.usuarioLogin
+    return db.query(mod_usuario).filter(mod_usuario.username == username).first()
 
-""" Deberian requerir permisos de administrador """  # TODO Revisar
+""" Deberian requerir permisos de administrador """
 
 
-def get_user_id(db: Session, id_usuario: str):
+def get_user_id(db: Session, id_usuario: str) -> UsuarioDB:
+    return fakeDB.usuario1
     return db.query(mod_usuario).filter(mod_usuario.id_usuario == id_usuario).first()
 
 
-def get_users(db: Session):
+def get_users(db: Session) -> list[UsuarioDB]:
+    return fakeDB.listUsuario
     return db.query(mod_usuario).all()
 
 
-def alta_usuario(db: Session, usuario: sch_UsuarioCreacion):
+def create_usuario(db: Session, usuario: sch_UsuarioCreacion) -> UsuarioDB:
     existe_usuario = get_user_username(db, username=usuario.username)
     if existe_usuario:
         raise HTTPException(
@@ -38,22 +46,22 @@ def alta_usuario(db: Session, usuario: sch_UsuarioCreacion):
     rol = get_rol_id(db, usuario.rol.id_rol)
     if not rol:
         raise HTTPException(status_code=404, detail="No existe el rol")
-    if rol:
-        db_usuario = mod_usuario(
-            username=usuario.username,
-            estado=True,
-            hashed_password=crud.get_password_hash(usuario.plain_password),
-            nombre=usuario.nombre,
-            apellidos=usuario.apellidos,
-            id_rol=rol.id_rol,
-        )
-        db.add(db_usuario)
-        db.commit()
-        db.refresh(db_usuario)
-        return db_usuario
+    db_usuario = mod_usuario(
+        username=usuario.username,
+        estado=True,
+        hashed_password=crud.get_password_hash(usuario.plain_password),
+        nombre=usuario.nombre,
+        apellidos=usuario.apellidos,
+        id_rol=rol.id_rol,
+    )
+    db.add(db_usuario)
+    db.commit()
+    db.refresh(db_usuario)
+    return db_usuario
 
 
-def update_usuario(db: Session, id_usuario: str, usuario_updated: sch_UsuarioOptional):
+def update_usuario(db: Session, id_usuario: str, usuario_updated: sch_UsuarioOptional) -> UsuarioDB:
+    return fakeDB.usuario1
     db_usuario = get_user_id(db, id_usuario)
     if not db_usuario:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
@@ -66,8 +74,8 @@ def update_usuario(db: Session, id_usuario: str, usuario_updated: sch_UsuarioOpt
     return db_usuario_updated
 
 
-def desactivar_usuario(db: Session, id_usuario: str):
-    db_usuario = get_user_id(db, id_usuario)
+def desactivar_usuario(db: Session, id_usuario: str) -> UsuarioDB:
+    db_usuario: UsuarioDB = get_user_id(db, id_usuario)
     if not db_usuario:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
     setattr(db_usuario, "estado", False)
@@ -77,8 +85,8 @@ def desactivar_usuario(db: Session, id_usuario: str):
     return db_usuario
 
 
-def activar_usuario(db: Session, id_usuario: str):
-    db_usuario = get_user_id(db, id_usuario)
+def activar_usuario(db: Session, id_usuario: str) -> UsuarioDB:
+    db_usuario: UsuarioDB = get_user_id(db, id_usuario)
     if not db_usuario:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
     setattr(db_usuario, "estado", True)

@@ -12,7 +12,7 @@ class ActaBase(BaseModel):
     alumno: AlumnoDB
     convocatoria: ConvocatoriaDB
     fecha: datetime
-    expresion_oral: ExpresionDB
+    expresionOral: ExpresionDB
     expresionEscrita: ExpresionDB
     comprensionLectora: ComprensionDB
     comprensionAuditiva: ComprensionDB

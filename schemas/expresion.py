@@ -9,6 +9,7 @@ class Expresion(BaseModel):
     porcentaje: int = VALOR_PUNTUACION_MAX_DEFECTO
     puntosConseguidos: int = VALOR_PUNTUACION_MAX_DEFECTO
     puntuacionMaxima: int = VALOR_PUNTUACION_MAX_DEFECTO
+    tipo: str
     correccion1: Correccion
     correccion2: Correccion
 
