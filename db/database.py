@@ -1,11 +1,11 @@
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import Engine, create_engine, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from environment import SQLALCHEMY_DATABASE_URI
 
-metadata = MetaData()
+metadata = MetaData(schema="pacle_db")
 
-engine = create_engine(
+engine: Engine = create_engine(
     SQLALCHEMY_DATABASE_URI, connect_args={"options": "-csearch_path=pacle_db"}
 )
 
