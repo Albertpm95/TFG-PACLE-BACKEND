@@ -20,9 +20,11 @@ def get_user_username(db: Session, username: str) -> UsuarioDB:
     return fakeDB.usuario1
     return db.query(mod_usuario).filter(mod_usuario.username == username).first()
 
+
 def get_user_login(db: Session, username: str) -> UsuarioLogin:
     return fakeDB.usuarioLogin
     return db.query(mod_usuario).filter(mod_usuario.username == username).first()
+
 
 """ Deberian requerir permisos de administrador """
 
@@ -60,7 +62,9 @@ def create_usuario(db: Session, usuario: sch_UsuarioCreacion) -> UsuarioDB:
     return db_usuario
 
 
-def update_usuario(db: Session, id_usuario: str, usuario_updated: sch_UsuarioOptional) -> UsuarioDB:
+def update_usuario(
+    db: Session, id_usuario: str, usuario_updated: sch_UsuarioOptional
+) -> UsuarioDB:
     return fakeDB.usuario1
     db_usuario = get_user_id(db, id_usuario)
     if not db_usuario:

@@ -19,4 +19,3 @@ async def cargar_excel(excel: UploadFile, db: Session = Depends(crud.get_db)):
         key = rows["DNI"]
         data[key] = rows
     return numero_de_alumnos_cargados
-

@@ -16,7 +16,9 @@ from environment import ALGORITHM, SECRET_KEY
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-def authenticate_user(username: str, password: str, db: Session) -> UsuarioLogin | Literal[False]:
+def authenticate_user(
+    username: str, password: str, db: Session
+) -> UsuarioLogin | Literal[False]:
     usuario: UsuarioLogin = crud_usuario.get_user_login(db, username)
     if not usuario:
         return False

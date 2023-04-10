@@ -10,7 +10,9 @@ router = APIRouter(prefix="/convocatoria")
 
 
 @router.get("/list", response_model=list[ConvocatoriaDB])
-async def recuperar_lista_convocatorias(db: Session = Depends(crud.get_db)) -> list[ConvocatoriaDB]:
+async def recuperar_lista_convocatorias(
+    db: Session = Depends(crud.get_db),
+) -> list[ConvocatoriaDB]:
     return crud_convocatoria.get_convocatorias(db)
 
 

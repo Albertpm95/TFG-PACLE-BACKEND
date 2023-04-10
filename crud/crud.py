@@ -25,4 +25,4 @@ def verify_password(plain_password, usuario_db_hashed_password):
 
 
 def get_password_hash(plain_password):
-    return 'hashed_' + plain_password
+    return "hashed_" + plain_password

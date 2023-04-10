@@ -43,6 +43,7 @@ def get_alumnos(db: Session) -> list[AlumnoDB]:
     return fakeDB.listAlumno
     return db.query(mod_alumno).all()
 
+
 def get_alumnos_by_convocatoria(idConvocatoria: int, db: Session):
     return fakeDB.listAlumnoByConvocatoria
     return db.query(mod_alumno).all()

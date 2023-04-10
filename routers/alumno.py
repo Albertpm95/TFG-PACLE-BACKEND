@@ -12,9 +12,13 @@ router = APIRouter(prefix="/alumno")
 async def recuperar_alumnos(db: Session = Depends(crud.get_db)):
     return crud_alumno.get_alumnos(db)
 
+
 @router.get("/list/{idConvocatoria}")
-async def recuperar_alumnos_by_convocatoria(idConvocatoria: int, db: Session = Depends(crud.get_db)):
+async def recuperar_alumnos_by_convocatoria(
+    idConvocatoria: int, db: Session = Depends(crud.get_db)
+):
     return crud_alumno.get_alumnos_by_convocatoria(idConvocatoria, db)
+
 
 @router.get("/details/{nombre}", response_model=AlumnoDB)
 async def recuperar_alumno_nombre(nombre: str, db: Session = Depends(crud.get_db)):

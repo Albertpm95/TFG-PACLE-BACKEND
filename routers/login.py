@@ -19,7 +19,9 @@ router = APIRouter(prefix="/login")
 async def login_for_access_token(
     formData: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(crud.get_db)
 ) -> dict[str, str]:
-    usuario: UsuarioLogin | Literal[False] = crud_login.authenticate_user(formData.username, formData.password, db)
+    usuario: UsuarioLogin | Literal[False] = crud_login.authenticate_user(
+        formData.username, formData.password, db
+    )
     if not usuario:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
