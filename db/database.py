@@ -16,6 +16,7 @@ Base = declarative_base(metadata=metadata)
 from models import (
     lenguaje,
     horario,
+    colectivoUV,
     nivel,
     genero,
     alumno,
