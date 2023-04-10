@@ -2,34 +2,34 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from crud import fakeDB
 
-from models.horario import Horario as mod_horario
+from models.colectivoUV import ColectivoUV as mod_colectivoUV
+from schemas.colectivoUV import ColectivoUV
 
-def crear_horario(db: Session, horario_nuevo: str):
-  return fakeDB.horario1
-  existe_horario = get_horario_nombre(db, horario_nuevo)
-  if existe_horario:
+def crear_colectivoUV(db: Session, colectivoUV_nuevo: str) -> ColectivoUV:
+  return fakeDB.colectivoUV1
+  existe_colectivoUV = get_colectivoUV_nombre(db, colectivoUV_nuevo)
+  if existe_colectivoUV:
     raise HTTPException(
-        status_code=404, detail="Ya existe ese horario, no puede crearse otra vez."
+        status_code=404, detail="Ya existe ese colectivoUV, no puede crearse otra vez."
     )
-  if not existe_horario:
-    db_horario = mod_horario(horario=horario_nuevo)
-    db.add(db_horario)
+  if not existe_colectivoUV:
+    db_colectivoUV = mod_colectivoUV(colectivoUV=colectivoUV_nuevo)
+    db.add(db_colectivoUV)
     db.commit()
-    db.refresh(db_horario)
-    return db_horario
+    db.refresh(db_colectivoUV)
+    return db_colectivoUV
 
 
-def get_horarios(db: Session):
-  return fakeDB.listHorario
-  return db.query(mod_horario).all()
+def get_colectivoUVs(db: Session) -> list[ColectivoUV]:
+  return fakeDB.listColectivoUV
+  return db.query(mod_colectivoUV).all()
 
 
-def get_horario_id(db: Session, idHorario):
-  return fakeDB.horario1
-  return db.query(mod_horario).filter_by(idHorario=idHorario).first()
+def get_colectivoUV_id(db: Session, idcolectivoUV) -> ColectivoUV:
+  return fakeDB.colectivoUV1
+  return db.query(mod_colectivoUV).filter_by(idcolectivoUV=idcolectivoUV).first()
 
 
-def get_horario_nombre(db: Session, horario: str):
-    
-  return fakeDB.horario1
-  return db.query(mod_horario).filter_by(horario=horario).first()
+def get_colectivoUV_nombre(db: Session, colectivoUV: str) -> ColectivoUV:
+  return fakeDB.colectivoUV1
+  return db.query(mod_colectivoUV).filter_by(colectivoUV=colectivoUV).first()
