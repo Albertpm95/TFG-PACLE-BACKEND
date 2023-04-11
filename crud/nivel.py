@@ -5,6 +5,8 @@ from models.nivel import Nivel
 
 def crear_nivel(db: Session, nivel_nuevo: str)  -> Nivel:
     existe_nivel: Nivel | None = get_nivel_nombre(db, nivel_nuevo)
+    print(nivel_nuevo)
+    print(existe_nivel)
     if existe_nivel:
         raise HTTPException(
             status_code=404, detail="Ya existe ese nivel, no puede crearse otra vez."

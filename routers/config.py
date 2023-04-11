@@ -22,7 +22,7 @@ async def recuperar_lista_idiomas(db: Session = Depends(crud.get_db)):
     return crud_idioma.get_idiomas(db)
 
 @router.post("/lenguaje/create", response_model=Lenguaje)
-async def create_lenguaje(lenguaje_nuevo: LenguajeBase, db: Session = Depends(crud.get_db)):
+async def create_lenguaje(lenguaje_nuevo: LenguajeBase, db: Session = Depends(crud.get_db)) -> Lenguaje:
     return crud_idioma.crear_lenguaje(db, lenguaje_nuevo.lenguaje)
 
 @router.delete("/lenguaje/delete/{idLenguaje}", response_model=Lenguaje)
@@ -67,7 +67,8 @@ async def recuperar_lista_colectivosUV(
 
 @router.post("/colectivoUV/create", response_model=ColectivoUV)
 async def create_colectivo(colectivoUV_nuevo: ColectivoUVBase, db: Session = Depends(crud.get_db)) -> ColectivoUV:
-    return crud_colectivoUV.crear_colectivoUV(db, colectivoUV_nuevo.colectivo)
+    print(colectivoUV_nuevo)
+    return crud_colectivoUV.crear_colectivoUV(db, colectivoUV_nuevo=colectivoUV_nuevo.colectivoUV)
 
 @router.delete("/idColectivoUV/delete/{idColectivoUV}", response_model=ColectivoUV)
 async def delete_colectivoUV(idColectivoUV: int, db: Session = Depends(crud.get_db)):

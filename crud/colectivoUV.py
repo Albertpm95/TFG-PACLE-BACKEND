@@ -6,6 +6,7 @@ from models.colectivoUV import ColectivoUV
 
 def crear_colectivoUV(db: Session, colectivoUV_nuevo: str) -> ColectivoUV:
     existe_colectivoUV: ColectivoUV = get_colectivoUV_nombre(db, colectivoUV_nuevo)
+    print(existe_colectivoUV)
     if existe_colectivoUV:
         raise HTTPException(
             status_code=404,

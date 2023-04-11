@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class ColectivoUVBase(BaseModel):
-    colectivo: str
+    colectivoUV: str
 
     class Config:
         orm_mode = True

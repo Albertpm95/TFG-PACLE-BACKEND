@@ -6,4 +6,4 @@ class ColectivoUV(Base):
     __tablename__: str = "colectivoUV"
 
     idColectivo = Column(Integer, primary_key=True)
-    colectivo = Column(String, nullable=False, unique=True)
+    colectivoUV = Column(String, nullable=False, unique=True)
