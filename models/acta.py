@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, ForeignKey, Integer
+from sqlalchemy import Column, DateTime, ForeignKey, Integer,String
 from sqlalchemy.orm import relationship, Mapped
 from db.database import Base
 from models.convocatoria import Convocatoria
@@ -12,6 +12,8 @@ class Acta(Base):
 
     idActa = Column(Integer, primary_key=True)
     fecha = Column(DateTime, nullable=False)
+    
+    resultado = Column(String, nullable=False, default='No corregido.')
 
     idConvocatoria = Column(Integer, ForeignKey("convocatorias.idConvocatoria"))
     convocatoria: Mapped[Convocatoria] = relationship()
