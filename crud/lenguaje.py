@@ -27,4 +27,7 @@ def get_idioma_id(db: Session, idLenguaje: int):
 
 
 def get_idiomas(db: Session):
-    return db.query(Lenguaje).all()
+    query= db.query(Lenguaje).all()
+    print(query)
+    print(type(query))
+    return query
