@@ -14,7 +14,7 @@ from schemas.horario import Horario, HorarioBase
 from schemas.lenguaje import Lenguaje, LenguajeBase
 from schemas.nivel import Nivel, NivelBase
 from schemas.genero import Genero, GeneroBase
-from schemas.rol_usuario import Rol
+from schemas.rol_usuario import Rol, RolBase
 
 router = APIRouter(prefix="/config")
 
@@ -96,6 +96,6 @@ async def recuperar_lista_roles(db: Session = Depends(crud.get_db)):
 
 @router.post("/rol/create", response_model=Rol)
 async def create_rol(
-    rol_nuevo: str, db: Session = Depends(crud.get_db)
-) -> Genero:
-    return crud_rol.crear_rol(db, rol_nuevo)
+    rol_nuevo: RolBase, db: Session = Depends(crud.get_db)
+) -> Rol:
+    return crud_rol.crear_rol(db, rol_nuevo.rol)

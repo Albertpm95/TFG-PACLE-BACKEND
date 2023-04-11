@@ -45,7 +45,7 @@ def create_usuario(db: Session, usuario: sch_UsuarioCreacion) -> UsuarioDB:
         raise HTTPException(
             status_code=404, detail="Ya existe un usuario con ese username."
         )
-    rol = get_rol_id(db, usuario.rol.id_rol)
+    rol = get_rol_id(db, usuario.rol.idRol)
     if not rol:
         raise HTTPException(status_code=404, detail="No existe el rol")
     db_usuario = mod_usuario(
@@ -54,7 +54,7 @@ def create_usuario(db: Session, usuario: sch_UsuarioCreacion) -> UsuarioDB:
         hashed_password=crud.get_password_hash(usuario.plain_password),
         nombre=usuario.nombre,
         apellidos=usuario.apellidos,
-        id_rol=rol.id_rol,
+        idRol=rol.idRol,
     )
     db.add(db_usuario)
     db.commit()
