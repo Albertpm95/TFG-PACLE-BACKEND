@@ -25,7 +25,7 @@ async def recuperar_lista_idiomas(db: Session = Depends(crud.get_db)):
 async def create_lenguaje(lenguaje_nuevo: LenguajeBase, db: Session = Depends(crud.get_db)) -> Lenguaje:
     return crud_idioma.crear_lenguaje(db, lenguaje_nuevo.lenguaje)
 
-@router.delete("/lenguaje/delete/{idLenguaje}", response_model=Lenguaje)
+@router.delete("/lenguaje/delete/{idLenguaje}", response_model=dict[str, str])
 async def delete_lenguaje(
     idLenguaje: int, db: Session = Depends(crud.get_db)
 ) -> dict[str, str]:
@@ -42,7 +42,7 @@ async def create_horario(
 ) -> Horario:
     return crud_horario.crear_horario(db, horario_nuevo.horario)
 
-@router.delete("/horario/delete/{idHorario}", response_model=Horario)
+@router.delete("/horario/delete/{idHorario}", response_model=dict[str, str])
 async def delete_horario(idHorario: int, db: Session = Depends(crud.get_db)):
     return crud_horario.delete_horario_id(db, idHorario)
 
@@ -55,7 +55,7 @@ async def recuperar_lista_niveles(db: Session = Depends(crud.get_db)):
 async def create_nivel(nivel_nuevo: NivelBase, db: Session = Depends(crud.get_db)) -> Nivel:
     return crud_nivel.crear_nivel(db, nivel_nuevo.nivel)
 
-@router.delete("/nivel/delete/{idNivel}", response_model=Nivel)
+@router.delete("/nivel/delete/{idNivel}", response_model=dict[str, str])
 async def delete_nivel(idNivel: int, db: Session = Depends(crud.get_db)):
     return crud_nivel.delete_nivel_id(db, idNivel)
 
@@ -70,7 +70,7 @@ async def create_colectivo(colectivoUV_nuevo: ColectivoUVBase, db: Session = Dep
     print(colectivoUV_nuevo)
     return crud_colectivoUV.crear_colectivoUV(db, colectivoUV_nuevo=colectivoUV_nuevo.colectivoUV)
 
-@router.delete("/idColectivoUV/delete/{idColectivoUV}", response_model=ColectivoUV)
+@router.delete("/colectivoUV/delete/{idColectivoUV}", response_model=dict[str, str])
 async def delete_colectivoUV(idColectivoUV: int, db: Session = Depends(crud.get_db)):
     return crud_colectivoUV.delete_colectivoUV_id(db, idColectivoUV)
 
@@ -85,6 +85,6 @@ async def create_genero(
 ) -> Genero:
     return crud_genero.crear_genero(db, genero_nuevo.genero)
 
-@router.delete("/genero/delete/{idGenero}", response_model=Genero)
-async def delete_genero(idGenero: int, db: Session = Depends(crud.get_db)):
+@router.delete("/genero/delete/{idGenero}", response_model=dict[str, str])
+async def delete_genero(idGenero: int, db: Session = Depends(crud.get_db)) -> dict[str, str]:
     return crud_genero.delete_genero_id(db, idGenero)

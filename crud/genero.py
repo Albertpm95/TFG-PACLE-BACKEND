@@ -28,7 +28,7 @@ def get_genero_nombre(db: Session, genero: str) -> Genero:
     return db.query(Genero).filter(Genero.genero==genero).first()
 
 def delete_genero_id(db: Session, idgenero: int) -> dict[str, str]:
-    existe_genero: Genero | None = get_genero_id(db, idgenero)
+    existe_genero: Genero = get_genero_id(db, idgenero)
     if not existe_genero:
         raise HTTPException(
             status_code=404, detail="No existe ese genero, no puede borrarse."
@@ -36,4 +36,4 @@ def delete_genero_id(db: Session, idgenero: int) -> dict[str, str]:
     db.delete(existe_genero)
     db.commit()
     #return {"ok": True}
-    return {'Borrado': 'Borrado el idioma ${genero.genero}'}
+    return {'Borrado': 'Borrado el genero ${genero.genero}'}
