@@ -45,7 +45,7 @@ async def create_usuario(
 ) -> UsuarioDB:
     return crud_usuario.create_usuario(db, usuario_nuevo)
 
-@router.post("/update", response_model=UsuarioBase)
+@router.put("/update", response_model=UsuarioBase)
 async def update_usuario(
     usuario_editado: UsuarioDB, db: Session = Depends(crud.get_db)
 ) -> UsuarioDB:

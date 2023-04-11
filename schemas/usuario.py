@@ -1,7 +1,5 @@
-from typing import Optional
 from pydantic import BaseModel
 
-from models.usuario import Usuario
 from schemas.rol_usuario import Rol
 
 

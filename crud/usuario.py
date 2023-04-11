@@ -1,14 +1,12 @@
-import json
-import logging
+import select
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-
-from crud import crud, fakeDB
+from crud import crud
 from crud.rol import get_rol_id
 from models.usuario import Usuario
 from models.rol_usuario import Rol
-from schemas.usuario import  UsuarioBase, UsuarioDB
+from schemas.usuario import UsuarioBase, UsuarioDB
 
 """ CRUD Principal """
 
@@ -49,15 +47,22 @@ def get_user_id(db: Session, idUsuario: int) -> Usuario:
     return db.query(Usuario).filter(Usuario.idUsuario == idUsuario).first()
 
 def update_usuario(db: Session, usuario_editado: UsuarioDB):
-    existe_usuario: Usuario = get_user_id(db, usuario_editado.idUsuario)
-    existe_rol: Rol = get_rol_id(db, existe_usuario.rol.idRol)
+    existe_usuario = get_user_id(db, usuario_editado.idUsuario)
+    existe_rol = get_rol_id(db, existe_usuario.rol.idRol)
     
     if not existe_usuario:
         raise HTTPException(status_code=404, detail="Usuario no encontrado.")
     if not existe_rol:
         raise HTTPException(status_code=404, detail="El rol no existe.")
-
-    db.query(Usuario).filter(Usuario.idUsuario == existe_usuario.idUsuario).update(existe_usuario)
+    
+    existe_usuario.idUsuario=usuario_editado.idUsuario # type: ignore
+    existe_usuario.username=usuario_editado.username # type: ignore
+    existe_usuario.estado=usuario_editado.estado # type: ignore
+    existe_usuario.nombre=usuario_editado.nombre # type: ignore
+    existe_usuario.apellidos=usuario_editado.apellidos # type: ignore
+    existe_usuario.rol=existe_rol
+    
+    #TODO Not updating. Issues with nested objects. 
     db.commit()
     db.refresh(existe_usuario)
     return existe_usuario
