@@ -8,11 +8,11 @@ from crud import nivel as crud_nivel
 from crud import colectivoUV as crud_colectivoUV
 from crud import genero as crud_genero
 
-from schemas.colectivoUV import ColectivoUV
-from schemas.horario import Horario
+from schemas.colectivoUV import ColectivoUV, ColectivoUVBase
+from schemas.horario import Horario, HorarioBase
 from schemas.lenguaje import Lenguaje, LenguajeBase
-from schemas.nivel import Nivel
-from schemas.genero import Genero
+from schemas.nivel import Nivel, NivelBase
+from schemas.genero import Genero, GeneroBase
 
 router = APIRouter(prefix="/config")
 
@@ -38,9 +38,9 @@ async def recuperar_lista_horarios(db: Session = Depends(crud.get_db)):
 
 @router.post("/horario/create", response_model=Horario)
 async def create_horario(
-    horario_nuevo: str, db: Session = Depends(crud.get_db)
+    horario_nuevo: HorarioBase, db: Session = Depends(crud.get_db)
 ) -> Horario:
-    return crud_horario.crear_horario(db, horario_nuevo)
+    return crud_horario.crear_horario(db, horario_nuevo.horario)
 
 @router.delete("/horario/delete/{idHorario}", response_model=Horario)
 async def delete_horario(idHorario: int, db: Session = Depends(crud.get_db)):
@@ -52,8 +52,8 @@ async def recuperar_lista_niveles(db: Session = Depends(crud.get_db)):
 
 
 @router.post("/nivel/create", response_model=Nivel)
-async def create_nivel(nivel_nuevo: str, db: Session = Depends(crud.get_db)) -> Nivel:
-    return crud_nivel.crear_nivel(db, nivel_nuevo)
+async def create_nivel(nivel_nuevo: NivelBase, db: Session = Depends(crud.get_db)) -> Nivel:
+    return crud_nivel.crear_nivel(db, nivel_nuevo.nivel)
 
 @router.delete("/nivel/delete/{idNivel}", response_model=Nivel)
 async def delete_nivel(idNivel: int, db: Session = Depends(crud.get_db)):
@@ -66,8 +66,8 @@ async def recuperar_lista_colectivosUV(
     return crud_colectivoUV.get_colectivosUV(db)
 
 @router.post("/colectivoUV/create", response_model=ColectivoUV)
-async def create_colectivo(colectivoUV_nuevo: str, db: Session = Depends(crud.get_db)) -> ColectivoUV:
-    return crud_colectivoUV.crear_colectivoUV(db, colectivoUV_nuevo)
+async def create_colectivo(colectivoUV_nuevo: ColectivoUVBase, db: Session = Depends(crud.get_db)) -> ColectivoUV:
+    return crud_colectivoUV.crear_colectivoUV(db, colectivoUV_nuevo.colectivo)
 
 @router.delete("/idColectivoUV/delete/{idColectivoUV}", response_model=ColectivoUV)
 async def delete_colectivoUV(idColectivoUV: int, db: Session = Depends(crud.get_db)):
@@ -80,9 +80,9 @@ async def recuperar_lista_generos(db: Session = Depends(crud.get_db)):
 
 @router.post("/genero/create", response_model=Genero)
 async def create_genero(
-    genero_nuevo: str, db: Session = Depends(crud.get_db)
+    genero_nuevo: GeneroBase, db: Session = Depends(crud.get_db)
 ) -> Genero:
-    return crud_genero.crear_genero(db, genero_nuevo)
+    return crud_genero.crear_genero(db, genero_nuevo.genero)
 
 @router.delete("/genero/delete/{idGenero}", response_model=Genero)
 async def delete_genero(idGenero: int, db: Session = Depends(crud.get_db)):

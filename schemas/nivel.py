@@ -1,9 +1,15 @@
 from pydantic import BaseModel
 
 
-class Nivel(BaseModel):
-    idNivel: int
+class NivelBase(BaseModel):
     nivel: str
+
+    class Config:
+        orm_mode = True
+
+
+class Nivel(NivelBase):
+    idNivel: int
 
     class Config:
         orm_mode = True

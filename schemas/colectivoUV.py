@@ -1,9 +1,14 @@
 from pydantic import BaseModel
 
 
-class ColectivoUV(BaseModel):
-    idColectivo: int
+class ColectivoUVBase(BaseModel):
     colectivo: str
+
+    class Config:
+        orm_mode = True
+
+class ColectivoUV(ColectivoUVBase):
+    idColectivo: int
 
     class Config:
         orm_mode = True
