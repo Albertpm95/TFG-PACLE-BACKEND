@@ -93,3 +93,9 @@ async def delete_genero(idGenero: int, db: Session = Depends(crud.get_db)) -> di
 @router.get("/rol/list", response_model=list[Rol])
 async def recuperar_lista_roles(db: Session = Depends(crud.get_db)):
     return crud_rol.get_roles(db)
+
+@router.post("/rol/create", response_model=Rol)
+async def create_rol(
+    rol_nuevo: str, db: Session = Depends(crud.get_db)
+) -> Genero:
+    return crud_rol.crear_rol(db, rol_nuevo)
