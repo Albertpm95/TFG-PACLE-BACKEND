@@ -9,7 +9,7 @@ class Usuario(Base):
 
     apellidos = Column(String, nullable=False)
     estado = Column(Boolean, nullable=False)
-    hashedPassword = Column(String(length=60), nullable=False)
+    hashedPassword = Column(String(length=60), nullable=False, default='ToDoFaKePaSsWoRdHaShEdNeDsNeWmEtHoD')
     idUsuario = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, nullable=False)
     username = Column(String, unique=True, nullable=False)
