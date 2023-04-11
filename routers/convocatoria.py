@@ -6,7 +6,7 @@ from crud import convocatoria as crud_convocatoria
 
 from schemas.convocatoria import Convocatoria, ConvocatoriaDB
 
-router = APIRouter(prefix="/convocatoria")
+router = APIRouter(prefix="/convocatoria", tags=['Convocatoria'])
 
 
 @router.get("/list", response_model=list[ConvocatoriaDB])

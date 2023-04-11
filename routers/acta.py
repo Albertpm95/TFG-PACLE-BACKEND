@@ -6,7 +6,7 @@ from crud import acta as crud_acta
 
 from schemas.acta import ActaDB, ActaBase
 
-router = APIRouter(prefix="/acta")
+router = APIRouter(prefix="/acta", tags=['Acta'])
 
 
 @router.get("/list", response_model=list[ActaDB])

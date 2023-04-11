@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from routers import convocatoria, login, usuario, alumno, acta, admin, config
 
-app = FastAPI()
+app = FastAPI(title="TFG-Pacle-API")
 
 app.include_router(login.router)
 app.include_router(convocatoria.router)

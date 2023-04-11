@@ -16,7 +16,7 @@ from schemas.nivel import Nivel, NivelBase
 from schemas.genero import Genero, GeneroBase
 from schemas.rol_usuario import Rol, RolBase
 
-router = APIRouter(prefix="/config")
+router = APIRouter(prefix="/config", tags=['Config'])
 
 @router.get("/lenguaje/list", response_model=list[Lenguaje])
 async def recuperar_lista_idiomas(db: Session = Depends(crud.get_db)):

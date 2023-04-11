@@ -12,7 +12,7 @@ from crud import login as crud_login
 from schemas.token import Token
 from schemas.usuario import UsuarioLogin
 
-router = APIRouter(prefix="/login")
+router = APIRouter(prefix="/login", tags=['Login'])
 
 
 @router.post("", response_model=Token)

@@ -5,7 +5,7 @@ from crud import crud
 from crud import alumno as crud_alumno
 from schemas.alumno import Alumno, AlumnoDB
 
-router = APIRouter(prefix="/alumno")
+router = APIRouter(prefix="/alumno", tags=['Alumno'])
 
 
 @router.get("/list", response_model=list[AlumnoDB])

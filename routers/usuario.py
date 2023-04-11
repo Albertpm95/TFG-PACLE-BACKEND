@@ -9,7 +9,7 @@ from schemas.usuario import (
     UsuarioDB,
 )
 
-router = APIRouter(prefix="/usuario")
+router = APIRouter(prefix="/usuario", tags=['Usuario'])
 
 @router.get("/actual", response_model=UsuarioBase)
 async def recuperar_usuario_actual(
