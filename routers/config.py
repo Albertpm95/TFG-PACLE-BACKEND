@@ -18,7 +18,7 @@ router = APIRouter(prefix="/config")
 
 
 @router.get("/lenguaje/list", response_model=list[Lenguaje])
-async def recuperar_lista_idiomas(db: Session = Depends(crud.get_db)) -> list[Lenguaje]:
+async def recuperar_lista_idiomas(db: Session = Depends(crud.get_db)):
     return crud_idioma.get_idiomas(db)
 
 
@@ -30,7 +30,7 @@ async def create_idioma(
 
 
 @router.get("/horario/list", response_model=list[Horario])
-async def recuperar_lista_horarios(db: Session = Depends(crud.get_db)) -> list[Horario]:
+async def recuperar_lista_horarios(db: Session = Depends(crud.get_db)):
     return crud_horario.get_horarios(db)
 
 
@@ -42,7 +42,7 @@ async def create_horario(
 
 
 @router.get("/nivel/list", response_model=list[Nivel])
-async def recuperar_lista_niveles(db: Session = Depends(crud.get_db)) -> list[Nivel]:
+async def recuperar_lista_niveles(db: Session = Depends(crud.get_db)):
     return crud_nivel.get_niveles(db)
 
 
@@ -54,7 +54,7 @@ async def create_nivel(nivel_nuevo: str, db: Session = Depends(crud.get_db)) -> 
 @router.get("/colectivoUV/list", response_model=list[ColectivoUV])
 async def recuperar_lista_colectivosUV(
     db: Session = Depends(crud.get_db),
-) -> list[ColectivoUV]:
+):
     return crud_colectivoUV.get_colectivosUV(db)
 
 
@@ -66,7 +66,7 @@ async def create_colectivo(
 
 
 @router.get("/genero/list", response_model=list[Genero])
-async def recuperar_lista_generos(db: Session = Depends(crud.get_db)) -> list[Genero]:
+async def recuperar_lista_generos(db: Session = Depends(crud.get_db)):
     return crud_genero.get_generos(db)
 
 
