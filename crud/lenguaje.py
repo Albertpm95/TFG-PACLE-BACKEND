@@ -5,17 +5,17 @@ from models.lenguaje import Lenguaje
 
 
 
-def crear_idioma(db: Session, idioma_nuevo: str) -> Lenguaje:
-    existe_idioma: Lenguaje | None = get_idioma_nombre(db, idioma_nuevo)
-    if existe_idioma:
+def crear_lenguaje(db: Session, lenguaje_nuevo: str) -> Lenguaje:
+    existe_lenguaje: Lenguaje | None = get_idioma_nombre(db, lenguaje_nuevo)
+    if existe_lenguaje:
         raise HTTPException(
             status_code=404, detail="Ya existe ese lenguaje, no puede crearse otra vez."
         )
-    db_idioma = Lenguaje(lenguaje=idioma_nuevo)
-    db.add(db_idioma)
+    db_lenguaje = Lenguaje(lenguaje=lenguaje_nuevo)
+    db.add(db_lenguaje)
     db.commit()
-    db.refresh(db_idioma)
-    return db_idioma
+    db.refresh(db_lenguaje)
+    return db_lenguaje
 
 
 def get_idioma_nombre(db: Session, lenguaje: str):

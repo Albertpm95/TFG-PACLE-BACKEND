@@ -23,10 +23,10 @@ async def recuperar_lista_idiomas(db: Session = Depends(crud.get_db)):
 
 
 @router.put("/lenguaje/create", response_model=Lenguaje)
-async def create_idioma(
-    idioma_nuevo: str, db: Session = Depends(crud.get_db)
+async def create_lenguaje(
+    lenguaje_nuevo: str, db: Session = Depends(crud.get_db)
 ) -> Lenguaje | None:
-    return crud_idioma.crear_idioma(db, idioma_nuevo)
+    return crud_idioma.crear_lenguaje(db, lenguaje_nuevo)
 
 
 @router.get("/horario/list", response_model=list[Horario])
