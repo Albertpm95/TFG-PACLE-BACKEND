@@ -3,28 +3,36 @@ from sqlalchemy.orm import Session
 
 from models.horario import Horario
 
-def crear_horario(db: Session, horario_nuevo: str):
-
-    existe_horario = get_horario_nombre(db, horario_nuevo)
+def crear_horario(db: Session, horario_nuevo: str) -> Horario:
+    existe_horario: Horario | None = get_horario_nombre(db, horario_nuevo)
     if existe_horario:
         raise HTTPException(
             status_code=404, detail="Ya existe ese horario, no puede crearse otra vez."
         )
-    if not existe_horario:
-        db_horario = Horario(horario=horario_nuevo)
-        db.add(db_horario)
-        db.commit()
-        db.refresh(db_horario)
-        return db_horario
+    db_horario = Horario(horario=horario_nuevo)
+    db.add(db_horario)
+    db.commit()
+    db.refresh(db_horario)
+    return db_horario
 
-
-def get_horarios(db: Session):
+def get_horarios(db: Session) -> list[Horario]:
     return db.query(Horario).all()
 
 
-def get_horario_id(db: Session, idHorario):
-    return db.query(Horario).filter_by(idHorario=idHorario).first()
+def get_horario_id(db: Session, idHorario) -> Horario | None:
+    return db.query(Horario).filter(Horario.idHorario==idHorario).first()
 
 
-def get_horario_nombre(db: Session, horario: str):
-    return db.query(Horario).filter_by(horario=horario).first()
+def get_horario_nombre(db: Session, horario: str) -> Horario | None:
+    return db.query(Horario).filter(Horario.horario==horario).first()
+
+def delete_horario_id(db: Session, idHorario: int) -> dict[str, str]:
+    existe_lenguaje: Horario | None = get_horario_id(db, idHorario)
+    if not existe_lenguaje:
+        raise HTTPException(
+            status_code=404, detail="No existe ese horario, no puede borrarse."
+        )
+    db.delete(existe_lenguaje)
+    db.commit()
+    #return {"ok": True}
+    return {'Borrado': 'Borrado el horario ${horario.horario}'}

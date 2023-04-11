@@ -18,13 +18,24 @@ def crear_colectivoUV(db: Session, colectivoUV_nuevo: str) -> ColectivoUV:
     return db_colectivoUV
 
 
-def get_colectivosUV(db: Session):
+def get_colectivosUV(db: Session) -> list[ColectivoUV]:
     return db.query(ColectivoUV).all()
 
 
-def get_colectivoUV_id(db: Session, idcolectivoUV) -> ColectivoUV:
-    return db.query(ColectivoUV).filter_by(idcolectivoUV=idcolectivoUV).first()
+def get_colectivoUV_id(db: Session, idColectivoUV) -> ColectivoUV:
+    return db.query(ColectivoUV).filter(ColectivoUV.idColectivoUV == idColectivoUV).first()
 
 
 def get_colectivoUV_nombre(db: Session, colectivoUV: str) -> ColectivoUV:
-    return db.query(ColectivoUV).filter_by(colectivoUV=colectivoUV).first()
+    return db.query(ColectivoUV).filter(ColectivoUV.colectivoUV == colectivoUV).first()
+
+def delete_colectivoUV_id(db: Session, idcolectivoUV: int) -> dict[str, str]:
+    existe_colectivoUV: ColectivoUV | None = get_colectivoUV_id(db, idcolectivoUV)
+    if not existe_colectivoUV:
+        raise HTTPException(
+            status_code=404, detail="No existe ese colectivoUV, no puede borrarse."
+        )
+    db.delete(existe_colectivoUV)
+    db.commit()
+    #return {"ok": True}
+    return {'Borrado': 'Borrado el colectivo ${colectivoUV.colectivoUV}'}
