@@ -8,7 +8,7 @@ class ColectivoUVBase(BaseModel):
         orm_mode = True
 
 class ColectivoUV(ColectivoUVBase):
-    idColectivo: int
+    idColectivoUV: int
 
     class Config:
         orm_mode = True

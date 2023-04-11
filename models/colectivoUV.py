@@ -5,5 +5,5 @@ from db.database import Base
 class ColectivoUV(Base):
     __tablename__: str = "colectivoUV"
 
-    idColectivo = Column(Integer, primary_key=True)
+    idColectivoUV = Column(Integer, primary_key=True)
     colectivoUV = Column(String, nullable=False, unique=True)

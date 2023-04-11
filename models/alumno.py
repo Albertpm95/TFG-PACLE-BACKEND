@@ -15,5 +15,5 @@ class Alumno(Base):
     dni = Column(String, unique=True)
     idGenero = Column(Integer, ForeignKey("generos.idGenero"))
     genero: Mapped[Genero] = relationship()
-    idColectivo = Column(Integer, ForeignKey("colectivoUV.idColectivo"))
+    idColectivo = Column(Integer, ForeignKey("colectivoUV.idColectivoUV"))
     colectivo: Mapped[ColectivoUV] = relationship()
