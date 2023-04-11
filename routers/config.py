@@ -7,15 +7,16 @@ from crud import lenguaje as crud_idioma
 from crud import nivel as crud_nivel
 from crud import colectivoUV as crud_colectivoUV
 from crud import genero as crud_genero
+from crud import rol as crud_rol
 
 from schemas.colectivoUV import ColectivoUV, ColectivoUVBase
 from schemas.horario import Horario, HorarioBase
 from schemas.lenguaje import Lenguaje, LenguajeBase
 from schemas.nivel import Nivel, NivelBase
 from schemas.genero import Genero, GeneroBase
+from schemas.rol_usuario import Rol
 
 router = APIRouter(prefix="/config")
-
 
 @router.get("/lenguaje/list", response_model=list[Lenguaje])
 async def recuperar_lista_idiomas(db: Session = Depends(crud.get_db)):
@@ -88,3 +89,7 @@ async def create_genero(
 @router.delete("/genero/delete/{idGenero}", response_model=dict[str, str])
 async def delete_genero(idGenero: int, db: Session = Depends(crud.get_db)) -> dict[str, str]:
     return crud_genero.delete_genero_id(db, idGenero)
+
+@router.get("/rol/list", response_model=list[Rol])
+async def recuperar_lista_roles(db: Session = Depends(crud.get_db)):
+    return crud_rol.get_roles(db)
