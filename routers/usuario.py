@@ -43,12 +43,35 @@ async def get_usuario_username(
 async def create_usuario(
     usuario_nuevo: UsuarioBase, db: Session = Depends(crud.get_db)
 ) -> UsuarioDB:
+    """
+    Create an User with all the information:
+
+    - **nombre**: El nombre
+    - **apellidos**: Los apellidos del usuario
+    - **username**: El username con el que iniciara sesion.
+    - **rol**: El rol del usuario
+    - **estado**: El estado del usuario.
+    \f
+    :param usuario_nuevo: User input.
+    """    
     return crud_usuario.create_usuario(db, usuario_nuevo)
 
 @router.put("/update", response_model=UsuarioBase)
 async def update_usuario(
     usuario_editado: UsuarioDB, db: Session = Depends(crud.get_db)
 ) -> UsuarioDB:
+    """
+    Update an User with all the information:
+
+    - **idUsuario**: El id del usuario
+    - **nombre**: El nombre
+    - **apellidos**: Los apellidos del usuario
+    - **username**: El username con el que iniciara sesion.
+    - **rol**: El rol del usuario
+    - **estado**: El estado del usuario.
+    \f
+    :param usuario_nuevo: User input.
+    """  
     return crud_usuario.update_usuario(db, usuario_editado)
 
 @router.patch("/disable", response_model=UsuarioBase)
