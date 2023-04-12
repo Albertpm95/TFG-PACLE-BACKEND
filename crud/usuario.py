@@ -13,9 +13,6 @@ from schemas.usuario import UsuarioBase, UsuarioDB
 def get_user_username(db: Session, username: str) -> Usuario:
     return db.query(Usuario).filter(Usuario.username == username).first()
 
-def get_user_login(db: Session, username: str):
-    return db.query(Usuario).filter(Usuario.username == username).first()
-
 """ Deberian requerir permisos de administrador """
 
 

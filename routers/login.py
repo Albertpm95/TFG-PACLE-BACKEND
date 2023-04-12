@@ -14,7 +14,6 @@ from schemas.usuario import UsuarioLogin
 
 router = APIRouter(prefix="/login", tags=['Login'])
 
-
 @router.post("", response_model=Token)
 async def login_for_access_token(
     formData: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(crud.get_db)

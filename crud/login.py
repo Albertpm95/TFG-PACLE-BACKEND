@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 from crud import crud
 from crud import usuario as crud_usuario
+from models.usuario import Usuario
 from schemas.token import TokenData
 from schemas.usuario import UsuarioBase, UsuarioDB, UsuarioLogin
 
@@ -16,15 +17,11 @@ from environment import ALGORITHM, SECRET_KEY
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-def authenticate_user(
-    username: str, password: str, db: Session
-) -> UsuarioLogin | Literal[False]:
-    usuario: UsuarioLogin = crud_usuario.get_user_login(db, username)
+def authenticate_user(username: str, password: str, db: Session) -> UsuarioLogin | Literal[False]:
+    usuario: Usuario = crud_usuario.get_user_username(db, username)
     if not usuario:
-        return False
-    if not crud.verify_password(
-        plain_password=password, usuario_db_hashed_password=usuario.hashed_password
-    ):
+        raise HTTPException(status_code=400, detail="El usuario no existe.")
+    if not crud.verify_password(plain_password=password, usuario_db_hashed_password=usuario.hashedPassword):
         return False
     return usuario
 
