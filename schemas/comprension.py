@@ -2,7 +2,6 @@ from pydantic import BaseModel
 
 from schemas.correccion import Correccion
 
-
 class Comprension(BaseModel):
     observaciones: str | None = None
     tipo: str
