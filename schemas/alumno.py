@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from pydantic import BaseModel
 
 from schemas.colectivoUV import ColectivoUV
@@ -13,7 +13,7 @@ class Alumno(BaseModel):
     genero: Genero
     email: str
     telefono: int
-    fechaNacimiento: date
+    fechaNacimiento: date | datetime
     pruebaAdaptada: bool
 
     class Config:

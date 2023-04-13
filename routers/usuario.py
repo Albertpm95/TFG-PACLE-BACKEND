@@ -39,7 +39,7 @@ async def get_usuario_username(
     return crud_usuario.get_user_username(db, username)
 
 
-@router.put("/create", response_model=UsuarioBase)
+@router.post("/create", response_model=UsuarioBase)
 async def create_usuario(
     usuario_nuevo: UsuarioBase, db: Session = Depends(crud.get_db)
 ) -> UsuarioDB:
