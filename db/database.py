@@ -1,7 +1,9 @@
 from sqlalchemy import Engine, create_engine, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from environment import SQLALCHEMY_DATABASE_URI
+import os
+
+SQLALCHEMY_DATABASE_URI: str | None = os.getenv("SQLALCHEMY_DATABASE_URI")
 
 metadata = MetaData(schema="pacle_db")
 
@@ -11,7 +13,7 @@ engine: Engine = create_engine(
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-Base = declarative_base(metadata=metadata)
+Base: type = declarative_base(metadata=metadata)
 
 from models import (
     lenguaje,

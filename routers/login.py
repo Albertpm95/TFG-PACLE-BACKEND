@@ -5,12 +5,14 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from sqlalchemy.orm import Session
 
-from environment import ACCESS_TOKEN_EXPIRE_MINUTES
-
 from crud import crud
 from crud import login as crud_login
 from schemas.token import Token
 from schemas.usuario import UsuarioLogin
+
+import os
+
+ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")
 
 router = APIRouter(prefix="/login", tags=['Login'])
 

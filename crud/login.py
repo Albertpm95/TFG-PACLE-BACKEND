@@ -12,10 +12,13 @@ from schemas.token import TokenData
 from schemas.usuario import UsuarioBase, UsuarioDB, UsuarioLogin
 
 from jose import JWTError, jwt
-from environment import ALGORITHM, SECRET_KEY
+
+import os
+
+ALGORITHM: str | None = os.getenv("ALGORITHM")
+SECRET_KEY: str |None = os.getenv("SECRET_KEY")
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
 
 def authenticate_user(username: str, password: str, db: Session) -> UsuarioLogin | Literal[False]:
     usuario: Usuario = crud_usuario.get_user_username(db, username)
