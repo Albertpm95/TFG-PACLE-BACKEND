@@ -1,9 +1,7 @@
-from sqlalchemy import Column, String, Integer
-from db.database import Base
+from typing import Optional
 
+from sqlmodel import Field, SQLModel
 
-class Nivel(Base):
-    __tablename__ = "niveles"
-
-    idNivel = Column(Integer, primary_key=True)
-    nivel = Column(String, nullable=False)
+class Nivel(SQLModel, table=True):
+    idNivel: Optional[int] = Field(default=None, primary_key=True)
+    nivel: str = Field(default=None, nullable=False, unique=True)
