@@ -1,15 +1,14 @@
 from pydantic import BaseModel
 
-from constants import VALOR_PUNTUACION_MAX_DEFECTO
 from schemas.correccion import Correccion
 
 
 class Comprension(BaseModel):
     observaciones: str | None = None
     tipo: str
-    porcentaje: int = VALOR_PUNTUACION_MAX_DEFECTO
-    puntosConseguidos: int = VALOR_PUNTUACION_MAX_DEFECTO
-    puntuacionMaxima: int = VALOR_PUNTUACION_MAX_DEFECTO
+    porcentaje: int
+    puntosConseguidos: int
+    puntuacionMaxima: int
     correccion: Correccion
 
     class Config:
