@@ -11,7 +11,7 @@ from models.usuario import Usuario
 from schemas.token import TokenData
 from schemas.usuario import UsuarioBase, UsuarioDB, UsuarioLogin
 
-from jose import JWTError, jwt
+
 from environment import ALGORITHM, SECRET_KEY
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
