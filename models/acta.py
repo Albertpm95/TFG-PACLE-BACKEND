@@ -1,31 +1,15 @@
-from sqlalchemy import Column, DateTime, ForeignKey, Integer,String
-from sqlalchemy.orm import relationship, Mapped
-from db.database import Base
-from models.convocatoria import Convocatoria
-from models.expresion import Expresion
-from models.comprension import Comprension
-from models.shared import AlumnosActa
+import datetime
+from typing import Optional
 
-
-class Acta(Base):
+from sqlmodel import Field, SQLModel
+class Acta(SQLModel, table=True):
     __tablename__ = "actas"
 
-    idActa = Column(Integer, primary_key=True)
-    fecha = Column(DateTime, nullable=False)
-    
-    resultado = Column(String, nullable=False, default='No corregido.')
-
-    idConvocatoria = Column(Integer, ForeignKey("convocatorias.idConvocatoria"))
-    convocatoria: Mapped[Convocatoria] = relationship()
-
-    idExpresionEscrita = Column(Integer, ForeignKey("expresion.idExpresion"))
-    expresionEscrita: Mapped[Expresion] = relationship("Expresion", foreign_keys=[idExpresionEscrita], backref="expresion_escrita")
-
-    idExpresionOral = Column(Integer, ForeignKey("expresion.idExpresion"))
-    expresion_oral: Mapped[Expresion] = relationship("Expresion", foreign_keys=[idExpresionOral], backref="expresion_oral")
-
-    idComprensionLectora = Column(Integer, ForeignKey("comprension.idComprension"))
-    comprensionLectora: Mapped[Comprension] = relationship("Comprension", foreign_keys=[idComprensionLectora], backref="comprension_lectora")
-
-    idComprensionAuditiva = Column(Integer, ForeignKey("comprension.idComprension"))
-    comprensionAuditiva: Mapped[Comprension] = relationship("Comprension", foreign_keys=[idComprensionAuditiva], backref="comprension_auditiva")
+    idActa: Optional[int] = Field(default=None, primary_key=True)
+    fecha: datetime.datetime = Field(nullable=False)
+    resultado: str = Field(nullable=False, default='No corregido')
+    idConvocatoria: int = Field(nullable=False, foreign_key="convocatorias.idConvocatoria")
+    idExpresionEscrita: int = Field(nullable=False, foreign_key="expresion.idExpresion")
+    idExpresionOral: int = Field(nullable=False, foreign_key="expresion.idExpresion")
+    idComprensionLectora: int = Field(nullable=False, foreign_key="comprension.idComprension")
+    idComprensionAuditiva: int = Field(nullable=False, foreign_key="comprension.idComprension")

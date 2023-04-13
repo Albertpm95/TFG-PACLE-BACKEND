@@ -1,12 +1,10 @@
-from sqlalchemy import Column, Integer, String
+from typing import Optional
 
+from sqlmodel import  Field, SQLModel
 
-from db.database import Base
-
-
-class Tarea(Base):
+class Tarea(SQLModel, table=True):
     __tablename__ = "tareas"
 
-    idTarea = Column(Integer, nullable=False, primary_key=True)
-    nombreTarea = Column(String, nullable=False, unique=True)
-    valor = Column(Integer, nullable=False)
+    idTarea: Optional[int] = Field(default=None, primary_key=True)
+    nombreTarea: str = Field(nullable=False)
+    valor: int = Field(nullable=False, default=0)

@@ -1,7 +1,8 @@
+"""
 from __future__ import annotations
 
 from sqlalchemy import Column, Table, ForeignKey, Integer, String, UniqueConstraint
-from sqlalchemy.orm import mapped_column, Mapped, relationship
+from sqlalchemy.orm import  Mapped, relationship
 
 from typing import Set
 from db.database import Base
@@ -46,4 +47,5 @@ class Correccion(Base):
     idCorreccion = Column(Integer, primary_key=True)
     idUsuario = Column(Integer, ForeignKey("usuarios.idUsuario"))
     idTarea = Column(Integer, ForeignKey("tareas.idTarea"))
-    tareas: Mapped[list[Tarea]] = relationship()
+    #tareas: Mapped[list[Tarea]] = relationship()
+"""

@@ -23,14 +23,14 @@ async def recuperar_convocatoria_id(
     return crud_convocatoria.get_convocatoria_id(idConvocatoria=idConvocatoria, db=db)
 
 
-@router.put("/create", response_model=ConvocatoriaDB)
+@router.post("/create", response_model=ConvocatoriaDB)
 async def create_convocatoria(
     convocatoria: Convocatoria, db: Session = Depends(crud.get_db)
 ) -> ConvocatoriaDB:
     return crud_convocatoria.create_convocatoria(convocatoria=convocatoria, db=db)
 
 
-@router.post("/update", response_model=ConvocatoriaDB)
+@router.put("/update", response_model=ConvocatoriaDB)
 async def update_convocatoria(
     convocatoria: ConvocatoriaDB, db: Session = Depends(crud.get_db)
 ) -> ConvocatoriaDB:

@@ -1,9 +1,9 @@
-from sqlalchemy import Column, String, Integer
-from db.database import Base
+from typing import Optional
 
+from sqlmodel import Field, SQLModel
 
-class Horario(Base):
-    __tablename__ = "horarios"
+class Horario(SQLModel, table=True):
+    __tablename__: str = "horarios"
 
-    idHorario = Column(Integer, primary_key=True)
-    horario = Column(String, nullable=False, unique=True)
+    idHorario: Optional[int] = Field(default=None, primary_key=True)
+    horario: str = Field(nullable=False, unique=True)

@@ -1,9 +1,9 @@
-from sqlalchemy import Column, String, Integer
-from db.database import Base
+from typing import Optional
 
+from sqlmodel import Field, SQLModel
 
-class ColectivoUV(Base):
+class ColectivoUV(SQLModel, table=True):
     __tablename__: str = "colectivoUV"
 
-    idColectivoUV = Column(Integer, primary_key=True)
-    colectivoUV = Column(String, nullable=False, unique=True)
+    idColectivoUV: Optional[int] = Field(default=None, primary_key=True)
+    colectivoUV: str = Field(nullable=False, unique=True)

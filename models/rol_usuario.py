@@ -1,10 +1,8 @@
-from sqlalchemy import CheckConstraint, Column, String, Integer
+from typing import Optional
 
-from db.database import Base
+from sqlmodel import Field, SQLModel
 
-
-class Rol(Base):
+class Rol(SQLModel, table=True):
     __tablename__ = "roles"
-
-    idRol = Column(Integer, primary_key=True)
-    rol = Column(String, nullable=False, unique=True)
+    idRol: Optional[int] = Field(default=None, primary_key=True)
+    rol: str = Field(nullable=False, unique=True)

@@ -1,19 +1,17 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, UniqueConstraint
-from sqlalchemy.orm import relationship, Mapped
-from db.database import Base
-from models.tarea import Tarea
+from typing import Optional
 
+from sqlmodel import  CheckConstraint, Field, SQLModel, UniqueConstraint
 
-class Comprension(Base):
-    __tablename__ = "comprension"
+class comprension(SQLModel, table=True):
+    __tablename__ = "comprensiones"
 
-    idComprension = Column(Integer, primary_key=True)
-    tipo = Column(String, nullable=False)
-    observaciones = Column(String, nullable=True)
-    porcentaje = Column(Integer, nullable=False, default=0)
-    puntosConseguidos = Column(Integer, nullable=False, default=0)
-    puntuacionMaxima = Column(Integer, nullable=False, default=0)
-    idParte = Column(Integer, ForeignKey("correccion.idCorreccion"))
-    idActa = Column(Integer, ForeignKey("actas.idActa"))
+    idActa: int = Field(nullable=False, foreign_key="actas.idActa")
+    idComprension: Optional[int] = Field(default=None, primary_key=True)
+    idParte: int = Field(nullable=False, foreign_key="correcciones.idCorreccion")
+    observaciones: str = Field(nullable=True, default='')
+    porcentaje: int = Field(nullable=False, default=0)
+    puntosConseguidos: int = Field(nullable=False, default=0)
+    puntuacionMaxima: int = Field(nullable=False, default=0)
+    tipo: str = Field(CheckConstraint(("tipo IN ('auditiva', 'lectora')")), nullable=True )
 
     UniqueConstraint(idActa, tipo)

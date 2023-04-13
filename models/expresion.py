@@ -1,31 +1,18 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, UniqueConstraint
-from sqlalchemy.orm import Mapped, relationship
+from typing import Optional
 
-from db.database import Base
-from models.shared import Correccion
-from models.tarea import Tarea
-from schemas.tarea import ListaTareas
+from sqlmodel import  CheckConstraint, Field, SQLModel, UniqueConstraint
 
+class Expresion(SQLModel, table=True):
+    __tablename__ = "expresiones"
 
-class Expresion(Base):
-    __tablename__ = "expresion"
-
-    idActa = Column(Integer, ForeignKey("actas.idActa"))
-    idExpresion = Column(Integer, primary_key=True)
-    idParte1 = Column(Integer, ForeignKey("correccion.idCorreccion"))
-    idParte2 = Column(Integer, ForeignKey("correccion.idCorreccion"))
-    observaciones = Column(String, nullable=True)
-    parte1: Mapped[Correccion] = relationship("Correccion", foreign_keys=[idParte1], backref="expresion_parte1")
-    parte2: Mapped[Correccion] = relationship("Correccion", foreign_keys=[idParte2], backref="expresion_parte2")
-    porcentaje = Column(Integer, nullable=False, default=0)
-    puntosConseguidos = Column(Integer, nullable=False, default=0)
-    puntuacionMaxima = Column(Integer, nullable=False, default=0)
-    tipo = Column(String, nullable=False)
+    idActa: int = Field(nullable=False, foreign_key="colectivoUV.idColectivoUV")
+    idExpresion: Optional[int] = Field(default=None, primary_key=True)
+    idParte1: int = Field(nullable=False, foreign_key="correcciones.idCorreccion")
+    idParte2: int = Field(nullable=False, foreign_key="correcciones.idCorreccion")
+    observaciones: str = Field(nullable=True, default='')
+    porcentaje: int = Field(nullable=False, default=0)
+    puntosConseguidos: int = Field(nullable=False, default=0)
+    puntuacionMaxima: int = Field(nullable=False, default=0)
+    tipo: str = Field(CheckConstraint(("tipo IN ('escrita', 'oral')")), nullable=True )
 
     UniqueConstraint(idActa, tipo)
-
-
-"""    idParte1 = Column(Integer, ForeignKey("parte_expresion.idParte"))
-    parte1: Mapped[ParteExpresion] = relationship()
-    idParte2 = Column(Integer, ForeignKey("parte_expresion.idParte"))
-    parte2: Mapped[ParteExpresion] = relationship()"""

@@ -19,6 +19,6 @@ async def recuperar_acta_id(id_acta: int, db: Session = Depends(crud.get_db)):
     return crud_acta.get_acta_id(id_acta, db)
 
 
-@router.put("/create", response_model=ActaDB)
+@router.post("/create", response_model=ActaDB)
 async def create_acta(acta_nueva: ActaBase, db: Session = Depends(crud.get_db)):
     return crud_acta.create_acta(db, acta_nueva)

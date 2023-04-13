@@ -1,9 +1,9 @@
-from sqlalchemy import Column, String, Integer
-from db.database import Base
+from typing import Optional
 
+from sqlmodel import  Field, SQLModel
 
-class Lenguaje(Base):
+class Lenguaje(SQLModel, table=True):
     __tablename__: str = "lenguajes"
 
-    idLenguaje = Column(Integer, primary_key=True)
-    lenguaje = Column(String, nullable=False, unique=True)
+    idLenguaje: Optional[int] = Field(default=None, primary_key=True)
+    lenguaje: str = Field(nullable=False, unique=True)

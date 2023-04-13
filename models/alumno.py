@@ -1,24 +1,18 @@
 import datetime
-from sqlalchemy import Column, Date, DateTime, ForeignKey, Integer, String, Boolean
-from sqlalchemy.orm import Mapped, relationship
+from typing import Optional
 
-from db.database import Base
-from models.colectivoUV import ColectivoUV
-from models.genero import Genero
+from sqlmodel import Field, SQLModel
 
-
-class Alumno(Base):
+class Alumno(SQLModel, table=True):
     __tablename__ = "alumnos"
-
-    idAlumno = Column(Integer, primary_key=True)
-    nombre = Column(String, nullable=False)
-    apellidos = Column(String, nullable=False)
-    dni = Column(String, unique=True)
-    idGenero = Column(Integer, ForeignKey("generos.idGenero"))
-    genero: Mapped[Genero] = relationship()
-    idColectivoUV = Column(Integer, ForeignKey("colectivoUV.idColectivoUV"))
-    colectivoUV: Mapped[ColectivoUV] = relationship()
-    email = Column(String, nullable=False)
-    telefono = Column(String, nullable=False)
-    fechaNacimiento = Column(Date, nullable=False)
-    pruebaAdaptada = Column(Boolean, nullable=False, default=True)
+    
+    idAlumno: Optional[int] = Field(default=None, primary_key=True)
+    nombre: str = Field(nullable=False)
+    apellidos: str = Field(nullable=False)
+    dni: str = Field(nullable=False, index=True, unique=True)
+    idGenero: int = Field(nullable=False, foreign_key="generos.idGenero")
+    idColectivoUV: int = Field(nullable=False, foreign_key="colectivoUV.idColectivoUV")
+    email:  str = Field(nullable=False)
+    telefono: str = Field(nullable=False)
+    fechaNacimiento: datetime.datetime = Field(nullable=False)
+    pruebaAdaptada: bool = Field(nullable=False, default=False)

@@ -1,26 +1,19 @@
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, Boolean
-from sqlalchemy.orm import relationship, Mapped
+import datetime
+from typing import Optional
 
-from db.database import Base
-from models.horario import Horario
-from models.lenguaje import Lenguaje
-from models.nivel import Nivel
+from sqlmodel import Field, SQLModel
 
-
-class Convocatoria(Base):
+class Convocatoria(SQLModel, table=True):
     __tablename__ = "convocatorias"
 
-    maxComprensionLectora = Column(Integer, nullable=False)
-    maxComprensionAuditiva = Column(Integer, nullable=False)
-    maxExpresionEscrita = Column(Integer, nullable=False)
-    maxExpresionOral = Column(Integer, nullable=False)
-    idConvocatoria = Column(Integer, primary_key=True, index=True)
-    specificIdentifier = Column(Integer, nullable=True)
-    idLenguaje = Column(Integer, ForeignKey("lenguajes.idLenguaje"))
-    lenguaje: Mapped[Lenguaje] = relationship()
-    fecha = Column(DateTime, nullable=False)
-    idHorario = Column(Integer, ForeignKey("horarios.idHorario"))
-    horario: Mapped[Horario] = relationship()
-    estado = Column(Boolean, nullable=False, default=True)
-    idNivel = Column(Integer, ForeignKey("niveles.idNivel"))
-    nivel: Mapped[Nivel] = relationship()
+    maxComprensionLectora: int = Field(nullable=False, default=0)
+    maxComprensionAuditiva: int = Field(nullable=False, default=0)
+    maxExpresionEscrita: int = Field(nullable=False, default=0)
+    maxExpresionOral: int = Field(nullable=False, default=0)
+    idConvocatoria: Optional[int] = Field(default=None, primary_key=True)
+    specificIdentifier: str = Field(nullable=False, default='')
+    idLenguaje: int = Field(nullable=False, foreign_key="lenguajes.idLenguaje")
+    fecha: datetime.datetime = Field(nullable=False)
+    idHorario: int = Field(nullable=False, foreign_key="horarios.idHorario")
+    estado: bool = Field(nullable=False, default=False)
+    idNivel: int = Field(nullable=False, foreign_key="niveles.idNivel")

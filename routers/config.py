@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from routers import rol, genero, nivel, lenguaje, colectivoUV, horario
 
-router = APIRouter(prefix="/config", tags=['Config'])
+router = APIRouter(prefix="/config")
 
 router.include_router(rol.router)
 router.include_router(genero.router)
