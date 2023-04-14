@@ -30,7 +30,7 @@ def authenticate_user(
     if not crud.verify_password(
         plain_password=password, usuario_db_hashed_password=usuario.hashedPassword
     ):
-        return False
+        return HTTPException(status_code=403, details="Unauthorized")
     return usuario
 
 
