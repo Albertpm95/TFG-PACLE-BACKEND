@@ -5,7 +5,7 @@ from crud import crud
 from crud import lenguaje as crud_idioma
 from schemas.lenguaje import Lenguaje, LenguajeBase
 
-router = APIRouter(prefix="/config", tags=["Config"])
+router = APIRouter(prefix="/lenguaje", tags=["Lenguaje"])
 
 
 @router.get("/list", response_model=list[Lenguaje])

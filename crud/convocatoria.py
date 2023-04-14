@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from models.convocatoria import Convocatoria as mod_convocatoria
+from models.convocatoria import Convocatoria
 from schemas.convocatoria import Convocatoria as sch_convocatoria
 from schemas.convocatoria import ConvocatoriaDB as sch_convocatoria_DB
 
@@ -13,21 +13,18 @@ from crud import nivel as crud_nivel
 
 
 def get_convocatorias(db: Session):
-    return fakeDB.listConvocatoria
-    convocatorias = db.query(mod_convocatoria).all()
+    convocatorias = db.query(Convocatoria).all()
     return convocatorias
 
 
 def get_convocatorias_activas(db: Session):
-    return fakeDB.listConvocatoria
-    return db.query(mod_convocatoria).filter_by(estado=True).all()
+    return db.query(Convocatoria).filter_by(estado=True).all()
 
 
 def get_convocatoria_id(idConvocatoria: int, db: Session):
-    return fakeDB.convocatoria1
     convocatoria = (
-        db.query(mod_convocatoria)
-        .filter(mod_convocatoria.idConvocatoria == idConvocatoria)
+        db.query(Convocatoria)
+        .filter(Convocatoria.idConvocatoria == idConvocatoria)
         .first()
     )
     if not convocatoria:
@@ -39,7 +36,6 @@ def get_convocatoria_id(idConvocatoria: int, db: Session):
 
 
 def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
-    return fakeDB.convocatoria1
     existe_lenguaje = crud_idioma.get_idioma_id(db, convocatoria.lenguaje.idLenguaje)
     if not existe_lenguaje:
         raise HTTPException(
@@ -62,7 +58,7 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
             detail="No se encuentra el nivel seleccionado, no se ha podido crear la convocatoria.",
         )
 
-    db_convocatoria = mod_convocatoria(
+    db_convocatoria = Convocatoria(
         maxComprensionAuditiva=convocatoria.maxComprensionAuditiva,
         maxComprensionLectora=convocatoria.maxComprensionLectora,
         maxExpresionEscrita=convocatoria.maxExpresionEscrita,
@@ -80,7 +76,6 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
 
 
 def update_convocatoria(convocatoria: sch_convocatoria_DB, db: Session):
-    return fakeDB.convocatoria1
     existe_lenguaje = crud_idioma.get_idioma_id(db, convocatoria.lenguaje.idLenguaje)
     if not existe_lenguaje:
         raise HTTPException(
@@ -95,7 +90,7 @@ def update_convocatoria(convocatoria: sch_convocatoria_DB, db: Session):
             status_code=404,
             detail="No se encuentra el horario seleccionado, no se ha podido crear la convocatoria.",
         )
-    db_convocatoria = mod_convocatoria(convocatoria)
+    db_convocatoria = Convocatoria(convocatoria)
     db.add(db_convocatoria)
     db.commit()
     db.refresh(db_convocatoria)

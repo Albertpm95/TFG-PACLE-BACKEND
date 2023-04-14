@@ -11,7 +11,7 @@ metadata = MetaData(schema="pacle_db")
 engine = create_engine(
     SQLALCHEMY_DATABASE_URI,
     connect_args={"options": "-csearch_path=pacle_db"},
-    echo=True,
+    #echo=True,
 )
 # engine = create_engine(SQLALCHEMY_DATABASE_URI, echo=True)
 

@@ -11,7 +11,6 @@ def get_idiomas(db: Session) -> list[Lenguaje]:
 
 def crear_lenguaje(db: Session, lenguaje_nuevo: str) -> Lenguaje:
     existe_lenguaje: Lenguaje | None = get_idioma_nombre(db, lenguaje_nuevo)
-    print(existe_lenguaje)
     if existe_lenguaje:
         raise HTTPException(
             status_code=404, detail="Ya existe ese lenguaje, no puede crearse otra vez."
