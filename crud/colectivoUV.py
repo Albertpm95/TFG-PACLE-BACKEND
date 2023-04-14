@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from models.colectivoUV import ColectivoUV
 
+
 def crear_colectivoUV(db: Session, colectivoUV_nuevo: str) -> ColectivoUV:
     existe_colectivoUV: ColectivoUV = get_colectivoUV_nombre(db, colectivoUV_nuevo)
     print(existe_colectivoUV)
@@ -21,11 +22,16 @@ def crear_colectivoUV(db: Session, colectivoUV_nuevo: str) -> ColectivoUV:
 def get_colectivosUV(db: Session) -> list[ColectivoUV]:
     return db.query(ColectivoUV).all()
 
+
 def get_colectivoUV_id(db: Session, idColectivoUV) -> ColectivoUV:
-    return db.query(ColectivoUV).filter(ColectivoUV.idColectivoUV == idColectivoUV).first()
+    return (
+        db.query(ColectivoUV).filter(ColectivoUV.idColectivoUV == idColectivoUV).first()
+    )
+
 
 def get_colectivoUV_nombre(db: Session, colectivoUV: str) -> ColectivoUV:
     return db.query(ColectivoUV).filter(ColectivoUV.colectivoUV == colectivoUV).first()
+
 
 def delete_colectivoUV_id(db: Session, idcolectivoUV: int) -> dict[str, str]:
     existe_colectivoUV: ColectivoUV = get_colectivoUV_id(db, idcolectivoUV)
@@ -35,4 +41,4 @@ def delete_colectivoUV_id(db: Session, idcolectivoUV: int) -> dict[str, str]:
         )
     db.delete(existe_colectivoUV)
     db.commit()
-    return {'Borrado': 'Borrado el colectivo ${colectivoUV.colectivoUV}'}
+    return {"Borrado": "Borrado el colectivo ${colectivoUV.colectivoUV}"}

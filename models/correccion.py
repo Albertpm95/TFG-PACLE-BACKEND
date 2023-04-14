@@ -4,6 +4,7 @@ from sqlmodel import Field, Relationship, SQLModel
 from models.tarea import Tarea
 from models.usuario import Usuario
 
+
 class Correccion(SQLModel, table=True):
     __tablename__ = "correcciones"
 

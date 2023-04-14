@@ -1,6 +1,7 @@
 from fastapi import HTTPException, status
 from db.database import SessionLocal
 
+
 # Dependency
 def get_db():
     db = SessionLocal()

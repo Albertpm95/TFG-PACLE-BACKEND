@@ -34,6 +34,7 @@ app.add_middleware(
 async def root():
     raise HTTPException(status_code=200, detail="Hay conexion con el servidor.")
 
+
 def main():
     db.database.create_db_and_tables()
     db.database.create_roles()

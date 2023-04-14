@@ -3,7 +3,8 @@ from sqlalchemy.orm import Session
 
 from models.nivel import Nivel
 
-def crear_nivel(db: Session, nivel_nuevo: str)  -> Nivel:
+
+def crear_nivel(db: Session, nivel_nuevo: str) -> Nivel:
     existe_nivel: Nivel | None = get_nivel_nombre(db, nivel_nuevo)
     print(nivel_nuevo)
     print(existe_nivel)
@@ -30,6 +31,7 @@ def get_nivel_id(db: Session, idNivel: int) -> Nivel:
 def get_nivel_nombre(db: Session, nivel: str) -> Nivel:
     return db.query(Nivel).filter(Nivel.nivel == nivel).first()
 
+
 def delete_nivel_id(db: Session, idnivel: int):
     existe_nivel: Nivel | None = get_nivel_id(db, idnivel)
     if not existe_nivel:
@@ -38,5 +40,5 @@ def delete_nivel_id(db: Session, idnivel: int):
         )
     db.delete(existe_nivel)
     db.commit()
-    #return {"ok": True}
-    return {'Borrado': 'Borrado el nivel ${nivel.nivel}'}
+    # return {"ok": True}
+    return {"Borrado": "Borrado el nivel ${nivel.nivel}"}

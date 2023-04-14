@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from schemas.correccion import Correccion
 
+
 class Expresion(BaseModel):
     observaciones: str | None = None
     porcentaje: int

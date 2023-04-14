@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from crud import crud
 
 
-router = APIRouter(prefix="/admin", tags=['Admin'])
+router = APIRouter(prefix="/admin", tags=["Admin"])
 
 
 @router.post("/upload", response_model=int)

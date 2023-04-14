@@ -8,27 +8,68 @@ from models.convocatoria import Convocatoria
 from models.expresion import Expresion
 from models.comprension import Comprension
 
+
 class Acta(SQLModel, table=True):
     __tablename__ = "actas"
 
     idActa: Optional[int] = Field(default=None, primary_key=True)
     fecha: datetime.datetime = Field(nullable=False)
-    resultado: str = Field(nullable=False, default='No corregido')
+    resultado: str = Field(nullable=False, default="No corregido")
 
-    idConvocatoria: int = Field(nullable=False, foreign_key="convocatorias.idConvocatoria")
-    convocatoria: Convocatoria = Relationship(back_populates="actas")
+    idConvocatoria: Optional[int] = Field(
+        default=None, foreign_key="convocatorias.idConvocatoria"
+    )
+    convocatoria: Convocatoria = Relationship(
+        sa_relationship_kwargs={
+            "primaryjoin": "Acta.idConvocatoria==Convocatoria.idConvocatoria",
+            "lazy": "joined",
+        }
+    )
 
-    idExpresionEscrita: int = Field(nullable=False, foreign_key="expresiones.idExpresion")
-    expresionEscrita: Expresion = Relationship(back_populates="acta")
+    idExpresionEscrita: Optional[int] = Field(
+        default=None, foreign_key="expresiones.idExpresion"
+    )
+    expresionEscrita: Expresion = Relationship(
+        sa_relationship_kwargs={
+            "primaryjoin": "Acta.idExpresionEscrita==Expresion.idExpresion",
+            "lazy": "joined",
+        }
+    )
 
-    idExpresionOral: int = Field(nullable=False, foreign_key="expresiones.idExpresion")
-    expresionOral: Expresion = Relationship(back_populates="acta")
+    idExpresionOral: Optional[int] = Field(
+        default=None, foreign_key="expresiones.idExpresion"
+    )
+    expresionOral: Expresion = Relationship(
+        sa_relationship_kwargs={
+            "primaryjoin": "Acta.idExpresionOral==Expresion.idExpresion",
+            "lazy": "joined",
+        }
+    )
 
-    idComprensionLectora: int = Field(nullable=False, foreign_key="comprensiones.idComprension")
-    comprensionLectora: Comprension = Relationship(back_populates="acta")
+    idComprensionLectora: Optional[int] = Field(
+        default=None, foreign_key="comprensiones.idComprension"
+    )
+    comprensionLectora: Comprension = Relationship(
+        sa_relationship_kwargs={
+            "primaryjoin": "Acta.idComprensionLectora==Comprension.idComprension",
+            "lazy": "joined",
+        }
+    )
 
-    idComprensionAuditiva: int = Field(nullable=False, foreign_key="comprensiones.idComprension")
-    comprensionAuditiva: Comprension = Relationship(back_populates="acta")
-    
-    idAlumno: int = Field(foreign_key=Alumno.idAlumno)
-    alumno: Alumno = Relationship(back_populates="acta")
+    idComprensionAuditiva: Optional[int] = Field(
+        default=None, foreign_key="comprensiones.idComprension"
+    )
+    comprensionAuditiva: Comprension = Relationship(
+        sa_relationship_kwargs={
+            "primaryjoin": "Acta.idComprensionAuditiva==Comprension.idComprension",
+            "lazy": "joined",
+        }
+    )
+
+    idAlumno: Optional[int] = Field(default=None, foreign_key="alumnos.idAlumno")
+    alumno: Alumno = Relationship(
+        sa_relationship_kwargs={
+            "primaryjoin": "Acta.idAlumno==Alumno.idAlumno",
+            "lazy": "joined",
+        }
+    )

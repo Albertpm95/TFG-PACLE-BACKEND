@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from models.horario import Horario
 
+
 def crear_horario(db: Session, horario_nuevo: str) -> Horario:
     existe_horario: Horario | None = get_horario_nombre(db, horario_nuevo)
     if existe_horario:
@@ -15,16 +16,18 @@ def crear_horario(db: Session, horario_nuevo: str) -> Horario:
     db.refresh(db_horario)
     return db_horario
 
+
 def get_horarios(db: Session) -> list[Horario]:
     return db.query(Horario).all()
 
 
 def get_horario_id(db: Session, idHorario) -> Horario | None:
-    return db.query(Horario).filter(Horario.idHorario==idHorario).first()
+    return db.query(Horario).filter(Horario.idHorario == idHorario).first()
 
 
 def get_horario_nombre(db: Session, horario: str) -> Horario | None:
-    return db.query(Horario).filter(Horario.horario==horario).first()
+    return db.query(Horario).filter(Horario.horario == horario).first()
+
 
 def delete_horario_id(db: Session, idHorario: int) -> dict[str, str]:
     existe_lenguaje: Horario | None = get_horario_id(db, idHorario)
@@ -34,5 +37,5 @@ def delete_horario_id(db: Session, idHorario: int) -> dict[str, str]:
         )
     db.delete(existe_lenguaje)
     db.commit()
-    #return {"ok": True}
-    return {'Borrado': 'Borrado el horario ${horario.horario}'}
+    # return {"ok": True}
+    return {"Borrado": "Borrado el horario ${horario.horario}"}

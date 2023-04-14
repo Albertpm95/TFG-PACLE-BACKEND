@@ -9,7 +9,8 @@ from schemas.usuario import (
     UsuarioDB,
 )
 
-router = APIRouter(prefix="/usuario", tags=['Usuario'])
+router = APIRouter(prefix="/usuario", tags=["Usuario"])
+
 
 @router.get("/actual", response_model=UsuarioBase)
 async def recuperar_usuario_actual(
@@ -53,8 +54,9 @@ async def create_usuario(
     - **estado**: El estado del usuario.
     \f
     :param usuario_nuevo: User input.
-    """    
+    """
     return crud_usuario.create_usuario(db, usuario_nuevo)
+
 
 @router.put("/update", response_model=UsuarioBase)
 async def update_usuario(
@@ -71,8 +73,9 @@ async def update_usuario(
     - **estado**: El estado del usuario.
     \f
     :param usuario_nuevo: User input.
-    """  
+    """
     return crud_usuario.update_usuario(db, usuario_editado)
+
 
 @router.patch("/disable", response_model=UsuarioBase)
 async def desactivar_usuario(
@@ -86,6 +89,3 @@ async def activar_usuario(
     idUsuario: int, db: Session = Depends(crud.get_db)
 ) -> UsuarioDB:
     return crud_usuario.activar_usuario(db, idUsuario)
-
-
-

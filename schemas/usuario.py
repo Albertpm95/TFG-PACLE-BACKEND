@@ -13,6 +13,7 @@ class UsuarioBase(BaseModel):
     class Config:
         orm_mode = True
 
+
 class UsuarioLogin(UsuarioBase):
     hashed_password: str
 

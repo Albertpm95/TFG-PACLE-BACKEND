@@ -7,6 +7,7 @@ class LenguajeBase(BaseModel):
     class Config:
         orm_mode = True
 
+
 class Lenguaje(LenguajeBase):
     idLenguaje: int
 

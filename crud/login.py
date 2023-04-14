@@ -16,15 +16,20 @@ from jose import JWTError, jwt
 import os
 
 ALGORITHM: str | None = os.getenv("ALGORITHM")
-SECRET_KEY: str |None = os.getenv("SECRET_KEY")
+SECRET_KEY: str | None = os.getenv("SECRET_KEY")
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-def authenticate_user(username: str, password: str, db: Session) -> UsuarioLogin | Literal[False]:
+
+def authenticate_user(
+    username: str, password: str, db: Session
+) -> UsuarioLogin | Literal[False]:
     usuario: Usuario = crud_usuario.get_user_username(db, username)
     if not usuario:
         raise HTTPException(status_code=400, detail="El usuario no existe.")
-    if not crud.verify_password(plain_password=password, usuario_db_hashed_password=usuario.hashedPassword):
+    if not crud.verify_password(
+        plain_password=password, usuario_db_hashed_password=usuario.hashedPassword
+    ):
         return False
     return usuario
 

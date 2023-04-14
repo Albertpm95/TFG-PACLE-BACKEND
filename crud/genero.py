@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from models.genero import Genero
 
+
 def crear_genero(db: Session, genero_nuevo: str) -> Genero:
     existe_genero: Genero = get_genero_nombre(db, genero_nuevo)
     if existe_genero:
@@ -21,11 +22,12 @@ def get_generos(db: Session) -> list[Genero]:
 
 
 def get_genero_id(db: Session, idGenero) -> Genero:
-    return db.query(Genero).filter(Genero.idGenero==idGenero).first()
+    return db.query(Genero).filter(Genero.idGenero == idGenero).first()
 
 
 def get_genero_nombre(db: Session, genero: str) -> Genero:
-    return db.query(Genero).filter(Genero.genero==genero).first()
+    return db.query(Genero).filter(Genero.genero == genero).first()
+
 
 def delete_genero_id(db: Session, idgenero: int) -> dict[str, str]:
     existe_genero: Genero = get_genero_id(db, idgenero)
@@ -35,5 +37,5 @@ def delete_genero_id(db: Session, idgenero: int) -> dict[str, str]:
         )
     db.delete(existe_genero)
     db.commit()
-    #return {"ok": True}
-    return {'Borrado': 'Borrado el genero ${genero.genero}'}
+    # return {"ok": True}
+    return {"Borrado": "Borrado el genero ${genero.genero}"}

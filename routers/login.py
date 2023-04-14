@@ -14,7 +14,8 @@ import os
 
 ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")
 
-router = APIRouter(prefix="/login", tags=['Login'])
+router = APIRouter(prefix="/login", tags=["Login"])
+
 
 @router.post("", response_model=Token)
 async def login_for_access_token(

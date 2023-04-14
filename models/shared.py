@@ -1,4 +1,4 @@
-
+"""
 from typing import Optional
 from sqlmodel import Field, Relationship, SQLModel
 
@@ -10,36 +10,40 @@ from models.convocatoria import Convocatoria
 from models.usuario import Usuario
 
 class AlumnosActa(SQLModel, table=True):
-    __tablename__ = "actas_alumnos"
+    __tablename__ = "alumnos_acta"
 
     id: Optional[int] = Field(default=None, primary_key=True)
-    idActa: int = Field(nullable=False, foreign_key="actas.idActa")
+    idActa: int = Field(foreign_key="actas.idActa")
+    acta: Acta = Relationship(sa_relationship_kwargs={"primaryjoin": "Acta.idActa==AlumnosActa.idActa", "lazy": "joined"})
     idAlumno: int = Field(foreign_key="alumnos.idAlumno")
-
+    alumno: Alumno = Relationship(sa_relationship_kwargs={"primaryjoin": "Alumno.idAlumno==AlumnosActa.idAlumno", "lazy": "joined"})
 
 class AlumnosConvocatoria(SQLModel, table=True):
-    __tablename__: str = "matriculados_convocatoria"
+    __tablename__: str = "alumnos_convocatoria"
 
     id: Optional[int] = Field(default=None, primary_key=True)
-    convocatoria: Convocatoria = Relationship(back_populates="alumno")
+    idConvocatoria: int = Field(foreign_key="convocatorias.idConvocatoria")
+    convocatoria: Convocatoria = Relationship(sa_relationship_kwargs={"primaryjoin": "Convocatoria.idConvocatoria==AlumnosConvocatoria.idConvocatoria", "lazy": "joined"})
     idAlumno: int = Field(foreign_key="alumnos.idAlumno")
-    alumno: Alumno = Relationship(back_populates="convocatoria")
+    alumno: Alumno = Relationship(sa_relationship_kwargs={"primaryjoin": "Alumno.idAlumno==AlumnosConvocatoria.idAlumno", "lazy": "joined"})
+
 
 class ActaCompresion(SQLModel, table=True):
-    __tablename__ = "actas_compresion"
+    __tablename__ = "comprensiones_acta"
 
     id: Optional[int] = Field(default=None, primary_key=True)
     idComprension: int = Field(nullable=False, foreign_key="comprensiones.idComprension")
-    comprension: Comprension = Relationship(back_populates="acta")
+    acta: Acta = Relationship(sa_relationship_kwargs={"primaryjoin": "Acta.idActa==ActaCompresion.idActa", "lazy": "joined"})
     idActa: int = Field(nullable=False, foreign_key="actas.idActa")
-    acta: Acta = Relationship(back_populates="comprension")
+    acta: Acta = Relationship(sa_relationship_kwargs={"primaryjoin": "Acta.idActa==ActaCompresion.idActa", "lazy": "joined"})
 
 
 class ActaExpresion(SQLModel, table=True):
-    __tablename__ = "actas_expresion"
+    __tablename__ = "expresiones_acta"
 
     id: Optional[int] = Field(default=None, primary_key=True)
     idExpresion: int = Field(nullable=False, foreign_key="expresiones.idExpresion")
-    expresion: Expresion = Relationship(back_populates="acta")
+    acta: Expresion = Relationship(sa_relationship_kwargs={"primaryjoin": "Expresion.idExpresion==ActaExpresion.idExpresion", "lazy": "joined"})
     idActa: int = Field(nullable=False, foreign_key="actas.idActa")
-    acta: Acta = Relationship(back_populates="expresion")
+    acta: Acta = Relationship(sa_relationship_kwargs={"primaryjoin": "Acta.idActa==ActaExpresion.idActa", "lazy": "joined"})
+"""
