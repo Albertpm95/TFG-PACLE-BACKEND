@@ -5,7 +5,7 @@ from models.convocatoria import Convocatoria
 from schemas.convocatoria import Convocatoria as sch_convocatoria
 from schemas.convocatoria import ConvocatoriaDB as sch_convocatoria_DB
 
-from crud import fakeDB, lenguaje as crud_idioma
+from crud import lenguaje as crud_idioma
 from crud import horario as crud_horario
 from crud import nivel as crud_nivel
 
