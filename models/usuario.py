@@ -13,7 +13,7 @@ class Usuario(SQLModel, table=True):
     idUsuario: Optional[int] = Field(default=None, primary_key=True)
     apellidos: str = Field(nullable=False)
     estado: bool = Field(nullable=False, default=False)
-    hashedPassword: str = Field(nullable=False)
+    hashedPassword: str = Field(default='',nullable=False)
     nombre: str = Field(nullable=False)
     username: str = Field(nullable=False)
 
