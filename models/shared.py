@@ -1,51 +1,45 @@
-"""
-from __future__ import annotations
 
-from sqlalchemy import Column, Table, ForeignKey, Integer, String, UniqueConstraint
-from sqlalchemy.orm import  Mapped, relationship
+from typing import Optional
+from sqlmodel import Field, Relationship, SQLModel
 
-from typing import Set
-from db.database import Base
-from models.tarea import Tarea
+from models.alumno import Alumno
+from models.acta import Acta
+from models.comprension import Comprension
+from models.expresion import Expresion
+from models.convocatoria import Convocatoria
+from models.usuario import Usuario
 
-
-class AlumnosActa(Base):
+class AlumnosActa(SQLModel, table=True):
     __tablename__ = "actas_alumnos"
 
-    id = Column(Integer, primary_key=True)
-    idActa = Column(Integer, ForeignKey("actas.idActa"))
-    idAlumno = Column(Integer, ForeignKey("alumnos.idAlumno"))
+    id: Optional[int] = Field(default=None, primary_key=True)
+    idActa: int = Field(nullable=False, foreign_key="actas.idActa")
+    idAlumno: int = Field(foreign_key="alumnos.idAlumno")
 
 
-class AlumnosConvocatoria(Base):
+class AlumnosConvocatoria(SQLModel, table=True):
     __tablename__: str = "matriculados_convocatoria"
 
-    id = Column(Integer, primary_key=True)
-    idConvocatoria = Column(Integer, ForeignKey("convocatorias.idConvocatoria"))
-    idAlumno = Column(Integer, ForeignKey("alumnos.idAlumno"))
+    id: Optional[int] = Field(default=None, primary_key=True)
+    convocatoria: Convocatoria = Relationship(back_populates="alumno")
+    idAlumno: int = Field(foreign_key="alumnos.idAlumno")
+    alumno: Alumno = Relationship(back_populates="convocatoria")
 
-
-class ActaCompresion(Base):
+class ActaCompresion(SQLModel, table=True):
     __tablename__ = "actas_compresion"
 
-    id = Column(Integer, primary_key=True)
-    idComprension = Column(Integer, ForeignKey("comprension.idComprension"))
-    idActa = Column(Integer, ForeignKey("actas.idActa"))
+    id: Optional[int] = Field(default=None, primary_key=True)
+    idComprension: int = Field(nullable=False, foreign_key="comprensiones.idComprension")
+    comprension: Comprension = Relationship(back_populates="acta")
+    idActa: int = Field(nullable=False, foreign_key="actas.idActa")
+    acta: Acta = Relationship(back_populates="comprension")
 
 
-class ActaExpresion(Base):
+class ActaExpresion(SQLModel, table=True):
     __tablename__ = "actas_expresion"
 
-    id = Column(Integer, primary_key=True)
-    idExpresion = Column(Integer, ForeignKey("expresion.idExpresion"))
-    idActa = Column(Integer, ForeignKey("actas.idActa"))
-
-
-class Correccion(Base):
-    __tablename__ = "correccion"
-
-    idCorreccion = Column(Integer, primary_key=True)
-    idUsuario = Column(Integer, ForeignKey("usuarios.idUsuario"))
-    idTarea = Column(Integer, ForeignKey("tareas.idTarea"))
-    #tareas: Mapped[list[Tarea]] = relationship()
-"""
+    id: Optional[int] = Field(default=None, primary_key=True)
+    idExpresion: int = Field(nullable=False, foreign_key="expresiones.idExpresion")
+    expresion: Expresion = Relationship(back_populates="acta")
+    idActa: int = Field(nullable=False, foreign_key="actas.idActa")
+    acta: Acta = Relationship(back_populates="expresion")

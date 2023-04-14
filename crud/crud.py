@@ -1,9 +1,6 @@
 from fastapi import HTTPException, status
 from db.database import SessionLocal
 
-from environment import SECRET_KEY
-
-
 # Dependency
 def get_db():
     db = SessionLocal()

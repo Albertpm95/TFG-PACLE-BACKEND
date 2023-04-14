@@ -13,6 +13,7 @@ pip
 pyasn1
 pycparser
 pydantic
+python-dotenv
 python-jose
 python-multipart
 rsa

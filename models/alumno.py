@@ -1,7 +1,10 @@
 import datetime
 from typing import Optional
 
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, Relationship, SQLModel
+
+from models.colectivoUV import ColectivoUV
+from models.genero import Genero
 
 class Alumno(SQLModel, table=True):
     __tablename__ = "alumnos"
@@ -10,9 +13,13 @@ class Alumno(SQLModel, table=True):
     nombre: str = Field(nullable=False)
     apellidos: str = Field(nullable=False)
     dni: str = Field(nullable=False, index=True, unique=True)
-    idGenero: int = Field(nullable=False, foreign_key="generos.idGenero")
-    idColectivoUV: int = Field(nullable=False, foreign_key="colectivoUV.idColectivoUV")
     email:  str = Field(nullable=False)
     telefono: str = Field(nullable=False)
     fechaNacimiento: datetime.datetime = Field(nullable=False)
     pruebaAdaptada: bool = Field(nullable=False, default=False)
+    
+    idGenero: int = Field(nullable=False, foreign_key="generos.idGenero")
+    genero: Genero = Relationship()
+
+    idColectivoUV: int = Field(nullable=False, foreign_key="colectivoUV.idColectivoUV")
+    colectivoUV: ColectivoUV = Relationship()

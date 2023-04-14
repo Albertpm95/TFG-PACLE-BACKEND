@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from crud import colectivoUV as crud_colectivoUV, genero as crud_genero
 
 from models.alumno import Alumno
-from models.shared import AlumnosConvocatoria
+#from models.shared import AlumnosConvocatoria
 from models.genero import Genero
 from models.colectivoUV import ColectivoUV
 
@@ -19,6 +19,7 @@ def get_alumnos(db: Session):
 
 
 def get_alumnos_by_convocatoria(idConvocatoria: int, db: Session):
+    return db.query(Alumno).all() # TODO Fix
     return db.query(AlumnosConvocatoria).filter(AlumnosConvocatoria.idConvocatoria == idConvocatoria).all()
 
 
