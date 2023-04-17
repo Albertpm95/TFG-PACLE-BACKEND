@@ -20,22 +20,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base: type = declarative_base()
 SQLModel.metadata = Base.metadata
 
-from models import (
-    colectivoUV,
-    genero,
-    alumno,
-    lenguaje,
-    horario,
-    nivel,
-    convocatoria,
-    rol_usuario,
-    usuario,
-    tarea,
-    correccion,
-    expresion,
-    comprension,
-    acta,
-)  # Order in which the tables have to be created
+from models import (colectivoUV,genero,alumno,lenguaje,horario, nivel, tarea, convocatoria,rol_usuario,usuario, acta)  # Order in which the tables have to be created
 
 SQLModel.metadata.create_all(engine)
 
@@ -44,20 +29,5 @@ def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
 
 
-def create_roles():
-    rol_1: rol_usuario.Rol(rol="Administrador")
-    rol_2: rol_usuario.Rol(rol="Gestor")
-    rol_3: rol_usuario.Rol(rol="Corrector")
-    with SessionLocal(engine) as session:
-        session.add(rol_1)
-        session.add(rol_2)
-        session.add(rol_3)
-        session.commit()
-    print(rol_1)
-    print(rol_2)
-    print(rol_3)
-
-
 if __name__ == "__main__":
-    create_db_and_tables()
-    create_roles()
+    create_db_and_tables() 

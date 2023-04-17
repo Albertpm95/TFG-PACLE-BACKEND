@@ -5,9 +5,7 @@ from sqlmodel import Field, Relationship, SQLModel
 from models.alumno import Alumno
 
 from models.convocatoria import Convocatoria
-from models.expresion import Expresion
-from models.comprension import Comprension
-
+from models.parte import ParteCorregida
 
 class Acta(SQLModel, table=True):
     __tablename__ = "actas"
@@ -26,46 +24,6 @@ class Acta(SQLModel, table=True):
         }
     )
 
-    idExpresionEscrita: Optional[int] = Field(
-        default=None, foreign_key="expresiones.idExpresion"
-    )
-    expresionEscrita: Expresion = Relationship(
-        sa_relationship_kwargs={
-            "primaryjoin": "Acta.idExpresionEscrita==Expresion.idExpresion",
-            "lazy": "joined",
-        }
-    )
-
-    idExpresionOral: Optional[int] = Field(
-        default=None, foreign_key="expresiones.idExpresion"
-    )
-    expresionOral: Expresion = Relationship(
-        sa_relationship_kwargs={
-            "primaryjoin": "Acta.idExpresionOral==Expresion.idExpresion",
-            "lazy": "joined",
-        }
-    )
-
-    idComprensionLectora: Optional[int] = Field(
-        default=None, foreign_key="comprensiones.idComprension"
-    )
-    comprensionLectora: Comprension = Relationship(
-        sa_relationship_kwargs={
-            "primaryjoin": "Acta.idComprensionLectora==Comprension.idComprension",
-            "lazy": "joined",
-        }
-    )
-
-    idComprensionAuditiva: Optional[int] = Field(
-        default=None, foreign_key="comprensiones.idComprension"
-    )
-    comprensionAuditiva: Comprension = Relationship(
-        sa_relationship_kwargs={
-            "primaryjoin": "Acta.idComprensionAuditiva==Comprension.idComprension",
-            "lazy": "joined",
-        }
-    )
-
     idAlumno: Optional[int] = Field(default=None, foreign_key="alumnos.idAlumno")
     alumno: Alumno = Relationship(
         sa_relationship_kwargs={
@@ -73,3 +31,45 @@ class Acta(SQLModel, table=True):
             "lazy": "joined",
         }
     )
+
+    idExpresionEscrita: Optional[int] = Field(
+        default=None, foreign_key="partes_acta.idParteCorregida"
+    )
+    expresionEscrita: ParteCorregida = Relationship(
+        sa_relationship_kwargs={
+            "primaryjoin": "Acta.idExpresionEscrita==ParteCorregida.idParteCorregida",
+            "lazy": "joined",
+        }
+    )
+
+    idExpresionOral: Optional[int] = Field(
+        default=None, foreign_key="partes_acta.idParteCorregida"
+    )
+    expresionOral: ParteCorregida = Relationship(
+        sa_relationship_kwargs={
+            "primaryjoin": "Acta.idExpresionOral==ParteCorregida.idParteCorregida",
+            "lazy": "joined",
+        }
+    )
+
+    idComprensionLectora: Optional[int] = Field(
+        default=None, foreign_key="partes_acta.idParteCorregida"
+    )
+    comprensionLectora: ParteCorregida = Relationship(
+        sa_relationship_kwargs={
+            "primaryjoin": "Acta.idComprensionLectora==ParteCorregida.idParteCorregida",
+            "lazy": "joined",
+        }
+    )
+
+    idComprensionAuditiva: Optional[int] = Field(
+        default=None, foreign_key="partes_acta.idParteCorregida"
+    )
+    comprensionAuditiva: ParteCorregida = Relationship(
+        sa_relationship_kwargs={
+            "primaryjoin": "Acta.idComprensionAuditiva==ParteCorregida.idParteCorregida",
+            "lazy": "joined",
+        }
+    )
+
+

@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from models.acta import Acta
 from schemas.acta import ActaBase
 
-from crud import convocatoria as crud_convocatoria, fakeDB
+from crud import convocatoria as crud_convocatoria
 from crud import alumno as crud_alumno
 
 """ CRUD Principal """
