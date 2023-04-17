@@ -5,19 +5,20 @@ from pydantic import BaseModel
 from schemas.horario import Horario
 from schemas.lenguaje import Lenguaje
 from schemas.nivel import Nivel
+from schemas.parte import ParteBase, ParteBaseDB
 
 
 class Convocatoria(BaseModel):
-    maxComprensionLectora: int
-    maxComprensionAuditiva: int
     estado: bool
-    maxExpresionEscrita: int
-    maxExpresionOral: int
     fecha: datetime | None = None
     horario: Horario
     lenguaje: Lenguaje
     nivel: Nivel
     specificIdentifier: int
+    parteComprensionLectora: ParteBase | ParteBaseDB
+    parteComprensionAuditiva: ParteBase | ParteBaseDB
+    parteExpresionEscrita: ParteBase | ParteBaseDB
+    parteExpresionOral: ParteBase | ParteBaseDB
 
     class Config:
         orm_mode = True

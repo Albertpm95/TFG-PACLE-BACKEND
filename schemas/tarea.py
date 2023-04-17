@@ -16,11 +16,12 @@ class TareaDB(Tarea):
 
     class Config:
         orm_mode = True
+        
+class TareaCorregida(TareaDB):
+    puntuacion: int
 
-
-class ListaTareas(BaseModel):
-    corrector: UsuarioBase
-    listaTareas: list[Tarea]
-
-    class Config:
+    class Config:   
         orm_mode = True
+
+class TareaCorregidaDB(TareaCorregida):
+    idTareaCorregida: int

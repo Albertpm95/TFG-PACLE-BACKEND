@@ -1,28 +1,27 @@
 from datetime import datetime
-from typing import Optional
 from pydantic import BaseModel
 
 from schemas.convocatoria import ConvocatoriaDB
-from schemas.comprension import ComprensionDB
-from schemas.expresion import ExpresionDB
 from schemas.alumno import AlumnoDB
+from schemas.parte import ParteCorregida
 
 
 class ActaBase(BaseModel):
     alumno: AlumnoDB
     convocatoria: ConvocatoriaDB
     fecha: datetime
-    expresionOral: ExpresionDB
-    expresionEscrita: ExpresionDB
-    comprensionLectora: ComprensionDB
-    comprensionAuditiva: ComprensionDB
+    resultado: str
+    expresionOral: ParteCorregida
+    expresionEscrita: ParteCorregida
+    comprensionLectora: ParteCorregida
+    comprensionAuditiva: ParteCorregida
 
     class Config:
         orm_mode = True
 
 
 class ActaDB(ActaBase):
-    idActa: Optional[int]
+    idActa: int
 
     class Config:
         orm_mode = True
