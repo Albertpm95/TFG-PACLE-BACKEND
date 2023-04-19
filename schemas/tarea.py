@@ -4,15 +4,14 @@ from schemas.usuario import UsuarioBase
 
 
 class Tarea(BaseModel):
-    valor: int
-    nombre_tarea: str
+    nombreTarea: str
 
     class Config:
         orm_mode = True
 
 
 class TareaDB(Tarea):
-    id_tarea: int
+    idTarea: int
 
     class Config:
         orm_mode = True

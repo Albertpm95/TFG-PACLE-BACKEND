@@ -2,13 +2,14 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from models.convocatoria import Convocatoria
+from models.parte import Parte
 from schemas.convocatoria import Convocatoria as sch_convocatoria
 from schemas.convocatoria import ConvocatoriaDB as sch_convocatoria_DB
 
 from crud import lenguaje as crud_idioma
 from crud import horario as crud_horario
 from crud import nivel as crud_nivel
-
+from crud import parte as crud_parte
 """ CRUD PRINCIPAL """
 
 
@@ -57,18 +58,30 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
             status_code=404,
             detail="No se encuentra el nivel seleccionado, no se ha podido crear la convocatoria.",
         )
+    existe_convocatoria = existe_convocatoria_specific_identifier(db, convocatoria.specificIdentifier)
+    if existe_convocatoria:
+        raise HTTPException(
+            status_code=404,
+            detail="Ya existe una convocatoria con ese identificador.",
+        )
 
+    comprensionAuditivaDB = crud_parte.create_parte(convocatoria.parteComprensionAuditiva, db)
+    comprensionLectora = crud_parte.create_parte(convocatoria.parteComprensionLectora, db)
+    expresionEscrita = crud_parte.create_parte(convocatoria.parteExpresionEscrita, db)
+    expresionOral = crud_parte.create_parte(convocatoria.parteExpresionOral, db)
     db_convocatoria = Convocatoria(
-        maxComprensionAuditiva=convocatoria.maxComprensionAuditiva,
-        maxComprensionLectora=convocatoria.maxComprensionLectora,
-        maxExpresionEscrita=convocatoria.maxExpresionEscrita,
-        maxExpresionOral=convocatoria.maxExpresionOral,
         estado=True,
         fecha=convocatoria.fecha,
         lenguaje=existe_lenguaje,
         horario=existe_horario,
         nivel=existe_nivel,
+        parteComprensionAuditiva=comprensionAuditivaDB,
+        parteComprensionLectora=comprensionLectora,
+        parteExpresionEscrita=expresionEscrita,
+        parteExpresionOral=expresionOral,
+        specificIdentifier=convocatoria.specificIdentifier,
     )
+    print(db_convocatoria)
     db.add(db_convocatoria)
     db.commit()
     db.refresh(db_convocatoria)
@@ -95,3 +108,6 @@ def update_convocatoria(convocatoria: sch_convocatoria_DB, db: Session):
     db.commit()
     db.refresh(db_convocatoria)
     return db_convocatoria
+
+def existe_convocatoria_specific_identifier(db: Session, specificIdentifier: str):
+    return db.query(Convocatoria).filter(Convocatoria.specificIdentifier == specificIdentifier).first()

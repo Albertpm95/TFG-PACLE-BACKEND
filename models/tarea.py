@@ -1,17 +1,24 @@
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
 from sqlmodel import Field, Relationship, SQLModel
 
 from models.usuario import Usuario
-
-# from models.shared import Correccion
-
+if TYPE_CHECKING:
+    from models.parte import Parte
 
 class Tarea(SQLModel, table=True):
     __tablename__ = "tareas"
     
-    idTarea: int = Field(default=None, primary_key=True)
+    idTarea: int = Field(primary_key=True)
     nombreTarea: str = Field(nullable=False)
+    
+    idParte: int = Field(foreign_key="partes_convocatoria.idParte")
+    parte: "Parte" = Relationship(back_populates="tareas",
+        sa_relationship_kwargs={
+            "primaryjoin": "Tarea.idParte==Parte.idParte",
+            "lazy": "joined",
+        }
+                                  )
 
 class TareaCorregida(SQLModel, table=True):
     __tablename__ = "tareas_corregidas"

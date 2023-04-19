@@ -1,8 +1,10 @@
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
 from sqlmodel import Field, Relationship, SQLModel
 
-from models.tarea import Correccion, Tarea, TareaCorregida
+from models.tarea import Correccion
+if TYPE_CHECKING:
+    from models.tarea import Tarea
 
 class Parte(SQLModel, table=True):
     __tablename__ = "partes_convocatoria"
@@ -11,8 +13,11 @@ class Parte(SQLModel, table=True):
     
     tipo: str = Field(nullable=False)
     puntuacionMaxima: int = Field(nullable=False, default=0)
-    idTarea: int = Field(nullable=False, foreign_key=Tarea.idTarea)
-    tareas: list[Tarea] = Relationship()
+    
+    #idTarea: Optional[int] = Field(nullable=False, foreign_key="tareas.idTarea")
+    tareas: Optional[list["Tarea"]] = Relationship(back_populates="parte",
+        #sa_relationship_kwargs={"primaryjoin": "Parte.idTarea==Tarea.idParte","lazy": "joined",}
+    )
     
 class ParteCorregida(SQLModel, table=True):
     __tablename__ = "partes_acta"

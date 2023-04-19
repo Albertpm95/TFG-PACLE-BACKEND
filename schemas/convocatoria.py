@@ -14,7 +14,7 @@ class Convocatoria(BaseModel):
     horario: Horario
     lenguaje: Lenguaje
     nivel: Nivel
-    specificIdentifier: int
+    specificIdentifier: str
     parteComprensionLectora: ParteBase | ParteBaseDB
     parteComprensionAuditiva: ParteBase | ParteBaseDB
     parteExpresionEscrita: ParteBase | ParteBaseDB
