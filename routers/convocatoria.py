@@ -1,5 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from sqlmodel import JSON
 
 from crud import crud
 from crud import convocatoria as crud_convocatoria
@@ -27,6 +28,7 @@ async def recuperar_convocatoria_id(
 async def create_convocatoria(
     convocatoria_nueva: Convocatoria, db: Session = Depends(crud.get_db)
 ):
+    print(JSON(convocatoria_nueva))
     return crud_convocatoria.create_convocatoria(convocatoria=convocatoria_nueva, db=db)
 
 

@@ -19,7 +19,6 @@ def create_tareas(tareas: list[sch_tarea], idParte: int, db: Session):
     tareasDB = []
     for tarea in tareas:
         tareasDB.append(create_tarea(tarea, idParte, db))
-    print('Tareas creadas: ', tareasDB)
     return tareasDB
 
 def update_tarea(tarea: sch_tareaDB, db: Session):

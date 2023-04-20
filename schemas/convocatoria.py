@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from pydantic import BaseModel
+from sqlmodel import Date
 
 from schemas.horario import Horario
 from schemas.lenguaje import Lenguaje
@@ -10,7 +11,7 @@ from schemas.parte import ParteBase, ParteBaseDB
 
 class Convocatoria(BaseModel):
     estado: bool
-    fecha: datetime | None = None
+    fecha: datetime
     horario: Horario
     lenguaje: Lenguaje
     nivel: Nivel
