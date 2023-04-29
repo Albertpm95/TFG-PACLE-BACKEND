@@ -1,13 +1,13 @@
 from fastapi import HTTPException
+
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
 from models.nivel import Nivel
 
 
 def crear_nivel(db: Session, nivel_nuevo: str) -> Nivel:
-    existe_nivel: Nivel | None = get_nivel_nombre(db, nivel_nuevo)
-    print(nivel_nuevo)
-    print(existe_nivel)
+    existe_nivel: Nivel = get_nivel_nombre(db, nivel_nuevo)
     if existe_nivel:
         raise HTTPException(
             status_code=404, detail="Ya existe ese nivel, no puede crearse otra vez."
@@ -33,7 +33,7 @@ def get_nivel_nombre(db: Session, nivel: str) -> Nivel:
 
 
 def delete_nivel_id(db: Session, idnivel: int):
-    existe_nivel: Nivel | None = get_nivel_id(db, idnivel)
+    existe_nivel: Nivel = get_nivel_id(db, idnivel)
     if not existe_nivel:
         raise HTTPException(
             status_code=404, detail="No existe ese nivel, no puede borrarse."

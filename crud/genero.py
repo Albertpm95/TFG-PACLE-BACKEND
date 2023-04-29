@@ -1,8 +1,9 @@
 from fastapi import HTTPException
+
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
 from models.genero import Genero
-
 
 def crear_genero(db: Session, genero_nuevo: str) -> Genero:
     existe_genero: Genero = get_genero_nombre(db, genero_nuevo)
@@ -29,13 +30,18 @@ def get_genero_nombre(db: Session, genero: str) -> Genero:
     return db.query(Genero).filter(Genero.genero == genero).first()
 
 
-def delete_genero_id(db: Session, idgenero: int) -> dict[str, str]:
-    existe_genero: Genero = get_genero_id(db, idgenero)
+def delete_genero_id(db: Session, idGenero: int) -> dict[str, str]:
+    existe_genero: Genero = get_genero_id(db, idGenero)
     if not existe_genero:
         raise HTTPException(
             status_code=404, detail="No existe ese genero, no puede borrarse."
         )
     db.delete(existe_genero)
-    db.commit()
-    # return {"ok": True}
-    return {"Borrado": "Borrado el genero ${genero.genero}"}
+
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Cannot delete row due to foreign key constraint.")
+
+    return {"Borrado": "Borrado el idioma ${lenguaje.lenguaje}"}

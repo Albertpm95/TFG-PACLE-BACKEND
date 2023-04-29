@@ -1,7 +1,9 @@
 from datetime import date, datetime
 from fastapi import HTTPException
+
 from sqlalchemy import Date
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
 from crud import colectivoUV as crud_colectivoUV, genero as crud_genero
 
@@ -123,6 +125,11 @@ def delete_alumno_id(db: Session, idAlumno: int) -> dict[str, str]:
             status_code=404, detail="No existe el alumno, no puede borrarse."
         )
     db.delete(existe_alumno)
-    db.commit()
-    # return {"ok": True}
-    return {"Borrado": "Borrado el alumno ${alumno.nombre} ${alumno.apellidos}"}
+
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Cannot delete row due to foreign key constraint.")
+
+    return {"Borrado": "Borrado el idioma ${lenguaje.lenguaje}"}

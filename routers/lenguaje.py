@@ -7,7 +7,6 @@ from schemas.lenguaje import Lenguaje, LenguajeBase
 
 router = APIRouter(prefix="/lenguaje", tags=["Lenguaje"])
 
-
 @router.get("/list", response_model=list[Lenguaje])
 async def recuperar_lista_idiomas(db: Session = Depends(crud.get_db)):
     return crud_idioma.get_idiomas(db)

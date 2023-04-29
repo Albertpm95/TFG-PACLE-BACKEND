@@ -1,6 +1,7 @@
 from fastapi import HTTPException
 
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
 from models.lenguaje import Lenguaje
 
@@ -37,6 +38,11 @@ def delete_idioma_id(db: Session, idLenguaje: int) -> dict[str, str]:
             status_code=404, detail="No existe ese lenguaje, no puede borrarse."
         )
     db.delete(existe_lenguaje)
-    db.commit()
-    # return {"ok": True}
+    
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Cannot delete row due to foreign key constraint.")
+
     return {"Borrado": "Borrado el idioma ${lenguaje.lenguaje}"}

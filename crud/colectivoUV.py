@@ -1,5 +1,7 @@
 from fastapi import HTTPException
+
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
 from models.colectivoUV import ColectivoUV
 
@@ -39,5 +41,11 @@ def delete_colectivoUV_id(db: Session, idcolectivoUV: int) -> dict[str, str]:
             status_code=404, detail="No existe ese colectivoUV, no puede borrarse."
         )
     db.delete(existe_colectivoUV)
-    db.commit()
-    return {"Borrado": "Borrado el colectivo ${colectivoUV.colectivoUV}"}
+    
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Cannot delete row due to foreign key constraint.")
+
+    return {"Borrado": "Borrado el idioma ${lenguaje.lenguaje}"}

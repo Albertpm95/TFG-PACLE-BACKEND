@@ -1,4 +1,7 @@
+from fastapi import HTTPException
+
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
 from schemas.tarea import Tarea as sch_tarea
 from schemas.tarea import TareaDB as sch_tareaDB
@@ -29,3 +32,19 @@ def update_tarea(tarea: sch_tareaDB, db: Session):
     db.commit()
     db.refresh(tarea_db)
     return tarea_db
+
+def delete_tarea(db: Session, idTarea: int):
+    existe_tarea: mod_tarea = get_tarea_id(db, idTarea)
+    if not existe_tarea:
+        raise HTTPException(
+            status_code=404, detail="No existe ese genero, no puede borrarse."
+        )
+    db.delete(existe_tarea)
+
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Cannot delete row due to foreign key constraint.")
+
+    return {"Borrado": "Borrada el tarea."}

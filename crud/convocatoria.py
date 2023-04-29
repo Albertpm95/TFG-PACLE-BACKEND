@@ -1,8 +1,10 @@
 from fastapi import HTTPException
+
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
 from models.convocatoria import Convocatoria
-from models.parte import Parte
+
 from schemas.convocatoria import Convocatoria as sch_convocatoria
 from schemas.convocatoria import ConvocatoriaDB as sch_convocatoria_DB
 
@@ -10,6 +12,7 @@ from crud import lenguaje as crud_idioma
 from crud import horario as crud_horario
 from crud import nivel as crud_nivel
 from crud import parte as crud_parte
+
 """ CRUD PRINCIPAL """
 
 
@@ -111,3 +114,19 @@ def update_convocatoria(convocatoria: sch_convocatoria_DB, db: Session):
 
 def existe_convocatoria_specific_identifier(db: Session, specificIdentifier: str):
     return db.query(Convocatoria).filter(Convocatoria.specificIdentifier == specificIdentifier).first()
+
+def delete_convocatoria(db: Session, idConvocatoria: int):
+    existe_convocatoria: Convocatoria = get_convocatoria_id()(db, idConvocatoria)
+    if not existe_convocatoria:
+        raise HTTPException(
+            status_code=404, detail="No existe ese genero, no puede borrarse."
+        )
+    db.delete(existe_convocatoria)
+
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Cannot delete row due to foreign key constraint.")
+
+    return {"Borrado": "Borrada la convocatoria."}

@@ -1,11 +1,13 @@
-import select
 from fastapi import HTTPException
+
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
 from crud import crud
 from crud.rol import get_rol_id
 from models.usuario import Usuario
 from models.rol_usuario import Rol
+
 from schemas.usuario import UsuarioBase, UsuarioDB
 
 """ CRUD Principal """
@@ -91,5 +93,19 @@ def activar_usuario(db: Session, idUsuario: int) -> Usuario:
     db.refresh(db_usuario)
     return db_usuario
 
+def delete_user(db: Session, idUsuario: int):
+    existe_acta: Usuario = get_user_id(db, idUsuario)
+    if not existe_acta:
+        raise HTTPException(
+            status_code=404, detail="No existe ese usuario, no puede borrarse."
+        )
+    db.delete(existe_acta)
 
-""" CRUD APOYO """
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        desactivar_usuario(db, idUsuario)
+        raise HTTPException(status_code=400, detail="No se ha podido borrar el usuario para mantener la integridad de la BBDD. Se ha desactivado.")
+
+    return {"Borrado": "Borrado el usuario."}

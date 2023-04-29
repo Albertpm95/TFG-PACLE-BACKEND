@@ -1,5 +1,7 @@
 from fastapi import HTTPException
+
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
 from models.rol_usuario import Rol
 
@@ -29,3 +31,19 @@ def get_rol_id(db: Session, idRol) -> Rol:
 
 def get_rol_nombre(db: Session, rol: str) -> Rol:
     return db.query(Rol).filter(Rol.rol == rol).first()
+
+def delete_rol(db: Session, idRol: int):
+    existe_rol: Rol = get_rol_id(db, idRol)
+    if not existe_rol:
+        raise HTTPException(
+            status_code=404, detail="No existe ese genero, no puede borrarse."
+        )
+    db.delete(existe_rol)
+
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Cannot delete row due to foreign key constraint.")
+
+    return {"Borrado": "Borrada el rol."}
