@@ -1,17 +1,18 @@
+import json
+from textwrap import indent
+
 from fastapi import HTTPException
-
-from sqlalchemy.orm import Session
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
 
-from models.convocatoria import Convocatoria
-
-from schemas.convocatoria import Convocatoria as sch_convocatoria
-from schemas.convocatoria import ConvocatoriaDB as sch_convocatoria_DB
-
-from crud import lenguaje as crud_idioma
 from crud import horario as crud_horario
+from crud import lenguaje as crud_idioma
 from crud import nivel as crud_nivel
 from crud import parte as crud_parte
+from models.convocatoria import Convocatoria
+from schemas.convocatoria import ConvocatoriaDB as sch_convocatoria_DB
+from schemas.convocatoria import ConvocatoriaNueva as sch_convocatoria
 
 """ CRUD PRINCIPAL """
 
@@ -62,6 +63,9 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
             detail="No se encuentra el nivel seleccionado, no se ha podido crear la convocatoria.",
         )
     existe_convocatoria = existe_convocatoria_specific_identifier(db, convocatoria.specificIdentifier)
+    print( ' A ' )
+    print(json.dumps(jsonable_encoder(existe_convocatoria)))
+    print( ' A ' )
     if existe_convocatoria:
         raise HTTPException(
             status_code=404,
@@ -84,33 +88,54 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
         parteExpresionOral=expresionOral,
         specificIdentifier=convocatoria.specificIdentifier,
     )
-    print(db_convocatoria)
     db.add(db_convocatoria)
     db.commit()
     db.refresh(db_convocatoria)
     return db_convocatoria
 
 
-def update_convocatoria(convocatoria: sch_convocatoria_DB, db: Session):
-    existe_lenguaje = crud_idioma.get_idioma_id(db, convocatoria.lenguaje.idLenguaje)
+def update_convocatoria(convocatoria_update: sch_convocatoria_DB, db: Session):
+    existe_convocatoria = get_convocatoria_id(db=db, idConvocatoria=convocatoria_update.idConvocatoria)
+    if not existe_convocatoria:
+        raise HTTPException(
+            status_code=404,
+            detail="No se encuentra la convocatoria seleccionada, no se ha podido actualizar.",
+        )
+    existe_lenguaje = crud_idioma.get_idioma_id(db, convocatoria_update.lenguaje.idLenguaje)
     if not existe_lenguaje:
         raise HTTPException(
             status_code=404,
-            detail="No se encuentra el lenguaje seleccionado, no se ha podido crear la convocatoria.",
+            detail="No se encuentra el lenguaje seleccionado, no se ha podido actualizar la convocatoria.",
         )
     existe_horario = crud_horario.get_horario_id(
-        db, idHorario=convocatoria.horario.idHorario
+        db, idHorario=convocatoria_update.horario.idHorario
     )
     if not existe_horario:
         raise HTTPException(
             status_code=404,
-            detail="No se encuentra el horario seleccionado, no se ha podido crear la convocatoria.",
+            detail="No se encuentra el horario seleccionado, no se ha podido actualizar la convocatoria.",
         )
-    db_convocatoria = Convocatoria(convocatoria)
-    db.add(db_convocatoria)
+    existe_nivel = crud_nivel.get_nivel_id(db, convocatoria_update.nivel.idNivel)
+    if not existe_nivel:
+        raise HTTPException(
+            status_code=404,
+            detail="No se encuentra el nivel seleccionado, no se ha podido actualizar la convocatoria.",
+        )
+    existe_convocatoria.idConvocatoria=convocatoria_update.idConvocatoria
+    existe_convocatoria.estado=convocatoria_update.estado
+    existe_convocatoria.fecha=convocatoria_update.fecha
+    existe_convocatoria.horario=existe_horario
+    existe_convocatoria.nivel=existe_nivel
+    existe_convocatoria.lenguaje=existe_lenguaje
+    existe_convocatoria.specificIdentifier=convocatoria_update.specificIdentifier
+    
+    crud_parte.update_parte(db=db, parte=convocatoria_update.parteComprensionAuditiva)
+    crud_parte.update_parte(db=db, parte=convocatoria_update.parteComprensionLectora)
+    crud_parte.update_parte(db=db, parte=convocatoria_update.parteExpresionEscrita)
+    crud_parte.update_parte(db=db, parte=convocatoria_update.parteExpresionOral)
     db.commit()
-    db.refresh(db_convocatoria)
-    return db_convocatoria
+    db.refresh(existe_convocatoria)
+    return existe_convocatoria
 
 def existe_convocatoria_specific_identifier(db: Session, specificIdentifier: str):
     return db.query(Convocatoria).filter(Convocatoria.specificIdentifier == specificIdentifier).first()

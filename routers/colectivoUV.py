@@ -20,7 +20,7 @@ async def recuperar_lista_colectivosUV(
 async def create_colectivo(
     colectivoUV_nuevo: ColectivoUVBase, db: Session = Depends(crud.get_db)
 ) -> ColectivoUV:
-    print(colectivoUV_nuevo)
+
     return crud_colectivoUV.crear_colectivoUV(
         db, colectivoUV_nuevo=colectivoUV_nuevo.colectivoUV
     )

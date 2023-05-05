@@ -14,7 +14,6 @@ def crear_rol(db: Session, rol_nuevo: str):
             detail="Ya existe ese rol, no se puede crearse uno con el mismo nombre.",
         )
     db_rol = Rol(rol=rol_nuevo)
-    print(rol_existe)
     db.add(db_rol)
     db.commit()
     db.refresh(db_rol)

@@ -1,12 +1,15 @@
+import json
+from textwrap import indent
+
 from fastapi import HTTPException
-
-from sqlalchemy.orm import Session
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy.exc import IntegrityError
-
-from models.parte import Parte
-from schemas.parte import ParteBase
+from sqlalchemy.orm import Session
 
 from crud import tarea as crud_tarea
+from models.parte import Parte
+from schemas.parte import ParteBase, ParteBaseDB
+
 
 def create_parte(parte: ParteBase, db: Session):
     parte_db = Parte(
@@ -19,6 +22,18 @@ def create_parte(parte: ParteBase, db: Session):
     db.refresh(parte_db)
     return parte_db
 
+def update_parte(parte: ParteBaseDB, db:Session):
+    existe_parte = get_parte_id(idParte=parte.idParte, db=db)
+    if not existe_parte:
+        raise HTTPException(
+            status_code=404, detail="No existe ese genero, no puede borrarse."
+        )
+    existe_parte.puntuacionMaxima=parte.puntuacionMaxima
+    existe_parte.tareas=parte.tareas
+    db.commit()
+    db.refresh(existe_parte)
+    return existe_parte
+        
 def get_parte_id(idParte: int, db: Session):
     return db.query(Parte).filter(Parte.idParte == idParte).first()
 
@@ -33,7 +48,7 @@ def delete_parte(db: Session, idParte: int):
     try:
         db.commit()
     except IntegrityError:
-        db.partelback()
-        raise HTTPException(status_code=400, detail="Cannot delete row due to foreign key constraint.")
+        db.rollback()
+        raise HTTPException(status_code=400, detail="No se puede borrar la parte porque esta siendo referenciada en algun sitio.")
 
     return {"Borrado": "Borrada el parte."}

@@ -62,7 +62,7 @@ def create_alumno(alumno: sch_alumno, db: Session):
             detail="No existe ese Colectivo UV seleccionado, no puede registrarse al alumno.",
         )
     fechaNacimientoDate: date = alumno.fechaNacimiento
-    print(alumno.fechaNacimiento, type(alumno.fechaNacimiento))
+
     alumno_db = Alumno(
         nombre=alumno.nombre,
         apellidos=alumno.apellidos,
