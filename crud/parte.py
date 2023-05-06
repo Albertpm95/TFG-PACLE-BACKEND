@@ -30,10 +30,9 @@ def update_parte(parte: ParteBaseDB, db:Session):
             status_code=404, detail="No existe ese genero, no puede borrarse."
         )
     existe_parte.puntuacionMaxima=parte.puntuacionMaxima
+    existe_parte.tareas=crud_tarea.create_tareas(parte.tareas,  db)
     db.commit()
     db.refresh(existe_parte)
-    crud_tarea.create_tareas(parte.tareas,  db)
-
     return existe_parte
         
 def get_parte_id(idParte: int, db: Session):
