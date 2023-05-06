@@ -63,15 +63,11 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
             detail="No se encuentra el nivel seleccionado, no se ha podido crear la convocatoria.",
         )
     existe_convocatoria = existe_convocatoria_specific_identifier(db, convocatoria.specificIdentifier)
-    print( ' A ' )
-    print(json.dumps(jsonable_encoder(existe_convocatoria)))
-    print( ' A ' )
     if existe_convocatoria:
         raise HTTPException(
             status_code=404,
             detail="Ya existe una convocatoria con ese identificador.",
         )
-
     comprensionAuditivaDB = crud_parte.create_parte(convocatoria.parteComprensionAuditiva, db)
     comprensionLectora = crud_parte.create_parte(convocatoria.parteComprensionLectora, db)
     expresionEscrita = crud_parte.create_parte(convocatoria.parteExpresionEscrita, db)
@@ -129,10 +125,12 @@ def update_convocatoria(convocatoria_update: sch_convocatoria_DB, db: Session):
     existe_convocatoria.lenguaje=existe_lenguaje
     existe_convocatoria.specificIdentifier=convocatoria_update.specificIdentifier
     
-    crud_parte.update_parte(db=db, parte=convocatoria_update.parteComprensionAuditiva)
-    crud_parte.update_parte(db=db, parte=convocatoria_update.parteComprensionLectora)
-    crud_parte.update_parte(db=db, parte=convocatoria_update.parteExpresionEscrita)
-    crud_parte.update_parte(db=db, parte=convocatoria_update.parteExpresionOral)
+    existe_convocatoria.parteComprensionAuditiva=crud_parte.update_parte(db=db, parte=convocatoria_update.parteComprensionAuditiva)
+    existe_convocatoria.parteComprensionLectora=crud_parte.update_parte(db=db, parte=convocatoria_update.parteComprensionLectora)
+    existe_convocatoria.parteExpresionEscrita=crud_parte.update_parte(db=db, parte=convocatoria_update.parteExpresionEscrita)
+    existe_convocatoria.parteExpresionOral=crud_parte.update_parte(db=db, parte=convocatoria_update.parteExpresionOral)
+
+    print(json.dumps(jsonable_encoder(existe_convocatoria)))
     db.commit()
     db.refresh(existe_convocatoria)
     return existe_convocatoria
@@ -141,7 +139,7 @@ def existe_convocatoria_specific_identifier(db: Session, specificIdentifier: str
     return db.query(Convocatoria).filter(Convocatoria.specificIdentifier == specificIdentifier).first()
 
 def delete_convocatoria(db: Session, idConvocatoria: int):
-    existe_convocatoria: Convocatoria = get_convocatoria_id()(db, idConvocatoria)
+    existe_convocatoria: Convocatoria = get_convocatoria_id(db, idConvocatoria)
     if not existe_convocatoria:
         raise HTTPException(
             status_code=404, detail="No existe ese genero, no puede borrarse."

@@ -1,7 +1,5 @@
 from pydantic import BaseModel
 
-from schemas.usuario import UsuarioBase
-
 
 class Tarea(BaseModel):
     nombreTarea: str

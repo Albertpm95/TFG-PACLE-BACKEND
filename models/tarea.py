@@ -1,8 +1,9 @@
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from sqlmodel import Field, Relationship, SQLModel
 
 from models.usuario import Usuario
+
 if TYPE_CHECKING:
     from models.parte import Parte
 
@@ -12,13 +13,8 @@ class Tarea(SQLModel, table=True):
     idTarea: int = Field(primary_key=True)
     nombreTarea: str = Field(nullable=False)
     
-    idParte: int = Field(foreign_key="partes_convocatoria.idParte")
-    parte: "Parte" = Relationship(back_populates="tareas",
-        sa_relationship_kwargs={
-            "primaryjoin": "Tarea.idParte==Parte.idParte",
-            "lazy": "joined",
-        }
-                                  )
+    idParte: Optional[int] = Field(foreign_key="partes_convocatoria.idParte")
+    parte: Optional["Parte"] = Relationship(back_populates="tareas",sa_relationship_kwargs={"primaryjoin": "Tarea.idParte==Parte.idParte","lazy": "joined",})
 
 class TareaCorregida(SQLModel, table=True):
     __tablename__ = "tareas_corregidas"

@@ -1,14 +1,16 @@
 
 from typing import Optional
+
 from pydantic import BaseModel
 
 from schemas.correccion import Correccion
-from schemas.tarea import Tarea
+from schemas.tarea import Tarea, TareaDB
+
 
 class ParteBase(BaseModel):
     tipo: str
     puntuacionMaxima: int
-    tareas: list[Tarea]
+    tareas: list[Tarea | TareaDB]
     class Config:
         orm_mode = True
 
