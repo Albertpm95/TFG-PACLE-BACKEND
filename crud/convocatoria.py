@@ -136,10 +136,10 @@ def existe_convocatoria_specific_identifier(db: Session, specificIdentifier: str
     return db.query(Convocatoria).filter(Convocatoria.specificIdentifier == specificIdentifier).first()
 
 def delete_convocatoria(db: Session, idConvocatoria: int):
-    existe_convocatoria: Convocatoria = get_convocatoria_id(db, idConvocatoria)
+    existe_convocatoria: Convocatoria = get_convocatoria_id(db=db, idConvocatoria=idConvocatoria)
     if not existe_convocatoria:
         raise HTTPException(
-            status_code=404, detail="No existe ese genero, no puede borrarse."
+            status_code=404, detail="No existe esa convocatoria, no puede borrarse."
         )
     db.delete(existe_convocatoria)
 
@@ -147,6 +147,6 @@ def delete_convocatoria(db: Session, idConvocatoria: int):
         db.commit()
     except IntegrityError:
         db.rollback()
-        raise HTTPException(status_code=400, detail="Cannot delete row due to foreign key constraint.")
+        raise HTTPException(status_code=400, detail="No se puede borrar la convocatoria porque esta siendo referenfciada.")
 
     return {"Borrado": "Borrada la convocatoria."}

@@ -18,7 +18,6 @@ def create_parte(parte: ParteBase, db: Session):
         tareas=[]
     )
     db.add(parte_db)
-    print(json.dumps(jsonable_encoder(parte_db)))
     db.commit()
     db.refresh(parte_db)
     return parte_db
@@ -30,11 +29,7 @@ def update_parte(parte: ParteBaseDB, db:Session):
             status_code=404, detail=f"No existe la parte de {parte.tipo}, no puede actualizarse."
         )
     existe_parte.puntuacionMaxima=parte.puntuacionMaxima
-    print('\n Existe parte previa asignacion de tareas: \n')
-    print(json.dumps(jsonable_encoder(existe_parte.tareas)))
     existe_parte.tareas=crud_tarea.create_tareas(parte.tareas, db)
-    print('\n Existe parte despues de la asignacion de tareas:  \n')
-    print(json.dumps(jsonable_encoder(existe_parte.tareas)))
     db.commit()
     db.refresh(existe_parte)
     return existe_parte

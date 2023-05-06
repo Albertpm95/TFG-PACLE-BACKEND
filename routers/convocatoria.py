@@ -37,3 +37,8 @@ async def update_convocatoria(
     convocatoria_update: ConvocatoriaDB, db: Session = Depends(crud.get_db)
 ) -> ConvocatoriaDB:
     return crud_convocatoria.update_convocatoria(convocatoria_update=convocatoria_update, db=db)
+
+@router.delete("/delete/{idConvocatoria}", response_model=dict[str, str])
+async def update_convocatoria(idConvocatoria: int, db: Session = Depends(crud.get_db)):
+    print(json.dumps(jsonable_encoder(idConvocatoria)))
+    return crud_convocatoria.delete_convocatoria(idConvocatoria=idConvocatoria, db=db)
