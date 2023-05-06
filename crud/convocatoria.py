@@ -124,13 +124,10 @@ def update_convocatoria(convocatoria_update: sch_convocatoria_DB, db: Session):
     existe_convocatoria.nivel=existe_nivel
     existe_convocatoria.lenguaje=existe_lenguaje
     existe_convocatoria.specificIdentifier=convocatoria_update.specificIdentifier
-    
     existe_convocatoria.parteComprensionAuditiva=crud_parte.update_parte(db=db, parte=convocatoria_update.parteComprensionAuditiva)
     existe_convocatoria.parteComprensionLectora=crud_parte.update_parte(db=db, parte=convocatoria_update.parteComprensionLectora)
     existe_convocatoria.parteExpresionEscrita=crud_parte.update_parte(db=db, parte=convocatoria_update.parteExpresionEscrita)
     existe_convocatoria.parteExpresionOral=crud_parte.update_parte(db=db, parte=convocatoria_update.parteExpresionOral)
-
-    print(json.dumps(jsonable_encoder(existe_convocatoria)))
     db.commit()
     db.refresh(existe_convocatoria)
     return existe_convocatoria

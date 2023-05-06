@@ -36,5 +36,4 @@ async def create_convocatoria(
 async def update_convocatoria(
     convocatoria_update: ConvocatoriaDB, db: Session = Depends(crud.get_db)
 ) -> ConvocatoriaDB:
-    print(json.dumps(jsonable_encoder(convocatoria_update)))
     return crud_convocatoria.update_convocatoria(convocatoria_update=convocatoria_update, db=db)

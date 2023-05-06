@@ -11,7 +11,7 @@ metadata = MetaData(schema="pacle_db")
 engine = create_engine(
     SQLALCHEMY_DATABASE_URI,
     connect_args={"options": "-csearch_path=pacle_db"},
-    echo=True,
+    #echo=True,
 )
 # engine = create_engine(SQLALCHEMY_DATABASE_URI, echo=True)
 
@@ -20,8 +20,8 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base: type = declarative_base()
 SQLModel.metadata = Base.metadata
 
-from models import (acta,  # Order in which the tables have to be created
-                    alumno, colectivoUV, convocatoria, genero, horario,
+from models import acta  # Order in which the tables have to be created
+from models import (alumno, colectivoUV, convocatoria, genero, horario,
                     lenguaje, nivel, rol_usuario, tarea, usuario)
 
 SQLModel.metadata.create_all(engine)

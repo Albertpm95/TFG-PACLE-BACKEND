@@ -10,6 +10,7 @@ class Tarea(BaseModel):
 
 class TareaDB(Tarea):
     idTarea: int
+    idParte: int
 
     class Config:
         orm_mode = True
