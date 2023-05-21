@@ -7,7 +7,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from crud import tarea as crud_tarea
-from models.parte import Parte
+from models.parte import Parte, ParteCorregida
 from schemas.parte import ParteBase, ParteBaseDB
 
 
@@ -18,8 +18,18 @@ def create_parte(parte: ParteBase, db: Session):
         tareas=[]
     )
     db.add(parte_db)
-    db.commit()
     db.refresh(parte_db)
+    return parte_db
+
+def create_parte_corregida(parte: ParteCorregida, db: Session):
+    existe_parte = get_parte_id(parte.parte.idParte)
+    parte_db = ParteCorregida(
+        idParte=parte.idParte,
+        puntuacionMaxima=parte.parte.puntuacionMaxima,
+        parte=existe_parte,
+        correccion=parte.correccion,
+        observaciones=parte.observaciones
+    )
     return parte_db
 
 def update_parte(parte: ParteBaseDB, db:Session):
@@ -30,7 +40,6 @@ def update_parte(parte: ParteBaseDB, db:Session):
         )
     existe_parte.puntuacionMaxima=parte.puntuacionMaxima
     existe_parte.tareas=crud_tarea.create_tareas(parte.tareas, db)
-    db.commit()
     db.refresh(existe_parte)
     return existe_parte
         

@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
+from schemas.tarea import TareaDB
 from schemas.usuario import UsuarioDB
-from schemas.tarea import Tarea, TareaDB
 
 
 class Correccion(BaseModel):

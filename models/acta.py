@@ -7,6 +7,7 @@ from models.alumno import Alumno
 from models.convocatoria import Convocatoria
 from models.parte import ParteCorregida
 
+
 class Acta(SQLModel, table=True):
     __tablename__ = "actas"
 
@@ -14,9 +15,7 @@ class Acta(SQLModel, table=True):
     fecha: datetime.datetime = Field(nullable=False)
     resultado: str = Field(nullable=False, default="No corregido")
 
-    idConvocatoria: Optional[int] = Field(
-        default=None, foreign_key="convocatorias.idConvocatoria"
-    )
+    idConvocatoria: Optional[int] = Field(default=None, foreign_key="convocatorias.idConvocatoria")
     convocatoria: Convocatoria = Relationship(
         sa_relationship_kwargs={
             "primaryjoin": "Acta.idConvocatoria==Convocatoria.idConvocatoria",
@@ -32,9 +31,7 @@ class Acta(SQLModel, table=True):
         }
     )
 
-    idExpresionEscrita: Optional[int] = Field(
-        default=None, foreign_key="partes_acta.idParteCorregida"
-    )
+    idExpresionEscrita: Optional[int] = Field(default=None, foreign_key="partes_acta.idParteCorregida")
     expresionEscrita: ParteCorregida = Relationship(
         sa_relationship_kwargs={
             "primaryjoin": "Acta.idExpresionEscrita==ParteCorregida.idParteCorregida",
@@ -42,9 +39,7 @@ class Acta(SQLModel, table=True):
         }
     )
 
-    idExpresionOral: Optional[int] = Field(
-        default=None, foreign_key="partes_acta.idParteCorregida"
-    )
+    idExpresionOral: Optional[int] = Field(default=None, foreign_key="partes_acta.idParteCorregida")
     expresionOral: ParteCorregida = Relationship(
         sa_relationship_kwargs={
             "primaryjoin": "Acta.idExpresionOral==ParteCorregida.idParteCorregida",
@@ -52,9 +47,7 @@ class Acta(SQLModel, table=True):
         }
     )
 
-    idComprensionLectora: Optional[int] = Field(
-        default=None, foreign_key="partes_acta.idParteCorregida"
-    )
+    idComprensionLectora: Optional[int] = Field(default=None, foreign_key="partes_acta.idParteCorregida")
     comprensionLectora: ParteCorregida = Relationship(
         sa_relationship_kwargs={
             "primaryjoin": "Acta.idComprensionLectora==ParteCorregida.idParteCorregida",
@@ -62,14 +55,10 @@ class Acta(SQLModel, table=True):
         }
     )
 
-    idComprensionAuditiva: Optional[int] = Field(
-        default=None, foreign_key="partes_acta.idParteCorregida"
-    )
+    idComprensionAuditiva: Optional[int] = Field(default=None, foreign_key="partes_acta.idParteCorregida")
     comprensionAuditiva: ParteCorregida = Relationship(
         sa_relationship_kwargs={
             "primaryjoin": "Acta.idComprensionAuditiva==ParteCorregida.idParteCorregida",
             "lazy": "joined",
         }
     )
-
-
