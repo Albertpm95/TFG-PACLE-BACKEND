@@ -9,7 +9,7 @@ def crear_genero(db: Session, genero_nuevo: str) -> Genero:
     existe_genero: Genero = get_genero_nombre(db, genero_nuevo)
     if existe_genero:
         raise HTTPException(
-            status_code=404, detail="Ya existe ese genero, no puede crearse otra vez."
+            status_code=409, detail="Ya existe ese genero, no puede crearse otra vez."
         )
     db_genero = Genero(genero=genero_nuevo)
     db.add(db_genero)

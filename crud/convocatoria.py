@@ -63,7 +63,7 @@ def create_convocatoria(convocatoria: sch_convocatoria, db: Session):
     existe_convocatoria = existe_convocatoria_specific_identifier(db, convocatoria.specificIdentifier)
     if existe_convocatoria:
         raise HTTPException(
-            status_code=404,
+            status_code=409,
             detail="Ya existe una convocatoria con ese identificador.",
         )
     comprensionAuditivaDB = crud_parte.create_parte(convocatoria.parteComprensionAuditiva, db)

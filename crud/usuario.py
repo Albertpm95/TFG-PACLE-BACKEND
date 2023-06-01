@@ -26,7 +26,7 @@ def create_usuario(db: Session, usuario_nuevo: UsuarioBase) -> Usuario:
     existe_usuario: Usuario = get_user_username(db, username=usuario_nuevo.username)
     if existe_usuario:
         raise HTTPException(
-            status_code=404, detail="Ya existe un usuario con ese username."
+            status_code=409, detail="Ya existe un usuario con ese username."
         )
     existe_rol: Rol = get_rol_id(db, usuario_nuevo.rol.idRol)
     if not existe_rol:

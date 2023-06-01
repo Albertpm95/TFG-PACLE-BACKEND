@@ -10,7 +10,7 @@ def crear_horario(db: Session, horario_nuevo: str) -> Horario:
     existe_horario: Horario | None = get_horario_nombre(db, horario_nuevo)
     if existe_horario:
         raise HTTPException(
-            status_code=404, detail="Ya existe ese horario, no puede crearse otra vez."
+            status_code=409, detail="Ya existe ese horario, no puede crearse otra vez."
         )
     db_horario = Horario(horario=horario_nuevo)
     db.add(db_horario)

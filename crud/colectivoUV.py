@@ -10,7 +10,7 @@ def crear_colectivoUV(db: Session, colectivoUV_nuevo: str) -> ColectivoUV:
     existe_colectivoUV: ColectivoUV = get_colectivoUV_nombre(db, colectivoUV_nuevo)
     if existe_colectivoUV:
         raise HTTPException(
-            status_code=404,
+            status_code=409,
             detail="Ya existe ese colectivoUV, no puede crearse otra vez.",
         )
     db_colectivoUV = ColectivoUV(colectivoUV=colectivoUV_nuevo)

@@ -30,7 +30,7 @@ def matricular_alumno_convocatoria(alumno: sch_alumnoDB, convocatoria: sch_convo
     existe_matricula = get_alumno_convocatoria(alumno, convocatoria, db)
     if existe_matricula:
         raise HTTPException(
-            status_code=404,
+            status_code=409,
             detail="Ese alumno ya esta matriculado en esa convocatoria.",
         )
     matricula = AlumnosConvocatoria(alumno=alumno, convocatoria=convocatoria)

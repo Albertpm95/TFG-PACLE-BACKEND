@@ -10,7 +10,7 @@ def crear_nivel(db: Session, nivel_nuevo: str) -> Nivel:
     existe_nivel: Nivel = get_nivel_nombre(db, nivel_nuevo)
     if existe_nivel:
         raise HTTPException(
-            status_code=404, detail="Ya existe ese nivel, no puede crearse otra vez."
+            status_code=409, detail="Ya existe ese nivel, no puede crearse otra vez."
         )
 
     db_nivel: Nivel = Nivel(nivel=nivel_nuevo)

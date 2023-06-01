@@ -60,7 +60,7 @@ def get_alumno_id(idAlumno: int, db: Session):
 def create_alumno(alumno: sch_alumno, db: Session):
     existe_alumno: Alumno = get_alumno_dni(alumno.dni, db)
     if existe_alumno:
-        raise HTTPException(status_code=404, detail="Ya existe ese alumno, no puede crearse otra vez.")
+        raise HTTPException(status_code=409, detail="Ya existe ese alumno, no puede crearse otra vez.")
 
     existe_genero: Genero = crud_genero.get_genero_id(db, alumno.genero.idGenero)
     if not existe_genero:

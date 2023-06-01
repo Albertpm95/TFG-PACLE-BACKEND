@@ -14,7 +14,7 @@ def crear_lenguaje(db: Session, lenguaje_nuevo: str) -> Lenguaje:
     existe_lenguaje: Lenguaje | None = get_idioma_nombre(db, lenguaje_nuevo)
     if existe_lenguaje:
         raise HTTPException(
-            status_code=404, detail="Ya existe ese lenguaje, no puede crearse otra vez."
+            status_code=409, detail="Ya existe ese lenguaje, no puede crearse otra vez."
         )
     db_lenguaje = Lenguaje(lenguaje=lenguaje_nuevo)
     db.add(db_lenguaje)
