@@ -12,25 +12,34 @@ from schemas.parte import ParteBase, ParteBaseDB
 
 
 def create_parte(parte: ParteBase, db: Session):
+    tareas = crud_tarea.create_tareas(parte.tareas, db)
     parte_db = Parte(
         puntuacionMaxima=parte.puntuacionMaxima,
         tipo=parte.tipo,
-        tareas=[]
+        tareas=tareas
     )
     db.add(parte_db)
+    db.flush()
     db.refresh(parte_db)
+
     return parte_db
 
-def create_parte_corregida(parte: ParteCorregida, db: Session):
-    existe_parte = get_parte_id(parte.parte.idParte)
-    parte_db = ParteCorregida(
-        idParte=parte.idParte,
-        puntuacionMaxima=parte.parte.puntuacionMaxima,
-        parte=existe_parte,
-        correccion=parte.correccion,
-        observaciones=parte.observaciones
-    )
+async def create_parte_corregida(parte: ParteCorregida, db: Session):
+    async with db.begin():
+        existe_parte = get_parte_id(parte.parte.idParte, db)
+        parte_db = ParteCorregida(
+            idParte=parte.idParte,
+            puntuacionMaxima=parte.parte.puntuacionMaxima,
+            parte=existe_parte,
+            correccion=parte.correccion,
+            observaciones=parte.observaciones
+        )
+        db.add(parte_db)
+        await db.flush()
+        db.refresh(parte_db)
+        print(json.dumps(jsonable_encoder(parte_db)))
     return parte_db
+
 
 def update_parte(parte: ParteBaseDB, db:Session):
     existe_parte = get_parte_id(idParte=parte.idParte, db=db)

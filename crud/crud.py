@@ -1,4 +1,5 @@
 from fastapi import HTTPException, status
+
 from db.database import SessionLocal
 
 
@@ -21,5 +22,5 @@ def verify_password(plain_password, usuario_db_hashed_password):
     return True
 
 
-def get_password_hash(plain_password):
+def get_password_hash(plain_password: str):
     return "hashed_" + plain_password

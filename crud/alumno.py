@@ -1,19 +1,20 @@
+import json
 from datetime import date, datetime
+
 from fastapi import HTTPException
-
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy import Date
-from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
 
-from crud import colectivoUV as crud_colectivoUV, genero as crud_genero
-
+from crud import colectivoUV as crud_colectivoUV
+from crud import genero as crud_genero
 from models.alumno import Alumno
-
-# from models.shared import AlumnosConvocatoria
-from models.genero import Genero
 from models.colectivoUV import ColectivoUV
-
-from schemas.alumno import Alumno as sch_alumno, AlumnoDB as sch_alumnoDB
+from models.genero import Genero
+from models.shared import AlumnosConvocatoria
+from schemas.alumno import Alumno as sch_alumno
+from schemas.alumno import AlumnoDB as sch_alumnoDB
 
 
 def get_alumnos(db: Session):
@@ -21,47 +22,63 @@ def get_alumnos(db: Session):
 
 
 def get_alumnos_by_convocatoria(idConvocatoria: int, db: Session):
-    return db.query(Alumno).all()  # TODO Fix
-    return (
-        db.query(AlumnosConvocatoria)
-        .filter(AlumnosConvocatoria.idConvocatoria == idConvocatoria)
-        .all()
-    )
+    alumnos_convocatoria = db.query(AlumnosConvocatoria).filter_by(idConvocatoria=idConvocatoria).all()
+    alumnos = [ac.alumnos for ac in alumnos_convocatoria]
+    return alumnos
 
 
 def get_alumno_dni(dni: str, db: Session):
-    return db.query(Alumno).filter(Alumno.dni == dni).first()
+    alumno = db.query(Alumno).filter(Alumno.dni == dni).first()
+    if not alumno:
+        raise HTTPException(
+            status_code=404,
+            detail="No se encuentra el alumno.",
+        )
+    return alumno
 
 
 def get_alumno_nombre(nombre: str, db: Session):
-    return db.query(Alumno).filter(Alumno.nombre == nombre).first()
+    alumno = db.query(Alumno).filter(Alumno.nombre == nombre).first()
+    if not alumno:
+        raise HTTPException(
+            status_code=404,
+            detail="No se encuentra el alumno.",
+        )
+    return alumno
 
 
 def get_alumno_id(idAlumno: int, db: Session):
-    return db.query(Alumno).filter(Alumno.idAlumno == idAlumno).first()
+    alumno = db.query(Alumno).filter(Alumno.idAlumno == idAlumno).first()
+    if not alumno:
+        raise HTTPException(
+            status_code=404,
+            detail="No se encuentra el alumno.",
+        )
+    return alumno
 
 
 def create_alumno(alumno: sch_alumno, db: Session):
     existe_alumno: Alumno = get_alumno_dni(alumno.dni, db)
     if existe_alumno:
-        raise HTTPException(
-            status_code=404, detail="Ya existe ese alumno, no puede crearse otra vez."
-        )
+        raise HTTPException(status_code=404, detail="Ya existe ese alumno, no puede crearse otra vez.")
+
     existe_genero: Genero = crud_genero.get_genero_id(db, alumno.genero.idGenero)
     if not existe_genero:
         raise HTTPException(
             status_code=404,
-            detail="No se encuentra el Genero seleccionado en la DB, no puede registrarse al alumno.",
+            detail="No se encuentra el Genero seleccionado, no puede registrarse al alumno.",
         )
+
     existe_colectivoUV: ColectivoUV = crud_colectivoUV.get_colectivoUV_id(
-        db, alumno.colectivoUV.idColectivoUV
+        db=db, idColectivoUV=alumno.colectivoUV.idColectivoUV
     )
     if not existe_colectivoUV:
         raise HTTPException(
             status_code=404,
-            detail="No existe ese Colectivo UV seleccionado, no puede registrarse al alumno.",
+            detail="No se encuentra el Colectivo UV seleccionado, no puede registrarse al alumno.",
         )
-    fechaNacimientoDate: date = alumno.fechaNacimiento
+
+    fechaNacimientoDate: datetime = alumno.fechaNacimiento
 
     alumno_db = Alumno(
         nombre=alumno.nombre,
@@ -77,7 +94,6 @@ def create_alumno(alumno: sch_alumno, db: Session):
     db.add(alumno_db)
     db.commit()
     db.refresh(alumno_db)
-
     return alumno_db
 
 
@@ -94,26 +110,28 @@ def update_alumno(alumno: sch_alumnoDB, db: Session):
             status_code=404,
             detail="No se encuentra el Genero seleccionado en la DB, no puede actualizarse al alumno.",
         )
-    existe_colectivoUV: ColectivoUV = crud_colectivoUV.get_colectivoUV_id(
-        db, alumno.colectivoUV.idColectivoUV
-    )
+    existe_colectivoUV: ColectivoUV = crud_colectivoUV.get_colectivoUV_id(db, alumno.colectivoUV.idColectivoUV)
     if not existe_colectivoUV:
         raise HTTPException(
             status_code=404,
             detail="No existe ese Colectivo UV seleccionado, no puede actualizarse al alumno.",
         )
-    existe_alumno.nombre = alumno.nombre  # type: ignore
-    existe_alumno.apellidos = alumno.apellidos  # type: ignore
-    existe_alumno.dni = alumno.dni  # type: ignore
-    existe_alumno.colectivoUV = alumno.colectivoUV  # type: ignore
-    existe_alumno.genero = alumno.genero  # type: ignore
-    existe_alumno.email = alumno.email  # type: ignore
-    existe_alumno.telefono = alumno.telefono  # type: ignore
-    existe_alumno.fechaNacimiento = alumno.fechaNacimiento  # type: ignore
-    existe_alumno.pruebaAdaptada = alumno.pruebaAdaptada  # type: ignore
-    existe_alumno.idAlumno = alumno.idAlumno  # type: ignore
+    existe_alumno.nombre = alumno.nombre  
+    existe_alumno.apellidos = alumno.apellidos
+    existe_alumno.dni = alumno.dni 
+    existe_alumno.colectivoUV = existe_colectivoUV
+    existe_alumno.genero = existe_genero 
+    existe_alumno.email = alumno.email  
+    existe_alumno.telefono = alumno.telefono
+    existe_alumno.fechaNacimiento = alumno.fechaNacimiento
+    existe_alumno.pruebaAdaptada = alumno.pruebaAdaptada
+    existe_alumno.idAlumno = alumno.idAlumno
     db.add(existe_alumno)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="No se ha podido actualizar el alumno.")
     db.refresh(existe_alumno)
     return existe_alumno
 
@@ -121,15 +139,13 @@ def update_alumno(alumno: sch_alumnoDB, db: Session):
 def delete_alumno_id(db: Session, idAlumno: int) -> dict[str, str]:
     existe_alumno: Alumno = get_alumno_id(db=db, idAlumno=idAlumno)
     if not existe_alumno:
-        raise HTTPException(
-            status_code=404, detail="No existe el alumno, no puede borrarse."
-        )
+        raise HTTPException(status_code=404, detail="No existe el alumno, no puede borrarse.")
     db.delete(existe_alumno)
 
     try:
         db.commit()
     except IntegrityError:
         db.rollback()
-        raise HTTPException(status_code=400, detail="Cannot delete row due to foreign key constraint.")
+        raise HTTPException(status_code=400, detail="No se ha podido borrar el alumno porque algo depende de este.")
 
     return {"Borrado": "Borrado el idioma ${lenguaje.lenguaje}"}

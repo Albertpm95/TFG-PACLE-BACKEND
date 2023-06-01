@@ -1,33 +1,31 @@
-"""
+
 from typing import Optional
+
 from sqlmodel import Field, Relationship, SQLModel
 
 from models.alumno import Alumno
-from models.acta import Acta
-from models.comprension import Comprension
-from models.expresion import Expresion
 from models.convocatoria import Convocatoria
-from models.usuario import Usuario
 
-class AlumnosActa(SQLModel, table=True):
-    __tablename__ = "alumnos_acta"
-
-    id: Optional[int] = Field(default=None, primary_key=True)
-    idActa: int = Field(foreign_key="actas.idActa")
-    acta: Acta = Relationship(sa_relationship_kwargs={"primaryjoin": "Acta.idActa==AlumnosActa.idActa", "lazy": "joined"})
-    idAlumno: int = Field(foreign_key="alumnos.idAlumno")
-    alumno: Alumno = Relationship(sa_relationship_kwargs={"primaryjoin": "Alumno.idAlumno==AlumnosActa.idAlumno", "lazy": "joined"})
 
 class AlumnosConvocatoria(SQLModel, table=True):
     __tablename__: str = "alumnos_convocatoria"
 
     id: Optional[int] = Field(default=None, primary_key=True)
     idConvocatoria: int = Field(foreign_key="convocatorias.idConvocatoria")
-    convocatoria: Convocatoria = Relationship(sa_relationship_kwargs={"primaryjoin": "Convocatoria.idConvocatoria==AlumnosConvocatoria.idConvocatoria", "lazy": "joined"})
     idAlumno: int = Field(foreign_key="alumnos.idAlumno")
+    convocatoria: Convocatoria = Relationship(sa_relationship_kwargs={"primaryjoin": "Convocatoria.idConvocatoria==AlumnosConvocatoria.idConvocatoria", "lazy": "joined"})
     alumno: Alumno = Relationship(sa_relationship_kwargs={"primaryjoin": "Alumno.idAlumno==AlumnosConvocatoria.idAlumno", "lazy": "joined"})
 
+"""
+class AlumnosActa(SQLModel, table=True):
+    __tablename__ = "alumnos_acta"
 
+    id: Optional[int] = Field(default=None, primary_key=True)
+    idActa: int = Field(foreign_key="actas.idActa")
+    idAlumno: int = Field(foreign_key="alumnos.idAlumno")
+    acta: Acta = Relationship(sa_relationship_kwargs={"primaryjoin": "Acta.idActa==AlumnosActa.idActa", "lazy": "joined"})
+    alumno: Alumno = Relationship(sa_relationship_kwargs={"primaryjoin": "Alumno.idAlumno==AlumnosActa.idAlumno", "lazy": "joined"})
+    
 class ActaCompresion(SQLModel, table=True):
     __tablename__ = "comprensiones_acta"
 

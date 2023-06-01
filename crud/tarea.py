@@ -31,6 +31,7 @@ def get_tareas_parte(idParte: int, db: Session):
 def create_tarea(tarea: sch_tarea, db: Session):
     tarea_db = mod_tarea(nombreTarea=tarea.nombreTarea)
     db.add(tarea_db)
+    db.flush()
     db.refresh(tarea_db)
     return tarea_db
 
@@ -39,12 +40,9 @@ def create_tareas(tareas: list[sch_tarea], db: Session):
     tareasDB = []
     for tarea in tareas:
         existe_tarea = get_tarea_parte_name(tarea.nombreTarea, db)
-        print(json.dumps(jsonable_encoder(existe_tarea)))
         if existe_tarea:
-            print(json.dumps(jsonable_encoder(existe_tarea)))
             tareasDB.append(update_tarea(existe_tarea, db))
         if not existe_tarea:
-            print(json.dumps(jsonable_encoder(tarea)))
             tareasDB.append(create_tarea(tarea, db))
     return tareasDB
 
@@ -61,7 +59,7 @@ def create_tarea_corregida(tareaCorregida: sch_tareaCorregida, db: Session):
 def create_tareas_corregidas(tareas: list[sch_tareaCorregida], db: Session):
     tareasCorregidasDB = []
     for tarea in tareas:
-        existe_tarea = get_tarea_id()(tarea.idTarea, db)
+        existe_tarea = get_tarea_id(tarea.idTarea, db)
         if existe_tarea:
             tareasCorregidasDB.append(update_tarea_corregida(existe_tarea, db))
         if not existe_tarea:
@@ -69,8 +67,8 @@ def create_tareas_corregidas(tareas: list[sch_tareaCorregida], db: Session):
     return tareasCorregidasDB
 
 
-def create_correccion(correccion: sch_correccion, db: Session):
-    tareasCorregidasDB = create_tareas_corregidas()
+async def create_correccion(correccion: sch_correccion, db: Session):
+    tareasCorregidasDB = await create_tareas_corregidas()
     db_correccion = mod_correccion(
         corrector=correccion.corrector,
         tareasCorregidas=tareasCorregidasDB,

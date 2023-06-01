@@ -1,15 +1,17 @@
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-
+import json
 import os
+
 from dotenv import load_dotenv
+from fastapi import FastAPI, HTTPException
+from fastapi.encoders import jsonable_encoder
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv("environment.env")
 
 import db.database
-from routers import convocatoria, login, usuario, alumno, acta, admin, config
+from routers import acta, admin, alumno, config, convocatoria, login, usuario
 
-app = FastAPI(title="TFG-Pacle-API")
+app = FastAPI(title="TFG-Pacle-API", debug=True)
 
 app.include_router(login.router)
 app.include_router(convocatoria.router)

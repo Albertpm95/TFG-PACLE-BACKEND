@@ -1,8 +1,11 @@
+import json
+
 from fastapi import APIRouter, Depends
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
-from crud import crud
 from crud import alumno as crud_alumno
+from crud import crud
 from schemas.alumno import Alumno, AlumnoDB
 
 router = APIRouter(prefix="/alumno", tags=["Alumno"])
@@ -13,24 +16,31 @@ async def recuperar_alumnos(db: Session = Depends(crud.get_db)):
     return crud_alumno.get_alumnos(db)
 
 
-@router.get("/list/{idConvocatoria}")
-async def recuperar_alumnos_by_convocatoria(
-    idConvocatoria: int, db: Session = Depends(crud.get_db)
-):
+@router.get("/list/{idConvocatoria}", response_model=list[AlumnoDB])
+async def recuperar_alumnos_by_convocatoria(idConvocatoria: int, db: Session = Depends(crud.get_db)):
     return crud_alumno.get_alumnos_by_convocatoria(idConvocatoria, db)
 
 
-@router.get("/details/{nombre}", response_model=AlumnoDB)
+@router.get("/details/nombre/{nombre}", response_model=AlumnoDB)
 async def recuperar_alumno_nombre(nombre: str, db: Session = Depends(crud.get_db)):
     return crud_alumno.get_alumno_nombre(db=db, nombre=nombre)
 
 
-@router.get("/details/{idAlumno}", response_model=AlumnoDB)
+@router.get("/details/idAlumno/{idAlumno}", response_model=AlumnoDB)
 async def recuperar_alumno_id(idAlumno: int, db: Session = Depends(crud.get_db)):
-    return crud_alumno.get_alumno_id(idAlumno=idAlumno, db=db)
+    print(' --------------------------------')
+    print(json.dumps(jsonable_encoder(idAlumno)))
+    print(' --------------------------------')
+    try:
+        alumno = crud_alumno.get_alumno_id(idAlumno=idAlumno, db=db)
+    except:
+        return []
+    print(' --------------------------------')
+    print(json.dumps(jsonable_encoder(alumno)))
+    print(' --------------------------------')
+    return alumno
 
-
-@router.get("/details/{dni}", response_model=AlumnoDB)
+@router.get("/details/dni/{dni}", response_model=AlumnoDB)
 async def recuperar_alumno_dni(dni: str, db: Session = Depends(crud.get_db)):
     return crud_alumno.get_alumno_dni(dni=dni, db=db)
 

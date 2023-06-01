@@ -1,13 +1,11 @@
 from fastapi import HTTPException
-
-from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
 
 from crud import crud
 from crud.rol import get_rol_id
-from models.usuario import Usuario
 from models.rol_usuario import Rol
-
+from models.usuario import Usuario
 from schemas.usuario import UsuarioBase, UsuarioDB
 
 """ CRUD Principal """
@@ -39,6 +37,7 @@ def create_usuario(db: Session, usuario_nuevo: UsuarioBase) -> Usuario:
         nombre=usuario_nuevo.nombre,
         apellidos=usuario_nuevo.apellidos,
         rol=existe_rol,
+        hashedPassword=crud.get_password_hash('1234')
     )
     db.add(db_usuario)
     db.commit()

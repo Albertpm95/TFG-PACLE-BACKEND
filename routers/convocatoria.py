@@ -18,17 +18,21 @@ async def recuperar_lista_convocatorias(
     return crud_convocatoria.get_convocatorias(db)
 
 
+@router.get("/list/{idAlumno}", response_model=list[ConvocatoriaDB])
+async def recuperar_lista_convocatorias(
+    idAlumno: int,
+    db: Session = Depends(crud.get_db),
+) -> list[ConvocatoriaDB]:
+    return crud_convocatoria.get_convocatorias_alumno(db=db, idAlumno=idAlumno)
+
+
 @router.get("/details/{idConvocatoria}", response_model=ConvocatoriaDB)
-async def recuperar_convocatoria_id(
-    idConvocatoria: int, db: Session = Depends(crud.get_db)
-) -> ConvocatoriaDB:
+async def recuperar_convocatoria_id(idConvocatoria: int, db: Session = Depends(crud.get_db)) -> ConvocatoriaDB:
     return crud_convocatoria.get_convocatoria_id(idConvocatoria=idConvocatoria, db=db)
 
 
 @router.post("/create", response_model=ConvocatoriaDB)
-async def create_convocatoria(
-    convocatoria_nueva: ConvocatoriaNueva, db: Session = Depends(crud.get_db)
-):
+async def create_convocatoria(convocatoria_nueva: ConvocatoriaNueva, db: Session = Depends(crud.get_db)):
     return crud_convocatoria.create_convocatoria(convocatoria=convocatoria_nueva, db=db)
 
 
@@ -38,7 +42,7 @@ async def update_convocatoria(
 ) -> ConvocatoriaDB:
     return crud_convocatoria.update_convocatoria(convocatoria_update=convocatoria_update, db=db)
 
+
 @router.delete("/delete/{idConvocatoria}", response_model=dict[str, str])
 async def update_convocatoria(idConvocatoria: int, db: Session = Depends(crud.get_db)):
-    print(json.dumps(jsonable_encoder(idConvocatoria)))
     return crud_convocatoria.delete_convocatoria(idConvocatoria=idConvocatoria, db=db)
