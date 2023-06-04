@@ -14,10 +14,10 @@ def get_matriculas(db: Session):
     return db.query(AlumnosConvocatoria).all()
 
 
-def get_alumno_convocatoria(idAlumno: int, idConvocatoria: int, db: Session):
+def get_alumno_convocatoria(alumno: mod_alumno, convocatoria: mod_convocatoria, db: Session):
     return db.query(AlumnosConvocatoria).filter(
-        AlumnosConvocatoria.alumno.idAlumno == idAlumno,
-        AlumnosConvocatoria.convocatoria.idConvocatoria == idConvocatoria,
+        AlumnosConvocatoria.alumno.has(idAlumno = alumno.idAlumno),
+        AlumnosConvocatoria.convocatoria.has(idConvocatoria = convocatoria.idConvocatoria)
     ).first()
 
 def get_alumnos_by_convocatoria(idConvocatoria: int, db: Session):
@@ -26,28 +26,28 @@ def get_alumnos_by_convocatoria(idConvocatoria: int, db: Session):
     return alumnos
 
 def matricular_alumno_convocatoria(alumno: sch_alumnoDB, convocatoria: sch_convocatoriaDB, db: Session):
-    existe_alumno = crud_alumno.get_alumno_id(alumno.idAlumno, db=db)
+    existe_alumno: mod_alumno = crud_alumno.get_alumno_id(alumno.idAlumno, db=db)
     if not existe_alumno:
         raise HTTPException(
             status_code=404,
             detail="No se encuentra el alumno seleccionada.",
         )
-    existe_convocatoria = crud_convocatoria.get_convocatoria_id(convocatoria.idConvocatoria, db)
+    existe_convocatoria: mod_convocatoria = crud_convocatoria.get_convocatoria_id(convocatoria.idConvocatoria, db)
     if not existe_convocatoria:
         raise HTTPException(
             status_code=404,
             detail="No se encuentra la convocatoria seleccionada.",
         )
-    """
-    existe_matricula = get_alumno_convocatoria(alumno.idAlumno, convocatoria.idConvocatoria, db)
+    existe_matricula = get_alumno_convocatoria(alumno, convocatoria, db)
     if existe_matricula:
         raise HTTPException(
             status_code=409,
             detail="Ese alumno ya esta matriculado en esa convocatoria.",
         )
-    """
-    matricula = AlumnosConvocatoria(alumno=alumno, convocatoria=convocatoria)
+    matricula = AlumnosConvocatoria(idConvocatoria=existe_convocatoria.idConvocatoria, idAlumno=existe_alumno.idAlumno, convocatoria=existe_convocatoria, alumno=existe_alumno)
     db.add(matricula)
-    db.commit()
-    db.refresh()
-    return matricula
+    try:
+        db.commit()
+        return True
+    except:
+        return False

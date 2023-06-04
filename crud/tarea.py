@@ -48,7 +48,7 @@ def create_tareas(tareas: list[sch_tarea], db: Session):
 
 
 def create_tarea_corregida(tareaCorregida: sch_tareaCorregida, db: Session):
-    existe_tarea = get_tarea_id(tareaCorregida.idTarea)
+    existe_tarea = get_tarea_id(tareaCorregida.idTarea, db)
     if existe_tarea:
         tareaCorregida_db = mod_tareaCorregida(tarea=existe_tarea, puntuacion=tareaCorregida.puntuacion)
     db.add(tareaCorregida_db)
@@ -68,7 +68,7 @@ def create_tareas_corregidas(tareas: list[sch_tareaCorregida], db: Session):
 
 
 async def create_correccion(correccion: sch_correccion, db: Session):
-    tareasCorregidasDB = await create_tareas_corregidas()
+    tareasCorregidasDB = create_tareas_corregidas(correccion.tareas, db)
     db_correccion = mod_correccion(
         corrector=correccion.corrector,
         tareasCorregidas=tareasCorregidasDB,
