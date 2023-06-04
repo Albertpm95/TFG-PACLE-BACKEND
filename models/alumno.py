@@ -1,10 +1,13 @@
 import datetime
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from sqlmodel import Field, Relationship, SQLModel
 
 from models.colectivoUV import ColectivoUV
 from models.genero import Genero
+
+if TYPE_CHECKING:
+    from models.shared import AlumnosConvocatoria
 
 
 class Alumno(SQLModel, table=True):
@@ -25,3 +28,5 @@ class Alumno(SQLModel, table=True):
 
     idColectivoUV: int = Field(nullable=False, foreign_key="colectivoUV.idColectivoUV")
     colectivoUV: ColectivoUV = Relationship()
+
+    convocatorias_matriculadas: list["AlumnosConvocatoria"] = Relationship(back_populates="alumno")

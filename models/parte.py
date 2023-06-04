@@ -6,8 +6,6 @@ from models.tarea import Correccion
 
 if TYPE_CHECKING:
     from models.tarea import Tarea
-if TYPE_CHECKING:
-    from models.convocatoria import Convocatoria
 
 
 class Parte(SQLModel, table=True):

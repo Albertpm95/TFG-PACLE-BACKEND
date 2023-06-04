@@ -1,5 +1,5 @@
 import datetime
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from sqlmodel import Field, Relationship, SQLModel
 
@@ -7,6 +7,9 @@ from models.horario import Horario
 from models.lenguaje import Lenguaje
 from models.nivel import Nivel
 from models.parte import Parte
+
+if TYPE_CHECKING:
+    from models.shared import AlumnosConvocatoria
 
 
 class Convocatoria(SQLModel, table=True):
@@ -32,7 +35,8 @@ class Convocatoria(SQLModel, table=True):
         sa_relationship_kwargs={
             "primaryjoin": "Convocatoria.idParteComprensionLectora==Parte.idParte",
             "lazy": "joined",
-        })
+        }
+    )
     idParteComprensionAuditiva: int = Field(nullable=False, foreign_key=Parte.idParte)
     parteComprensionAuditiva: Parte = Relationship(
         sa_relationship_kwargs={
@@ -41,12 +45,18 @@ class Convocatoria(SQLModel, table=True):
         }
     )
     idParteExpresionEscrita: int = Field(nullable=False, foreign_key=Parte.idParte)
-    parteExpresionEscrita: Parte = Relationship(sa_relationship_kwargs={
+    parteExpresionEscrita: Parte = Relationship(
+        sa_relationship_kwargs={
             "primaryjoin": "Convocatoria.idParteExpresionEscrita==Parte.idParte",
             "lazy": "joined",
-        })
+        }
+    )
     idParteExpresionOral: int = Field(nullable=False, foreign_key=Parte.idParte)
-    parteExpresionOral: Parte = Relationship(sa_relationship_kwargs={
+    parteExpresionOral: Parte = Relationship(
+        sa_relationship_kwargs={
             "primaryjoin": "Convocatoria.idParteExpresionOral==Parte.idParte",
             "lazy": "joined",
-        })
+        }
+    )
+
+    alumnos_matriculados: list["AlumnosConvocatoria"] = Relationship(back_populates="convocatoria")

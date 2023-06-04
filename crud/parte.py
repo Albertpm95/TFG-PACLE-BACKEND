@@ -42,14 +42,19 @@ async def create_parte_corregida(parte: ParteCorregida, db: Session):
 
 
 def update_parte(parte: ParteBaseDB, db:Session):
-    existe_parte = get_parte_id(idParte=parte.idParte, db=db)
+    existe_parte: Parte = get_parte_id(idParte=parte.idParte, db=db)
     if not existe_parte:
         raise HTTPException(
             status_code=404, detail=f"No existe la parte de {parte.tipo}, no puede actualizarse."
         )
     existe_parte.puntuacionMaxima=parte.puntuacionMaxima
     existe_parte.tareas=crud_tarea.create_tareas(parte.tareas, db)
+    print(json.dumps(jsonable_encoder(parte)))
+    print(json.dumps(jsonable_encoder(parte.puntuacionMaxima)))
+    print(json.dumps(jsonable_encoder(existe_parte)))
+    db.commit()
     db.refresh(existe_parte)
+    print(json.dumps(jsonable_encoder(existe_parte)))
     return existe_parte
         
 def get_parte_id(idParte: int, db: Session):

@@ -9,7 +9,8 @@ from fastapi.middleware.cors import CORSMiddleware
 load_dotenv("environment.env")
 
 import db.database
-from routers import acta, admin, alumno, config, convocatoria, login, usuario
+from routers import (acta, admin, alumno, config, convocatoria, login,
+                     matricular, usuario)
 
 app = FastAPI(title="TFG-Pacle-API", debug=True)
 
@@ -20,6 +21,7 @@ app.include_router(alumno.router)
 app.include_router(admin.router)
 app.include_router(acta.router)
 app.include_router(config.router)
+app.include_router(matricular.router)
 
 origins = ["*"]
 

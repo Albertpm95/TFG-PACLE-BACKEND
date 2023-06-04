@@ -1,9 +1,7 @@
-import json
-from datetime import date, datetime
+
+from datetime import datetime
 
 from fastapi import HTTPException
-from fastapi.encoders import jsonable_encoder
-from sqlalchemy import Date
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -12,7 +10,6 @@ from crud import genero as crud_genero
 from models.alumno import Alumno
 from models.colectivoUV import ColectivoUV
 from models.genero import Genero
-from models.shared import AlumnosConvocatoria
 from schemas.alumno import Alumno as sch_alumno
 from schemas.alumno import AlumnoDB as sch_alumnoDB
 
@@ -21,39 +18,18 @@ def get_alumnos(db: Session):
     return db.query(Alumno).all()
 
 
-def get_alumnos_by_convocatoria(idConvocatoria: int, db: Session):
-    alumnos_convocatoria = db.query(AlumnosConvocatoria).filter_by(idConvocatoria=idConvocatoria).all()
-    alumnos = [ac.alumnos for ac in alumnos_convocatoria]
-    return alumnos
-
-
 def get_alumno_dni(dni: str, db: Session):
     alumno = db.query(Alumno).filter(Alumno.dni == dni).first()
-    if not alumno:
-        raise HTTPException(
-            status_code=404,
-            detail="No se encuentra el alumno.",
-        )
     return alumno
 
 
 def get_alumno_nombre(nombre: str, db: Session):
     alumno = db.query(Alumno).filter(Alumno.nombre == nombre).first()
-    if not alumno:
-        raise HTTPException(
-            status_code=404,
-            detail="No se encuentra el alumno.",
-        )
     return alumno
 
 
 def get_alumno_id(idAlumno: int, db: Session):
     alumno = db.query(Alumno).filter(Alumno.idAlumno == idAlumno).first()
-    if not alumno:
-        raise HTTPException(
-            status_code=404,
-            detail="No se encuentra el alumno.",
-        )
     return alumno
 
 

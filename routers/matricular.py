@@ -10,8 +10,8 @@ from crud import matricula as crud_matricula
 from schemas.alumno import AlumnoDB
 from schemas.convocatoria import ConvocatoriaDB
 
-router = APIRouter(prefix="/matricula", tags=["Convocatoria"])
+router = APIRouter(prefix="/matricula", tags=["Matricula"])
 
-@router.post("/alumno/convocatoria", response_model=bool)
+@router.post("/register", response_model=bool)
 async def matricular_alumno_convocatoria(alumno: AlumnoDB, convocatoria: ConvocatoriaDB, db: Session = Depends(crud.get_db)):
     return crud_matricula.matricular_alumno_convocatoria(alumno, convocatoria, db)
