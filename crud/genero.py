@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-
+from typing import List
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 
@@ -18,7 +18,7 @@ def crear_genero(db: Session, genero_nuevo: str) -> Genero:
     return db_genero
 
 
-def get_generos(db: Session) -> list[Genero]:
+def get_generos(db: Session) -> List[Genero]:
     return db.query(Genero).all()
 
 

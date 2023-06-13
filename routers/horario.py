@@ -1,5 +1,8 @@
+from typing import List
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+
 from crud import crud
 from crud import horario as crud_horario
 from schemas.horario import Horario, HorarioBase
@@ -7,7 +10,7 @@ from schemas.horario import Horario, HorarioBase
 router = APIRouter(prefix="/horario", tags=["Horario"])
 
 
-@router.get("/list", response_model=list[Horario])
+@router.get("/list", response_model=List[Horario])
 async def recuperar_lista_horarios(db: Session = Depends(crud.get_db)):
     return crud_horario.get_horarios(db)
 

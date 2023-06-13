@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import HTTPException
 
 from sqlalchemy.orm import Session
@@ -20,7 +21,7 @@ def crear_colectivoUV(db: Session, colectivoUV_nuevo: str) -> ColectivoUV:
     return db_colectivoUV
 
 
-def get_colectivosUV(db: Session) -> list[ColectivoUV]:
+def get_colectivosUV(db: Session) -> List[ColectivoUV]:
     return db.query(ColectivoUV).all()
 
 

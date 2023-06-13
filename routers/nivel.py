@@ -1,5 +1,8 @@
+from typing import List
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+
 from crud import crud
 from crud import nivel as crud_nivel
 from schemas.nivel import Nivel, NivelBase
@@ -7,7 +10,7 @@ from schemas.nivel import Nivel, NivelBase
 router = APIRouter(prefix="/nivel", tags=["Nivel"])
 
 
-@router.get("/list", response_model=list[Nivel])
+@router.get("/list", response_model=List[Nivel])
 async def recuperar_lista_niveles(db: Session = Depends(crud.get_db)):
     return crud_nivel.get_niveles(db)
 

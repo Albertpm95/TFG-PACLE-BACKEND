@@ -1,15 +1,14 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-
-from crud import crud
+from typing import List
 from crud import acta as crud_acta
-
-from schemas.acta import ActaDB, ActaBase
+from crud import crud
+from schemas.acta import ActaBase, ActaDB
 
 router = APIRouter(prefix="/acta", tags=["Acta"])
 
 
-@router.get("/list", response_model=list[ActaDB])
+@router.get("/list", response_model=List[ActaDB])
 async def recuperar_lista_actas(db: Session = Depends(crud.get_db)):
     return crud_acta.get_actas(db)
 

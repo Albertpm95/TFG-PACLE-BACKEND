@@ -27,3 +27,4 @@ sqlmodel
 starlette
 typing_extensions
 uvicorn
+psycopg2-binary

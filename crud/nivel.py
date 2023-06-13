@@ -1,7 +1,8 @@
-from fastapi import HTTPException
+from typing import List
 
-from sqlalchemy.orm import Session
+from fastapi import HTTPException
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
 
 from models.nivel import Nivel
 

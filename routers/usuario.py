@@ -1,13 +1,12 @@
+from typing import List
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from crud import crud
-from crud import usuario as crud_usuario
 from crud import login as crud_login
-from schemas.usuario import (
-    UsuarioBase,
-    UsuarioDB,
-)
+from crud import usuario as crud_usuario
+from schemas.usuario import UsuarioBase, UsuarioDB
 
 router = APIRouter(prefix="/usuario", tags=["Usuario"])
 
@@ -19,7 +18,7 @@ async def recuperar_usuario_actual(
     return current_user
 
 
-@router.get("/list", response_model=list[UsuarioDB])
+@router.get("/list", response_model=List[UsuarioDB])
 async def recuperar_list_usuarios(
     db: Session = Depends(crud.get_db),
 ):

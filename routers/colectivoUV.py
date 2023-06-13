@@ -1,15 +1,14 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-
-from crud import crud
+from typing import List
 from crud import colectivoUV as crud_colectivoUV
-
+from crud import crud
 from schemas.colectivoUV import ColectivoUV, ColectivoUVBase
 
 router = APIRouter(prefix="/colectivoUV", tags=["Colectivo UV"])
 
 
-@router.get("/list", response_model=list[ColectivoUV])
+@router.get("/list", response_model=List[ColectivoUV])
 async def recuperar_lista_colectivosUV(
     db: Session = Depends(crud.get_db),
 ):
