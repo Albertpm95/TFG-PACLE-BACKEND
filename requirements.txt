@@ -7,10 +7,12 @@ cryptography
 ecdsa             
 fastapi
 greenlet
+gunicorn
 h11
 idna
 passlib
 pip
+psycopg2-binary
 pyasn1
 pycparser
 pydantic
@@ -27,4 +29,3 @@ sqlmodel
 starlette
 typing_extensions
 uvicorn
-psycopg2-binary

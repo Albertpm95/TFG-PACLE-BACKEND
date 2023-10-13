@@ -1,16 +1,14 @@
-import json
-import os
-
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
-from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv("environment.env")
 
-import db.database
-from routers import (acta, admin, alumno, config, convocatoria, login,
-                     matricular, usuario)
+import db.database  # noqa: E402
+
+# noqa: E402
+from routers import login  # noqa: E402
+from routers import acta, admin, alumno, config, convocatoria, matricular, usuario
 
 app = FastAPI(title="TFG-Pacle-API", debug=True)
 
